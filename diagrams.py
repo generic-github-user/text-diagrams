@@ -36,6 +36,13 @@ class Diagram:
 
     def render(self, path='./generated-diagram.txt'):
         self.canvas = [[self.background for i in range(self.x)] for j in range(self.y)]
+        for o in self.objects:
+            t = o.render()
+            if t and type(t[0]) not in [list, tuple]:
+                t = [t]
+            for row in t:
+                self.canvas[o.y][o.x:o.x+o.w] = row
+
         self.text = '\n'.join(''.join(row) for row in self.canvas)
 
         with open(path, 'w', encoding='utf-8') as file:
