@@ -23,7 +23,7 @@ class Element:
 class Text(Element):
     """Simple text element to add to a diagram"""
 
-    def __init__(self, pos, text, angle=15, style=None):
+    def __init__(self, pos, text, angle=0, style=None):
         super(Text, self).__init__(pos)
         self.text = text
         self.l = len(self.text)
@@ -33,7 +33,7 @@ class Text(Element):
         self.rx = math.cos(r)
         self.ry = math.sin(r)
         # The bounding box of the rendered text
-        self.box = [round(self.l*self.rx+1), round(self.l*self.ry+1)]
+        self.box = [round(self.l*abs(self.rx)+1), round(self.l*abs(self.ry)+1)]
         # Aliases for the text's bounding box's width and height
         self.w, self.h = self.box
         self.canvas = [[None for i in range(self.w)] for j in range(self.h)]
@@ -82,7 +82,9 @@ class Text(Element):
                 colors = map(round, [h, saturation, value])
                 c = '<{} style="color: hsl({},{}%,{}%);">{}</ {} >'.format(tag, *colors, c, tag)
             # Set the character in the canvas
-            self.canvas[yc][xc] = c
+            # print(self.rx)
+            if xc < self.w and yc < self.h:
+                self.canvas[yc][xc] = c
         return self.canvas
 
 
@@ -138,7 +140,7 @@ class Diagram:
         return self
 
 TestDiagram = Diagram()
-TestDiagram.add(Text([5,5], 'Hello World', style='math-bold-script')).render(rich_output=True, path='./generated.md', hue=(lambda x, y: x/y*360))
+TestDiagram.add(Text([10, 10], 'Hello World', style='math-bold-script')).render(rich_output=True, path='./generated.md', hue=(lambda x, y: x/y*360))
 
 
 # TODO: animated diagrams
