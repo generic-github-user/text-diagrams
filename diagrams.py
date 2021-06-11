@@ -106,7 +106,12 @@ class Diagram:
                 self.shades[i] = s.format('shade')
             self.shades[i] = get_char(self.shades[i])
 
-    def render(self, path='./generated-diagram.txt', rich_output=False, **kwargs):
+    def write(self, path, data):
+        # Write the string to a file
+        with open(path, 'w', encoding='utf-8') as file:
+            file.write(data)
+
+    def render(self, path='./generated-diagram.txt', extensions=None, rich_output=False, **kwargs):
         # Generate the "canvas"; a two-dimensional list storing the character at each position
         bg = self.background
         self.canvas = [[(self.shades[random.randint(0, 3)] if bg == 'random' else bg) for i in range(self.x)] for j in range(self.y)]
@@ -130,9 +135,12 @@ class Diagram:
         if rich_output:
             self.text = '<div><p>{}</p></div>'.format(self.text)
 
-        # Write the string to a file
-        with open(path, 'w', encoding='utf-8') as file:
-            file.write(self.text)
+        if extensions:
+            for e in extensions:
+                self.write(path+'.'+e, self.text)
+        else:
+            self.write(path, self.text)
+
         return self
 
     def add(self, element):
@@ -140,4 +148,4 @@ class Diagram:
         return self
 
 TestDiagram = Diagram()
-TestDiagram.add(Text([10, 10], 'Hello World', style='math-bold-script')).render(rich_output=True, path='./generated.md', hue=(lambda x, y: x/y*360))
+TestDiagram.add(Text([10, 10], 'Hello World', style='math-bold-script')).render(rich_output=True, path='./generated', extensions=['md', 'html'], hue=(lambda x, y: x/y*360))
