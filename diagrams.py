@@ -19,8 +19,11 @@ class Element:
     def __init__(self, pos):
         """Create a new element (note that this is an internal method used to create instances of element subclasses like the Text class)
         """
+
+        # Upper left-hand corner of bounding box (inclusive)
         self.pos = pos if pos else [0, 0]
         self.x, self.y = self.pos
+        self.id = uuid.uuid4()
 
 class Text(Element):
     """Simple text element to add to a diagram"""
