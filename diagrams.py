@@ -17,6 +17,8 @@ class Element:
     """A generic element to be added to a diagram"""
 
     def __init__(self, pos):
+        """Create a new element (note that this is an internal method used to create instances of element subclasses like the Text class)
+        """
         self.pos = pos if pos else [0, 0]
         self.x, self.y = self.pos
 
@@ -24,6 +26,8 @@ class Text(Element):
     """Simple text element to add to a diagram"""
 
     def __init__(self, pos, text, angle=45, style=None):
+        """Create a new text element
+        """
         super(Text, self).__init__(pos)
         self.text = text
         self.l = len(self.text)
@@ -52,6 +56,8 @@ class Text(Element):
         }
 
     def render(self, rich_output=False, capitalization='inherit', hue=0, saturation=50, value=50, **kwargs):
+        """Create a 2D array representing the bounding box of this element
+        """
         for i, c in enumerate(self.text):
             # Multiply the ratios generated from the text orientation by the character index (and round) to determine the necessary x and y shift
             xc, yc = round(self.rx*i), round(self.ry*i)
