@@ -1,8 +1,15 @@
 import uuid
 import math
+import unicodedata
 
 shading = '░█'
 
+
+def get_char(name):
+    try:
+        return unicodedata.lookup(name)
+    except:
+        return None
 
 class Element:
     """A generic element to be added to a diagram"""
@@ -14,7 +21,7 @@ class Element:
 class Text(Element):
     """Simple text element to add to a diagram"""
 
-    def __init__(self, pos, text, angle=15):
+    def __init__(self, pos, text, angle=15, style=None):
         super(Text, self).__init__(pos)
         self.text = text
         self.l = len(self.text)
@@ -27,10 +34,22 @@ class Text(Element):
         self.w, self.h = self.box
         self.canvas = [[None for i in range(self.w)] for j in range(self.h)]
 
+        self.style = style
+        self.styles = {
+            'circled': '{} latin {} letter {}',
+            'squared': '{} latin {} letter {}'
+        }
+
     def render(self):
         for i, c in enumerate(self.text):
             xc, yc = round(self.rx*i), round(self.ry*i)
-            print(xc, yc, self.box)
+            # print(xc, yc, self.box)
+            if self.style:
+                chartype = 'capital' if c.isupper() else 'small'
+                s = self.style
+                if s == 'squared':
+                    chartype = 'capital'
+                c = get_char(self.styles[s].format(s, chartype, c))
             self.canvas[yc][xc] = c
         return self.canvas
 
@@ -74,7 +93,7 @@ class Diagram:
         return self
 
 TestDiagram = Diagram()
-TestDiagram.add(Text([5,5], 'Hello World')).render()
+TestDiagram.add(Text([5,5], 'Hello World', style='squared')).render()
 
 
 # TODO: animated diagrams
