@@ -55,6 +55,8 @@ class Text(Element):
                     chartype = capitalization
                 elif capitalization == 'inherit':
                     chartype = 'capital' if c.isupper() else 'small'
+                elif capitalization == 'random':
+                    chartype = random.choice(['small', 'capital'])
 
                 s = self.style
                 if s == 'squared':
@@ -87,13 +89,13 @@ class Diagram:
                 self.shades[i] = s.format('shade')
             self.shades[i] = get_char(self.shades[i])
 
-    def render(self, path='./generated-diagram.txt'):
+    def render(self, path='./generated-diagram.txt', **kwargs):
         # Generate the "canvas"; a two-dimensional list storing the character at each position
         bg = self.background
         self.canvas = [[(self.shades[random.randint(0, 3)] if bg == 'random' else bg) for i in range(self.x)] for j in range(self.y)]
         # Render each object and add it to the canvas
         for o in self.objects:
-            t = o.render()
+            t = o.render(**kwargs)
             # If a 1D list is provided, add a wrapper list around it
             if t and type(t[0]) not in [list, tuple]:
                 t = [t]
@@ -115,8 +117,8 @@ class Diagram:
         self.objects.append(element)
         return self
 
-TestDiagram = Diagram()
-TestDiagram.add(Text([5,5], 'Hello World', style='squared')).render()
+TestDiagram = Diagram(background=' ')
+TestDiagram.add(Text([5,5], 'Hello World', style='math-bold-script')).render(capitalization='random')
 
 
 # TODO: animated diagrams
