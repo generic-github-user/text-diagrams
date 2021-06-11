@@ -92,6 +92,8 @@ class Diagram:
     """A diagram containing some graphical elements and their relationships."""
 
     def __init__(self, objects=None, dims=[30, 30], background='&nbsp;'):
+        """Create a new diagram object
+        """
         self.objects = objects if objects else []
         self.id = uuid.uuid4()
         self.canvas = []
@@ -107,11 +109,14 @@ class Diagram:
             self.shades[i] = get_char(self.shades[i])
 
     def write(self, path, data):
+        """Create a new file and insert UTF-8-encoded text data or update an existing file"""
         # Write the string to a file
         with open(path, 'w', encoding='utf-8') as file:
             file.write(data)
 
     def render(self, path='./generated-diagram.txt', extensions=None, rich_output=False, **kwargs):
+        """Convert the diagram's elements to a portable string and optionally save the generated document
+        """
         # Generate the "canvas"; a two-dimensional list storing the character at each position
         bg = self.background
         self.canvas = [[(self.shades[random.randint(0, 3)] if bg == 'random' else bg) for i in range(self.x)] for j in range(self.y)]
@@ -144,6 +149,8 @@ class Diagram:
         return self
 
     def add(self, element):
+        """Add an element to this diagram
+        """
         self.objects.append(element)
         return self
 
