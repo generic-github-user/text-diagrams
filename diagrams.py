@@ -1,6 +1,7 @@
 import uuid
 import math
 import unicodedata
+import random
 
 shading = '░█'
 
@@ -71,7 +72,7 @@ class Text(Element):
 class Diagram:
     """A diagram containing some graphical elements and their relationships."""
 
-    def __init__(self, objects=None, dims=[30, 30], background='░'):
+    def __init__(self, objects=None, dims=[30, 30], background='random'):
         self.objects = objects if objects else []
         self.id = uuid.uuid4()
         self.canvas = []
@@ -79,9 +80,17 @@ class Diagram:
         self.x, self.y = self.dims
         self.background = background
 
+        self.shades = ['light {}', 'medium {}', 'dark {}', 'full block']
+        for i, s in enumerate(self.shades):
+            num_fields = s.count('{}')
+            if num_fields == 1:
+                self.shades[i] = s.format('shade')
+            self.shades[i] = get_char(self.shades[i])
+
     def render(self, path='./generated-diagram.txt'):
         # Generate the "canvas"; a two-dimensional list storing the character at each position
-        self.canvas = [[self.background for i in range(self.x)] for j in range(self.y)]
+        bg = self.background
+        self.canvas = [[(self.shades[random.randint(0, 3)] if bg == 'random' else bg) for i in range(self.x)] for j in range(self.y)]
         # Render each object and add it to the canvas
         for o in self.objects:
             t = o.render()
@@ -95,7 +104,7 @@ class Diagram:
                         self.canvas[o.y+i][o.x+j] = c
 
         # Combine canvas characters into an exportable string
-        self.text = '\n'.join(''.join(row) for row in self.canvas)
+        self.text = '\n'.join(''.join(map(str, row)) for row in self.canvas)
 
         # Write the string to a file
         with open(path, 'w', encoding='utf-8') as file:
