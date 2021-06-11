@@ -3,6 +3,7 @@ import math
 import unicodedata
 import random
 import colorsys
+import numpy as np
 
 shading = '░█'
 
@@ -105,9 +106,10 @@ class Text(Element):
 class Diagram:
     """A diagram containing some graphical elements and their relationships."""
 
-    def __init__(self, objects=None, dims=[30, 30], background='&nbsp;', origin='center'):
+    def __init__(self, objects=None, dims=[30, 30], background='&nbsp;', origin='center', hue=0, saturation=50, value=50, **kwargs):
         """Create a new diagram object
         """
+
         self.objects = objects if objects else []
         self.id = uuid.uuid4()
         self.canvas = []
@@ -115,6 +117,10 @@ class Diagram:
         self.x, self.y = self.dims
         self.background = background
         self.offset = [0, 0]
+
+        self.hue = hue
+        self.saturation = saturation
+        self.value = value
 
         self.shades = ['light {}', 'medium {}', 'dark {}', 'full block']
         for i, s in enumerate(self.shades):
@@ -138,7 +144,28 @@ class Diagram:
         """
         # Generate the "canvas"; a two-dimensional list storing the character at each position
         bg = self.background
-        self.canvas = [[(self.shades[random.randint(0, 3)] if bg == 'random' else bg) for i in range(self.x)] for j in range(self.y)]
+        self.canvas = []
+        for i in range(self.y):
+            row = []
+            for j in range(self.x):
+                if bg == 'random':
+                    cell = self.shades[random.randint(0, 3)]
+                else:
+                    cell = bg
+
+                if rich_output:
+                    if callable(self.hue):
+                        a = np.array([j, i]) - np.array(self.offset)
+                        h = self.hue(*a)
+                    else:
+                        h = self.hue
+
+                    tag = 'span'
+                    colors = map(round, [h, self.saturation, self.value])
+                    cell = '<{} style="color: hsl({},{}%,{}%);">{}</ {} >'.format(tag, *colors, cell, tag)
+                row.append(cell)
+            self.canvas.append(row)
+
         # Render each object and add it to the canvas
         for o in self.objects:
             t = o.render(rich_output=rich_output, **kwargs)
@@ -174,5 +201,6 @@ class Diagram:
         self.objects.append(element)
         return self
 
-TestDiagram = Diagram(background='X', origin='center')
+TestDiagram = Diagram(background='X', origin='center', hue=(lambda x, y: x * y))
+TestDiagram.render(rich_output=True, path='./generated', extensions=['md', 'html'])
 # TestDiagram.add(Text([10, 10], 'Hello World', style='math-bold-script')).render(rich_output=True, path='./generated', extensions=['md', 'html'], hue=(lambda x, y: x/y*360))
