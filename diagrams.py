@@ -47,18 +47,24 @@ class Diagram:
         self.background = background
 
     def render(self, path='./generated-diagram.txt'):
+        # Generate the "canvas"; a two-dimensional list storing the character at each position
         self.canvas = [[self.background for i in range(self.x)] for j in range(self.y)]
+        # Render each object and add it to the canvas
         for o in self.objects:
             t = o.render()
+            # If a 1D list is provided, add a wrapper list around it
             if t and type(t[0]) not in [list, tuple]:
                 t = [t]
+            # Add each character from the rendered element
             for i, row in enumerate(t):
                 for j, c in enumerate(row):
                     if c:
                         self.canvas[o.y+i][o.x+j] = c
 
+        # Combine canvas characters into an exportable string
         self.text = '\n'.join(''.join(row) for row in self.canvas)
 
+        # Write the string to a file
         with open(path, 'w', encoding='utf-8') as file:
             file.write(self.text)
         return self
@@ -72,3 +78,4 @@ TestDiagram.add(Text([5,5], 'Hello World')).render()
 
 
 # TODO: animated diagrams
+# TODO: templates
