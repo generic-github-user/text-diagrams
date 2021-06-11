@@ -105,7 +105,7 @@ class Text(Element):
 class Diagram:
     """A diagram containing some graphical elements and their relationships."""
 
-    def __init__(self, objects=None, dims=[30, 30], background='&nbsp;'):
+    def __init__(self, objects=None, dims=[30, 30], background='&nbsp;', origin='center'):
         """Create a new diagram object
         """
         self.objects = objects if objects else []
@@ -114,6 +114,7 @@ class Diagram:
         self.dims = dims
         self.x, self.y = self.dims
         self.background = background
+        self.offset = [0, 0]
 
         self.shades = ['light {}', 'medium {}', 'dark {}', 'full block']
         for i, s in enumerate(self.shades):
@@ -121,6 +122,10 @@ class Diagram:
             if num_fields == 1:
                 self.shades[i] = s.format('shade')
             self.shades[i] = get_char(self.shades[i])
+
+        self.origin = origin
+        if self.origin == 'center':
+            self.offset = [self.x//2, self.y//2]
 
     def write(self, path, data):
         """Create a new file and insert UTF-8-encoded text data or update an existing file"""
@@ -169,5 +174,5 @@ class Diagram:
         self.objects.append(element)
         return self
 
-TestDiagram = Diagram()
-TestDiagram.add(Text([10, 10], 'Hello World', style='math-bold-script')).render(rich_output=True, path='./generated', extensions=['md', 'html'], hue=(lambda x, y: x/y*360))
+TestDiagram = Diagram(background='X', origin='center')
+# TestDiagram.add(Text([10, 10], 'Hello World', style='math-bold-script')).render(rich_output=True, path='./generated', extensions=['md', 'html'], hue=(lambda x, y: x/y*360))
