@@ -3,6 +3,12 @@ import uuid
 shading = '░█'
 
 
+class Element:
+    """A generic element to be added to a diagram"""
+
+    def __init__(self, pos):
+        self.pos = pos if pos else [0, 0]
+        self.x, self.y = self.pos
 
 class Diagram:
     """A diagram containing some graphical elements and their relationships."""
