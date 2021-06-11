@@ -37,7 +37,8 @@ class Text(Element):
         self.style = style
         self.styles = {
             'circled': '{} latin {} letter {}',
-            'squared': '{} latin {} letter {}'
+            'squared': '{} latin {} letter {}',
+            'math-bold-script': 'mathematical bold script {} {}'
         }
 
     def render(self):
@@ -49,7 +50,10 @@ class Text(Element):
                 s = self.style
                 if s == 'squared':
                     chartype = 'capital'
-                c = get_char(self.styles[s].format(s, chartype, c))
+                style_string = self.styles[s]
+                num_fields = style_string.count('{}')
+                args = [s, chartype, c][-num_fields:]
+                c = get_char(style_string.format(*args))
             self.canvas[yc][xc] = c
         return self.canvas
 
