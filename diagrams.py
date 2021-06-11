@@ -141,8 +141,3 @@ class Diagram:
 
 TestDiagram = Diagram()
 TestDiagram.add(Text([10, 10], 'Hello World', style='math-bold-script')).render(rich_output=True, path='./generated.md', hue=(lambda x, y: x/y*360))
-
-
-# TODO: animated diagrams
-# TODO: templates
-# TODO: encode unicodes in output files
