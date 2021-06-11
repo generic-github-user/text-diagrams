@@ -61,6 +61,8 @@ class Text(Element):
                 s = self.style
                 if s == 'squared':
                     chartype = 'capital'
+                elif s == 'random':
+                    s = random.choice(['circled', 'squared', 'math-bold-script'])
                 style_string = self.styles[s]
                 num_fields = style_string.count('{}')
                 args = [s, chartype, c][-num_fields:]
@@ -118,7 +120,7 @@ class Diagram:
         return self
 
 TestDiagram = Diagram(background=' ')
-TestDiagram.add(Text([5,5], 'Hello World', style='math-bold-script')).render(capitalization='random')
+TestDiagram.add(Text([5,5], 'Hello World', style='random')).render(capitalization='random')
 
 
 # TODO: animated diagrams
