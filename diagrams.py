@@ -47,6 +47,14 @@ class Diagram:
 
         with open(path, 'w', encoding='utf-8') as file:
             file.write(self.text)
+        return self
+
+    def add(self, element):
+        self.objects.append(element)
+        return self
 
 TestDiagram = Diagram()
-TestDiagram.render()
+TestDiagram.add(Text([5,5], 'Hello World')).render()
+
+
+# TODO: animated diagrams
