@@ -10,6 +10,14 @@ class Element:
         self.pos = pos if pos else [0, 0]
         self.x, self.y = self.pos
 
+class Text(Element):
+    """Simple text element to add to a diagram"""
+
+    def __init__(self, pos, text):
+        super(Text, self).__init__(pos)
+        self.text = text
+
+
 class Diagram:
     """A diagram containing some graphical elements and their relationships."""
 
