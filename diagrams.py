@@ -16,6 +16,11 @@ class Text(Element):
     def __init__(self, pos, text):
         super(Text, self).__init__(pos)
         self.text = text
+        self.box = [len(self.text), 1]
+        self.w, self.h = self.box
+
+    def render(self):
+        return list(self.text)
 
 
 class Diagram:
