@@ -2,6 +2,7 @@ import uuid
 import math
 import unicodedata
 import random
+import colorsys
 
 shading = '░█'
 
@@ -45,7 +46,7 @@ class Text(Element):
             'math-bold-script': 'mathematical bold script {} {}'
         }
 
-    def render(self, capitalization='inherit'):
+    def render(self, rich_output=False, capitalization='inherit', hue=0, saturation=50, value=50, **kwargs):
         for i, c in enumerate(self.text):
             # Multiply the ratios generated from the text orientation by the character index (and round) to determine the necessary x and y shift
             xc, yc = round(self.rx*i), round(self.ry*i)
@@ -68,6 +69,18 @@ class Text(Element):
                 args = [s, chartype, c][-num_fields:]
                 # Attempt to retrieve the Unicode character from its name
                 c = get_char(style_string.format(*args))
+
+
+            if rich_output and c:
+                if callable(hue):
+                    h = hue(i, self.l)
+                else:
+                    h = hue
+
+                # hex_color = colorsys.hsv_to_rgb
+                tag = 'span'
+                colors = map(round, [h, saturation, value])
+                c = '<{} style="color: hsl({},{}%,{}%);">{}</ {} >'.format(tag, *colors, c, tag)
             # Set the character in the canvas
             self.canvas[yc][xc] = c
         return self.canvas
@@ -76,7 +89,7 @@ class Text(Element):
 class Diagram:
     """A diagram containing some graphical elements and their relationships."""
 
-    def __init__(self, objects=None, dims=[30, 30], background='random'):
+    def __init__(self, objects=None, dims=[30, 30], background='&nbsp;'):
         self.objects = objects if objects else []
         self.id = uuid.uuid4()
         self.canvas = []
@@ -91,13 +104,13 @@ class Diagram:
                 self.shades[i] = s.format('shade')
             self.shades[i] = get_char(self.shades[i])
 
-    def render(self, path='./generated-diagram.txt', **kwargs):
+    def render(self, path='./generated-diagram.txt', rich_output=False, **kwargs):
         # Generate the "canvas"; a two-dimensional list storing the character at each position
         bg = self.background
         self.canvas = [[(self.shades[random.randint(0, 3)] if bg == 'random' else bg) for i in range(self.x)] for j in range(self.y)]
         # Render each object and add it to the canvas
         for o in self.objects:
-            t = o.render(**kwargs)
+            t = o.render(rich_output=rich_output, **kwargs)
             # If a 1D list is provided, add a wrapper list around it
             if t and type(t[0]) not in [list, tuple]:
                 t = [t]
@@ -107,8 +120,13 @@ class Diagram:
                     if c:
                         self.canvas[o.y+i][o.x+j] = c
 
+        joiner = '<br>' if rich_output else '\n'
         # Combine canvas characters into an exportable string
-        self.text = '\n'.join(''.join(map(str, row)) for row in self.canvas)
+        self.text = joiner.join(''.join(map(str, row)) for row in self.canvas)
+
+
+        if rich_output:
+            self.text = '<div><p>{}</p></div>'.format(self.text)
 
         # Write the string to a file
         with open(path, 'w', encoding='utf-8') as file:
@@ -119,9 +137,10 @@ class Diagram:
         self.objects.append(element)
         return self
 
-TestDiagram = Diagram(background=' ')
-TestDiagram.add(Text([5,5], 'Hello World', style='random')).render(capitalization='random')
+TestDiagram = Diagram()
+TestDiagram.add(Text([5,5], 'Hello World', style='math-bold-script')).render(rich_output=True, path='./generated.md', hue=(lambda x, y: x/y*360))
 
 
 # TODO: animated diagrams
 # TODO: templates
+# TODO: encode unicodes in output files
