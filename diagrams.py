@@ -30,11 +30,14 @@ class Text(Element):
         r = math.radians(self.angle)
         self.rx = math.cos(r)
         self.ry = math.sin(r)
+        # The bounding box of the rendered text
         self.box = [round(self.l*self.rx+1), round(self.l*self.ry+1)]
+        # Aliases for the text's bounding box's width and height
         self.w, self.h = self.box
         self.canvas = [[None for i in range(self.w)] for j in range(self.h)]
 
         self.style = style
+        # A list of style shortcuts and their corresponding standard Unicode names (certain properties like capitalization and letter are automatically inserted)
         self.styles = {
             'circled': '{} latin {} letter {}',
             'squared': '{} latin {} letter {}',
@@ -43,6 +46,7 @@ class Text(Element):
 
     def render(self, capitalization='inherit'):
         for i, c in enumerate(self.text):
+            # Multiply the ratios generated from the text orientation by the character index (and round) to determine the necessary x and y shift
             xc, yc = round(self.rx*i), round(self.ry*i)
             # print(xc, yc, self.box)
             if self.style:
@@ -57,7 +61,9 @@ class Text(Element):
                 style_string = self.styles[s]
                 num_fields = style_string.count('{}')
                 args = [s, chartype, c][-num_fields:]
+                # Attempt to retrieve the Unicode character from its name
                 c = get_char(style_string.format(*args))
+            # Set the character in the canvas
             self.canvas[yc][xc] = c
         return self.canvas
 
