@@ -41,12 +41,16 @@ class Text(Element):
             'math-bold-script': 'mathematical bold script {} {}'
         }
 
-    def render(self):
+    def render(self, capitalization='inherit'):
         for i, c in enumerate(self.text):
             xc, yc = round(self.rx*i), round(self.ry*i)
             # print(xc, yc, self.box)
             if self.style:
-                chartype = 'capital' if c.isupper() else 'small'
+                if capitalization in ['small', 'capital']:
+                    chartype = capitalization
+                elif capitalization == 'inherit':
+                    chartype = 'capital' if c.isupper() else 'small'
+
                 s = self.style
                 if s == 'squared':
                     chartype = 'capital'
