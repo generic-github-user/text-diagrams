@@ -23,7 +23,7 @@ class Element:
 class Text(Element):
     """Simple text element to add to a diagram"""
 
-    def __init__(self, pos, text, angle=0, style=None):
+    def __init__(self, pos, text, angle=45, style=None):
         super(Text, self).__init__(pos)
         self.text = text
         self.l = len(self.text)
@@ -32,6 +32,11 @@ class Text(Element):
         r = math.radians(self.angle)
         self.rx = math.cos(r)
         self.ry = math.sin(r)
+        m = max(self.rx, self.ry)
+        f = 1 / m if m else 1
+        self.rx *= f
+        self.ry *= f
+
         # The bounding box of the rendered text
         self.box = [round(self.l*abs(self.rx)+1), round(self.l*abs(self.ry)+1)]
         # Aliases for the text's bounding box's width and height
@@ -129,8 +134,9 @@ class Diagram:
             # Add each character from the rendered element
             for i, row in enumerate(t):
                 for j, c in enumerate(row):
-                    if c:
-                        self.canvas[o.y+i][o.x+j] = c
+                    xc, yc = o.x+j, o.y+i
+                    if c and yc < self.y and xc < self.x:
+                        self.canvas[yc][xc] = c
 
         joiner = '<br>' if rich_output else '\n'
         # Combine canvas characters into an exportable string
