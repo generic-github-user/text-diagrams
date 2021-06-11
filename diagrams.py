@@ -2,8 +2,7 @@ import uuid
 
 shading = '░█'
 
-with open('./generated-diagram.txt', 'w') as file:
-    file.write('test')
+
 
 class Diagram:
     """A diagram containing some graphical elements and their relationships."""
@@ -15,3 +14,13 @@ class Diagram:
         self.dims = dims
         self.x, self.y = self.dims
         self.background = background
+
+    def render(self, path='./generated-diagram.txt'):
+        self.canvas = [[self.background for i in range(self.x)] for j in range(self.y)]
+        self.text = '\n'.join(''.join(row) for row in self.canvas)
+
+        with open(path, 'w', encoding='utf-8') as file:
+            file.write(self.text)
+
+TestDiagram = Diagram()
+TestDiagram.render()
