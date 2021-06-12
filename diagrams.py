@@ -129,6 +129,14 @@ class Diagram:
                 self.shades[i] = s.format('shade')
             self.shades[i] = get_char(self.shades[i])
 
+        self.directions = ['right', 'down', 'left', 'up']
+        self.cardinal = ['east', 'south', 'west', 'north']
+        self.arrows = [
+            '{}wards arrow',
+            '{} {} sans-serif arrow'
+        ]
+        # for i, d in enumerate(self.directions):
+
         self.origin = origin
         if self.origin == 'center':
             self.offset = [self.x//2, self.y//2]
