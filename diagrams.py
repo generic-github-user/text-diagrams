@@ -88,8 +88,26 @@ class Text(Element):
             'math-bold-script': 'mathematical bold script {} {}'
         }
 
-    def render(self, rich_output:bool=False, capitalization:str='inherit', hue:int=0, saturation:int=50, value:int=50, **kwargs):
+    def render(self,
+        rich_output:bool=False,
+        capitalization:str='inherit',
+        hue:int=0,
+        saturation:int=50,
+        value:int=50,
+        **kwargs
+    ):
         """Create a 2D array representing the bounding box of this element
+
+        Params:
+            rich_output: #
+            capitalization: What case the output should appear in
+                small: lowercase
+                capital: uppercase
+                inherit: use the input text's capitalization
+                random: randomly decide whether to capitalize each letter
+            hue: The hue component of the color; either an integer in the range `[0, 360]` or a function that takes the current character index and total length of the text and returns an appropriate value
+            saturation: The same as the hue, but representing the saturation of the font color - a value from 0 to 100 (i.e., a percentage)
+            value: Essentially identical to saturation except controlling brightness instead (0 will give black and 100 will give white)
         """
         for i, c in enumerate(self.text):
             # Multiply the ratios generated from the text orientation by the character index (and round) to determine the necessary x and y shift
