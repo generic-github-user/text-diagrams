@@ -131,10 +131,7 @@ class Text(Element):
                 self.canvas[yc][xc] = c
         return self.canvas
 
-print(typing.get_type_hints(Text))
-print(typing.get_type_hints(Text.__init__))
-print(typing.get_type_hints(Text.render))
-# print(Text([5, 5], 't').__annotations__['rx'])
+
 
 class Diagram:
     """A diagram containing some graphical elements and their relationships."""
@@ -182,9 +179,26 @@ class Diagram:
         with open(path, 'w', encoding='utf-8') as file:
             file.write(data)
 
-    def render(self, path='./generated-diagram.txt', extensions=None, rich_output=False, **kwargs):
+    def render(self,
+        path:str='./generated-diagram.txt',
+        extensions:list[str]=None,
+        rich_output:bool=False,
+        **kwargs
+    ) -> 'Diagram':
         """Convert the diagram's elements to a portable string and optionally save the generated document
+
+        Params:
+            path: The base path to save the result to
+            extensions: Versions of the output to generate and save
+                md
+                html
+                txt
+            rich_output: Whether to use HTML tags and CSS attributes to style Markdown content
+
+        Returns:
+            self
         """
+
         # Generate the "canvas"; a two-dimensional list storing the character at each position
         bg = self.background
         self.canvas = []
@@ -250,6 +264,13 @@ class Diagram:
         """
         self.objects.append(element)
         return self
+
+print(typing.get_type_hints(Text))
+print(typing.get_type_hints(Text.__init__))
+print(typing.get_type_hints(Text.render))
+print(typing.get_type_hints(Diagram.render))
+# print(Text([5, 5], 't').__annotations__['rx'])
+
 
 TestDiagram = Diagram(background='X', origin='center', direction=(lambda x, y: [x**2, y**2]), hue=(lambda x, y: x*y))
 TestDiagram.render(rich_output=True, path='./generated', extensions=['md', 'html'])
