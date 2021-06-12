@@ -106,7 +106,7 @@ class Text(Element):
 class Diagram:
     """A diagram containing some graphical elements and their relationships."""
 
-    def __init__(self, objects=None, dims=[30, 30], background='&nbsp;', origin='center', hue=0, saturation=50, value=50, **kwargs):
+    def __init__(self, objects=None, dims=[30, 30], background='&nbsp;', origin='center', hue=0, saturation=50, value=50, direction=None, **kwargs):
         """Create a new diagram object
         """
 
@@ -131,11 +131,13 @@ class Diagram:
 
         self.directions = ['right', 'down', 'left', 'up']
         self.cardinal = ['east', 'south', 'west', 'north']
-        self.arrows = [
-            '{}wards arrow',
-            '{} {} sans-serif arrow'
-        ]
+        # self.arrows = [
+        #     '{}wards arrow',
+        #     '{} {} sans-serif arrow'
+        # ]
         # for i, d in enumerate(self.directions):
+        self.arrows = '🡢🡦🡣🡧🡠🡤🡡🡥'
+        self.direction = direction
 
         self.origin = origin
         if self.origin == 'center':
@@ -161,6 +163,12 @@ class Diagram:
                 else:
                     cell = bg
 
+                if callable(self.direction):
+                    a = np.array([j, i]) - np.array(self.offset)
+                    z = self.direction(*a)
+                    theta = math.degrees(math.atan2(*z[::-1]))
+                    cell = self.arrows[round(theta / 360 * 8)]
+
                 if rich_output:
                     if callable(self.hue):
                         a = np.array([j, i]) - np.array(self.offset)
@@ -171,6 +179,7 @@ class Diagram:
                     tag = 'span'
                     colors = map(round, [h, self.saturation, self.value])
                     cell = '<{} style="color: hsl({},{}%,{}%);">{}</ {} >'.format(tag, *colors, cell, tag)
+
                 row.append(cell)
             self.canvas.append(row)
 
@@ -209,6 +218,6 @@ class Diagram:
         self.objects.append(element)
         return self
 
-TestDiagram = Diagram(background='X', origin='center', hue=(lambda x, y: x * y))
+TestDiagram = Diagram(background='X', origin='center', direction=(lambda x, y: [x**2, y**2]), hue=(lambda x, y: x*y))
 TestDiagram.render(rich_output=True, path='./generated', extensions=['md', 'html'])
 # TestDiagram.add(Text([10, 10], 'Hello World', style='math-bold-script')).render(rich_output=True, path='./generated', extensions=['md', 'html'], hue=(lambda x, y: x/y*360))
