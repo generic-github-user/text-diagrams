@@ -40,6 +40,16 @@ class Text(Element):
 
     def __init__(self, pos, text, angle=45, style=None):
         """Create a new text element
+
+        Params:
+            pos: Coordinates of the text element
+            text: The text to display
+            angle: The angle in degrees (clockwise from the positive x-axis)
+            style: Which character set to render the text in
+                circled: Circled Latin letters
+                squared: Squared Latin letters
+                math-bold-script: Boldface math font
+                random: Randomly choose for each character between the available fonts
         """
         super(Text, self).__init__(pos)
         self.text = text
