@@ -154,7 +154,26 @@ class Text(Element):
 class Diagram:
     """A diagram containing some graphical elements and their relationships."""
 
-    def __init__(self, objects=None, dims=[30, 30], background='&nbsp;', origin='center', hue=0, saturation=50, value=50, direction=None, **kwargs):
+    objects: list[Element]
+    dims: list[int]
+    x: int
+    y: int
+    offset: list[int]
+    hue: int
+    saturation: int
+    value: int
+
+    def __init__(self,
+        objects=None,
+        dims=[30, 30],
+        background='&nbsp;',
+        origin='center',
+        hue=0,
+        saturation=50,
+        value=50,
+        direction=None,
+        **kwargs
+    ):
         """Create a new diagram object
         """
 
@@ -191,11 +210,12 @@ class Diagram:
         if self.origin == 'center':
             self.offset = [self.x//2, self.y//2]
 
-    def write(self, path, data):
+    def write(self, path, data) -> 'Diagram':
         """Create a new file and insert UTF-8-encoded text data or update an existing file"""
         # Write the string to a file
         with open(path, 'w', encoding='utf-8') as file:
             file.write(data)
+        return self
 
     def render(self,
         path:str='./generated-diagram.txt',
