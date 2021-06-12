@@ -4,6 +4,7 @@ import unicodedata
 import random
 import colorsys
 import numpy as np
+import typing
 
 shading = '░█'
 
@@ -36,9 +37,18 @@ class Element:
         self.id = uuid.uuid4()
 
 class Text(Element):
-    """Simple text element to add to a diagram"""
+    """Simple text element to add to a diagram
+    """
 
-    def __init__(self, pos, text, angle=45, style=None):
+    text: str
+    l: int
+    box: list[int]
+    w: int
+    h: int
+    rx: float
+    ry: float
+
+    def __init__(self, pos:list, text:str, angle:int=45, style:str=None):
         """Create a new text element
 
         Params:
@@ -57,8 +67,8 @@ class Text(Element):
         self.angle = angle
         # self.ratio = math.sin(math.radians(self.angle))
         r = math.radians(self.angle)
-        self.rx = math.cos(r)
-        self.ry = math.sin(r)
+        self.rx: float = math.cos(r)
+        self.ry: float = math.sin(r)
         m = max(self.rx, self.ry)
         f = 1 / m if m else 1
         self.rx *= f
@@ -78,7 +88,7 @@ class Text(Element):
             'math-bold-script': 'mathematical bold script {} {}'
         }
 
-    def render(self, rich_output=False, capitalization='inherit', hue=0, saturation=50, value=50, **kwargs):
+    def render(self, rich_output:bool=False, capitalization:str='inherit', hue:int=0, saturation:int=50, value:int=50, **kwargs):
         """Create a 2D array representing the bounding box of this element
         """
         for i, c in enumerate(self.text):
@@ -121,6 +131,10 @@ class Text(Element):
                 self.canvas[yc][xc] = c
         return self.canvas
 
+print(typing.get_type_hints(Text))
+print(typing.get_type_hints(Text.__init__))
+print(typing.get_type_hints(Text.render))
+# print(Text([5, 5], 't').__annotations__['rx'])
 
 class Diagram:
     """A diagram containing some graphical elements and their relationships."""
