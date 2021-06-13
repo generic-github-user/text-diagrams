@@ -12,17 +12,24 @@ class Point:
 
     def rotate(self, a, theta, rad=False):
         theta = float(theta)
+        # Convert to radians
         if not rad:
             theta = theta * math.pi / 180
+        # Create a rotation matrix to apply a rotation to the point
         rotation_matrix = [
             [np.cos(theta), -np.sin(theta)],
             [np.sin(theta), np.cos(theta)]
         ]
 #         print(rotation_matrix)
 #         self.pos *= rotation_matrix
+
+        # Move the point so its coordinate is relative to the origin
         self.move(-a.pos)
+        # Apply the rotation matrix
         self.pos = np.dot(self.pos, rotation_matrix)
+        # Move point back
         self.move(a.pos)
+        # Round to specified precision
         self.pos = self.pos.round(self.precision)
         return self
 
