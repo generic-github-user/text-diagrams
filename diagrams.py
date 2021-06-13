@@ -6,6 +6,8 @@ import colorsys
 import numpy as np
 import typing
 
+from geometry.point import Point
+
 shading = '░█'
 
 
