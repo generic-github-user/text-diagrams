@@ -2,15 +2,18 @@ import numpy as np
 import math
 
 class Point:
-    def __init__(self, pos, p=8):
+    pos: np.ndarray
+    precision: int
+
+    def __init__(self, pos:list, p:int=8):
         self.pos = np.array(pos, dtype=float)
         self.precision = p
 
-    def move(self, delta):
+    def move(self, delta:list):
         self.pos += np.array(delta)
         return self
 
-    def rotate(self, a, theta, rad=False):
+    def rotate(self, a:list, theta:int, rad:float=None):
         theta = float(theta)
         # Convert to radians
         if not rad:
