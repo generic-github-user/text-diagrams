@@ -122,6 +122,14 @@ class Documentation:
 
     def __init__(self, source_path='./*.py', template_path='./docs/templates/*_template.md', output_path='./docs/documentation.md'):
         """Create a new Documentation object"""
+        """
+        Create a new Documentation object
+
+        Params:
+            source_path: A pattern matching the relative file path of all files that classes, functions, and documentation should be gathered from
+            template_path: A pattern matching the paths of documentation template files; the template name will be extracted from everything before `'_template.md'`
+            output_path: The path to save the output to
+        """
 
         template_files = glob.glob(template_path)
         # filename = t.split('/')[-1]
