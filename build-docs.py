@@ -59,7 +59,17 @@ class Section:
 
     def add(self, x):
         self.children.append(x)
-        return self
+        return x
+
+    def set(self, a, b):
+        """
+        Set a property of the section
+
+        Params:
+            a: The name of the property
+            b: The value to set the property to
+        """
+        self.kwargs[a] = b
 
     def generate(self):
         # s = Section(section_type=self.type, template_content=template)
