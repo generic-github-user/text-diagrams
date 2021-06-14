@@ -237,20 +237,39 @@ class Documentation:
         self.text = ''
         self.import_modules()
 
-        current_section = Section(type_='main', templates=self.template_content)
-        self.root = current_section
+        current_section = Section(type_='module', templates=self.template_content)
+        self.current['module'] = current_section
+        # self.root = current_section
         for module, classname in self.classes:
             # print(self.classes)
-            new_section = Section(type_='class', templates=self.template_content, title=classname[0], module=module.__name__, methods='children', params='children')
-            current_section.add(new_section)
+            new_section = Section(
+                type_='class',
+                parent=current_section,
+                templates=self.template_content,
+                class_name=classname[0],
+                module=module.__name__,
+                methods='children',
+                params='children'
+            )
+            self.current['module'].add(new_section)
             current_section = new_section
+            self.current['class'] = new_section
             # print(classname)
             methods = inspect.getmembers(classname[1], predicate=inspect.isfunction)
             for name, method in methods:
                 # print(name, method, True)
-                new_section = Section(type_='method', templates=self.template_content, title=name, methods='children', params='children', module=module.__name__)
-                current_section.add(new_section)
+                new_section = Section(
+                    type_='method',
+                    templates=self.template_content,
+                    parent=current_section,
+                    method_name=name,
+                    methods='children',
+                    params='children',
+                    module=module.__name__
+                )
+                self.current['class'].add(new_section)
                 current_section = new_section
+                self.current['method'] = new_section
 
                 # print(method)
 
