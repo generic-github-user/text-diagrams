@@ -159,12 +159,23 @@ class Documentation:
             return ''
 
     def isnum(self, x):
-        """Check if a given character is numeric"""
+        """
+        Check if a given character is numeric
+        """
 
         return x in '1234567890.-'
 
     def split_numeric(self, text, parse=True):
-        """Separate a string into numeric and alphabetical substrings"""
+        """
+        Separate a string into numeric and alphabetical substrings
+
+        Params:
+            text: The text to parse
+            parse: ?
+
+        Returns:
+            output: A list of substrings
+        """
 
         block = ''
         block_numeric = self.isnum(text[0])
