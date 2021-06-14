@@ -22,7 +22,6 @@ for k, v in templates.items():
 
 def indent_width(s):
     indent = len(s) - len(s.lstrip())
-    # print(indent)
     return indent
 
 def clean_tabs(text):
@@ -30,9 +29,6 @@ def clean_tabs(text):
     if not lines[0]:
         lines = lines[1:]
     tabs = indent_width(lines[0])
-    # print(lines[0])
-    # for l in lines:
-    #     l = l[tabs:]
     return '\n'.join([l[tabs:] for l in lines])
 
 def extract_info(s):
@@ -41,7 +37,6 @@ def extract_info(s):
     lines = s.split('\n')
     section = 'text'
     subsection = ''
-    # print(lines)
     for l in lines:
 
         t = indent_width(l)
@@ -108,14 +103,6 @@ def parse_tags(tag_list):
             next = tag_list[i+1]
         else:
             next = None
-
-        # try:
-        #     next = tag_list[i+1]
-        # except:
-        #     pass
-
-        # if type(t) is list:
-        #     parse_tags(t)
 
         if t in data_types:
             result += '`{}`'.format(t)
