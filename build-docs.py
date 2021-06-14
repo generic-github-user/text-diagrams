@@ -13,10 +13,13 @@ result = ''
 
 class Section:
     def __init__(self, template_content):
+        """Create a new Section object"""
         self.helpers = Documentation()
         self.template_content = template_content
 
     def generate(self, stype, object, replacements):
+        """Generate the content for this section"""
+
         docstring = object.__doc__
         if docstring is None:
             docstring = 'Not yet documented'
@@ -106,6 +109,8 @@ class Documentation:
     """Documentation"""
 
     def __init__(self, source_path='./*.py', template_path='./docs/templates/*_template.md'):
+        """Create a new Documentation object"""
+
         template_files = glob.glob(template_path)
         # filename = t.split('/')[-1]
         self.sources = {os.path.basename(s).split('.')[0]: os.path.normpath(s) for s in glob.glob(source_path)}
@@ -121,10 +126,13 @@ class Documentation:
         self.classes = []
 
     def indent_width(self, string):
+        """Count the number of leading tabs in a string (e.g., a line of code)"""
         indent = len(string) - len(string.lstrip())
         return indent
 
     def clean_tabs(self, text):
+        """Remove leading tabs from a string"""
+
         lines = text.split('\n')
         if not lines[0]:
             lines = lines[1:]
@@ -132,9 +140,13 @@ class Documentation:
         return '\n'.join([l[tabs:] for l in lines])
 
     def isnum(self, x):
+        """Check if a given character is numeric"""
+
         return x in '1234567890.-'
 
     def split_numeric(self, text, parse=True):
+        """Separate a string into numeric and alphabetical substrings"""
+
         block = ''
         block_numeric = self.isnum(text[0])
         output = []
