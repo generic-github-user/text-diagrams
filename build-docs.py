@@ -14,6 +14,15 @@ result = ''
 
 class Section:
     def __init__(self, content=None, type_=None, data=None, templates=None, parent=None, **kwargs):
+        """
+        Create a new section
+
+        Params:
+            type_: The type of section
+            templates: A dictionary pairing template names to their contents
+            parent: The parent section
+            **kwargs: Additional arguments and/or data for the section
+        """
         defaults = {
             'methods': 'children',
             'params': 'children',
