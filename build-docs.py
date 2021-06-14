@@ -41,16 +41,6 @@ class Section:
         self.templates = templates
         self.type = type_
 
-        # for k, v in kwargs.items():
-        #     setattr(self, k, v)
-
-        # if hasattr(self, 'hierarchy'):
-        #     k = list(self.hierarchy.keys())[0]
-        #     self.type = k
-        # else:
-        #     self.type = 'class'
-
-        # kwargs |= defaults
         defaults |= kwargs
         self.kwargs = defaults
 
@@ -86,13 +76,9 @@ class Section:
                 if self.children:
                     h = combined
                 else:
-                    h = 'none'
+                    h = ''
             for q in ['{{{}}}', '[{}]']:
                 self.text = self.text.replace(q.format(r), h)
-
-        # for c in self.children:
-        #     if c is not self:
-        #         self.text += '\n'+c.generate()
 
         # print(self.kwargs, self.text)
         # print(self.children)
