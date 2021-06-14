@@ -173,15 +173,20 @@ class Documentation:
             self.classes.append([doc_module, doc_classes])
 
     def extract_info(self, docstring):
+        """Parse a docstring and return a dictionary of its structured data"""
+
+        # Temporary dictionary to hold hierarchy of parsed data
         info = {}
         docstring = self.clean_tabs(docstring)
+        # Split docstring by lines
         lines = docstring.split('\n')
         section = 'text'
         subsection = ''
+        # Loop through the lines in the docstring
         for l in lines:
-
             t = self.indent_width(l)
             if t == 0:
+                # Detect section tag
                 if l and l[0] == '@':
                     section = l[1:]
 
@@ -204,7 +209,7 @@ class Documentation:
                     'label': label
                 }
                 info[section][subsection].append(arg_info)
-
+        # Return dict
         return info
 
     def generate(self):
@@ -247,9 +252,12 @@ class Documentation:
 
         with open(output, 'r') as file:
             current_content = file.read()
+
+        # Update the header containing the current version of the documentation
         firstline = current_content.split('\n')[0]
         print(firstline.split(' '))
         if 'Docs version' in firstline:
+            # Increment version
             version = int(firstline.split(' ')[-1])+1
         else:
             version = 0
