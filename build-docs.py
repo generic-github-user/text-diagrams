@@ -138,6 +138,15 @@ class Documentation:
         self.text = ''
         self.classes = []
         self.headers = ['Params', 'Returns', 'Attributes']
+        self.hierarchy = {
+            'class': {
+                'method': {
+                    'parameter': {
+                        'pinfo': None
+                    }
+                }
+            }
+        }
 
     def indent_width(self, string):
         """Count the number of leading tabs in a string (e.g., a line of code)"""
