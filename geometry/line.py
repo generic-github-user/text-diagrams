@@ -4,10 +4,21 @@ from point import Point
 
 class Line:
     def __init__(self, a, b):
+        """Create a new line
+
+        Params:
+            a: The start point of the line
+            b: The end point of the line
+        """
         self.a = a
         self.b = b
 
     def move(self, delta):
+        """Translate the line
+
+        Params:
+            delta: The amount (in each direction/axis) to move the line by
+        """
         for p in [self.a, self.b]:
             p.move(delta)
         return self
