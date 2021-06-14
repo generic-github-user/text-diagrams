@@ -6,6 +6,13 @@ class Point:
     precision: int
 
     def __init__(self, pos:list, p:int=8):
+        """
+        Create a new Point instance
+
+        Params:
+            pos: The new point's position in the coordinate system
+            p: The level of precision to store the point's position with
+        """
         self.pos = np.array(pos, dtype=float)
         self.precision = p
 
