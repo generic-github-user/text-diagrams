@@ -123,13 +123,15 @@ class Documentation:
         self.classes = []
         self.headers = ['Params', 'Returns', 'Attributes']
         self.hierarchy = [
-            'class',
+            # 'class',
             'method',
             'parameter',
             'pinfo',
             'extra'
         ]
-        self.tab_length = 6
+        self.tab_length = 4
+        self.tab = ' '*self.tab_length
+        self.current = {}
 
     def indent_width(self, string):
         """
@@ -140,7 +142,6 @@ class Documentation:
         """
         if string.startswith(' '*self.tab_length):
             string = string.replace(' '*self.tab_length, '\t')
-        # elif string.startswith('')
         indent = len(string) - len(string.lstrip())
         # indent = string.count('\t')
         return indent
@@ -155,24 +156,10 @@ class Documentation:
 
         if text:
             # lines = text.split('\n')
-            lines = text.splitlines()
+            lines = text.replace(self.tab, '\t').splitlines()
             lines = [l for l in lines if l]
-
-            # if not lines[0]:
-            #     lines = lines[1:]
-
-            # if not lines[0].startswith(' ') and not lines[0].startswith('\t') and len(lines) > 1:
-            #     q = self.indent_width(lines[1])
-            #     lines[0] = ('\t' * q) + lines[0]
-            #     print(q, 523523)
-
-            # if not lines[0]:
-            # if len(lines[0]) < 2:
-            #     lines = lines[1:]
-            # y = lines[0] if len(lines) < 2 else lines[1]
-            y = lines[0]
             # print(lines[0].count('\t'))
-            tabs = self.indent_width(y)
+            tabs = self.indent_width(lines[0])
             return '\n'.join([l[tabs:] for l in lines])
         else:
             return ''
