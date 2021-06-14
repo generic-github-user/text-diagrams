@@ -177,7 +177,7 @@ class Diagram:
         **kwargs
     ):
         """Create a new diagram object
-
+        
         Params:
             objects: The elements to initialize the Diagram with
             dims: The size of the diagram; `[width, height]`

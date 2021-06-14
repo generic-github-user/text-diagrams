@@ -27,3 +27,37 @@ def parse_tags(tag_list):
             result += '`{}` array of shape `{}`'.format(*t)
     result += '**'
     return result
+
+
+for l in []:
+    t = self.indent_width(l)
+    print(t, l)
+    if t == 0:
+        # Detect section tag
+        if l and l[0] == '@':
+            section = l[1:]
+        # New tag format (e.g., 'Params: ...')
+        elif l[:-1] in self.headers:
+            section = l[:-1]
+
+        if section not in info:
+            info[section] = {}
+        if section == 'text':
+            if 'val' not in info['text']:
+                info['text']['val'] = []
+            info[section]['val'].append(l)
+    elif t in [1, 4]:
+        subsection = self.clean_tabs(l)
+        if subsection not in info[section]:
+            info[section][subsection] = []
+    elif t in [2, 8]:
+        parts = self.clean_tabs(l).split(': ')
+        print(parts)
+        if len(parts) >= 2:
+            label = parts[1]
+            type_info = parts[0][1:-1].replace(' ','').split(',')
+            arg_info = {
+                'type': type_info,
+                'label': label
+            }
+            info[section][subsection].append(arg_info)

@@ -25,7 +25,8 @@ class Section:
             docstring = 'Not yet documented'
         if stype in ['class', 'method']:
             doc_info = self.helpers.extract_info(docstring)
-            replacements.append(('{docstring}', doc_info['text']['val'][0]))
+            # replacements.append(('{docstring}', doc_info['text']['val'][0]))
+            replacements.append(('{docstring}', 'test'))
         else:
             doc_info = object
         content = self.template_content[stype]
@@ -34,7 +35,7 @@ class Section:
 
         if stype == 'method':
             param_list = []
-            if 'params' in doc_info:
+            if 'params' in doc_info.names():
                 for k, v in doc_info['params'].items():
                     if k[0] in '!':
                         k = k[1:] + ' [required]'
@@ -133,6 +134,7 @@ class Documentation:
 
         self.text = ''
         self.classes = []
+        self.headers = ['Params', 'Returns', 'Attributes']
 
     def indent_width(self, string):
         """Count the number of leading tabs in a string (e.g., a line of code)"""
@@ -188,39 +190,44 @@ class Documentation:
         """Parse a docstring and return a dictionary of its structured data"""
 
         # Temporary dictionary to hold hierarchy of parsed data
-        info = {}
+        info = ParseData()
         docstring = self.clean_tabs(docstring)
         # Split docstring by lines
         lines = docstring.split('\n')
         section = 'text'
         subsection = ''
+        current_section = info
+        arg_info = None
+        t = self.indent_width(lines[0])
+
         # Loop through the lines in the docstring
         for l in lines:
-            t = self.indent_width(l)
-            if t == 0:
-                # Detect section tag
-                if l and l[0] == '@':
-                    section = l[1:]
-
-                if section not in info:
-                    info[section] = {}
-                if section == 'text':
-                    if 'val' not in info['text']:
-                        info['text']['val'] = []
-                    info[section]['val'].append(l)
-            elif t in [1, 4]:
-                subsection = self.clean_tabs(l)
-                if subsection not in info[section]:
-                    info[section][subsection] = []
-            elif t in [2, 8]:
+            # Detect section tag
+            if l and l[0] == '@':
+                section = l[1:]
+            # New tag format (e.g., 'Params: ...')
+            elif l[:-1] in self.headers:
+                section = l[:-1]
+            else:
                 parts = self.clean_tabs(l).split(': ')
-                label = parts[1]
-                type_info = parts[0][1:-1].replace(' ','').split(',')
-                arg_info = {
-                    'type': type_info,
-                    'label': label
-                }
-                info[section][subsection].append(arg_info)
+                print(parts)
+                if len(parts) >= 2:
+                    label = parts[1]
+                    type_info = parts[0][1:-1].replace(' ','').split(',')
+                    arg_info = {
+                        'type': type_info,
+                        'label': label
+                    }
+                    arg_info = ParseData(**arg_info)
+                    # info[section][subsection].append(arg_info)
+
+            t2 = self.indent_width(l)
+            if t2 > t and arg_info:
+                current_section.children.append(arg_info)
+                current_section = arg_info
+
+            t = t2
+
         # Return dict
         return info
 
@@ -281,7 +288,7 @@ class Documentation:
 Docs = Documentation()
 print(Docs.templates, Docs.sources)
 Docs.generate()
-
+print(Docs.text)
 
 
 symbols = {
