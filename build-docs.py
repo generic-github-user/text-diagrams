@@ -24,9 +24,14 @@ class Section:
             **kwargs: Additional arguments and/or data for the section
         """
         defaults = {
+            'classes': 'children',
             'methods': 'children',
             'params': 'children',
-            'timestamp': str(datetime.datetime.now())
+            'types': 'children',
+            'timestamp': str(datetime.datetime.now()),
+            'class_info': 'Class not yet documented',
+            'module': 'Main',
+            'module_info': 'Module not yet documented'
         }
         self.parent = parent
         self.children = []
@@ -45,8 +50,9 @@ class Section:
         # else:
         #     self.type = 'class'
 
-        kwargs |= defaults
-        self.kwargs = kwargs
+        # kwargs |= defaults
+        defaults |= kwargs
+        self.kwargs = defaults
 
     def names(self):
         return [c.type for c in self.children]
