@@ -1,4 +1,7 @@
-from point import Point
+try:
+    from point import Point
+except:
+    from point.py import Point
 
 class Polygon:
     def __init__(self, vertices=None):

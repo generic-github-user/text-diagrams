@@ -1,6 +1,9 @@
 import numpy as np
 
-from point import Point
+try:
+    from point import Point
+except:
+    from point.py import Point
 
 class Line:
     def __init__(self, a, b):
