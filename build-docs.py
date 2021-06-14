@@ -18,38 +18,69 @@ class Section:
         self.template_content = template_content
         self.section_type = section_type
         self.stype = self.section_type
+        self.children = []
 
-    def generate(self, object, replacements):
+    def generate(self, object=None, replacements=None, source=None):
         """Generate the content for this section"""
 
-        docstring = object.__doc__
-        if docstring is None:
-            docstring = 'Not yet documented'
-        if self.stype in ['class', 'method']:
-            doc_info = self.helpers.extract_info(docstring)
-            # replacements.append(('{docstring}', doc_info['text']['val'][0]))
-            replacements.append(('{docstring}', 'test'))
+        if replacements is None:
+            replacements = []
+
+        if source:
+            doc_info = source
         else:
-            doc_info = object
+            docstring = object.__doc__
+            if docstring is None:
+                docstring = 'Not yet documented'
+
+            doc_info = self.helpers.extract_info(docstring)
+        #     print(8, docstring)
+        # print(6, source, bool(source))
+
+        try:
+            k = list(doc_info.hierarchy.keys())[0]
+        except:
+            k = 'parameter'
+        self.stype = k
+        # print(self.stype)
+
+        if self.stype in ['class', 'method']:
+
+            # replacements.append(('{docstring}', doc_info['text']['val'][0]))
+            # (not c.children and True)
+            m = ''.join([c.label for c in doc_info.children if True])
+            # print(m)
+            replacements.append(('{docstring}', m))
+        # else:
+        #     doc_info = object
+        # WARNING
+
         content = self.template_content[self.stype]
         for r in replacements:
             content = content.replace(*r)
 
+        # print(self.stype)
         if self.stype == 'method':
-            param_list = []
-            if 'params' in doc_info.names():
-                for k, v in doc_info['params'].items():
-                    if k[0] in '!':
-                        k = k[1:] + ' [required]'
-                    if k[0] in '~':
-                        k = k[1:] + ' [optional]'
-
-                    param_content = generate_section('parameter', v, [('{parameter}', k)])
-                    param_list.append(param_content)
-            content = content.replace('[params]', '\n'.join(param_list))
+            pass
         elif self.stype == 'parameter':
+            # param_list = []
+            # print(doc_info.names())
+            # if 'params' in doc_info.names():
+                # print(True)
+                # for k, v in doc_info['params'].items():
+            # k = doc_info.label:
+            #     if k[0] in '!':
+            #         k = k[1:] + ' [required]'
+            #     if k[0] in '~':
+            #         k = k[1:] + ' [optional]'
+            #
+            #     param_content = generate_section('parameter', v, [('{parameter}', k)])
+            #     param_list.append(param_content)
+            content = content.replace('[params]', '\n'.join(param_list))
+
             # content = ''
-            label = doc_info[0]['label']
+            # label = doc_info[0]['label']
+            label = doc_info.label
 
             if '{ex' in label:
                 examples = []
@@ -74,8 +105,8 @@ class Section:
             content = content.replace('{label}', label)
 
             type_list = []
-            for t in doc_info:
-                print(t)
+            for t in []:
+                # print(t, 't')
                 try:
                     # print('[{}]'.format(','.join(t['type'])))
                     y = [str(v) for v in t['type']]
@@ -105,23 +136,48 @@ class Section:
 
             content = content.replace('[types]', '\n'.join(type_list))
 
+        # print(doc_info.children)
+        for c in doc_info.children:
+            content += c.generate(template=self.template_content) + '\n'
+
         return content
 
 class ParseData:
-    def __init__(self, **kwargs):
+    def __init__(self, parent=None, **kwargs):
+        self.parent = parent
         self.children = []
         for k, v in kwargs.items():
             setattr(self, k, v)
 
+        if hasattr(self, 'hierarchy'):
+            k = list(self.hierarchy.keys())[0]
+            self.type = k
+        else:
+            self.type = 'class'
+
     def names(self):
         return [c.type for c in self.children]
+
+    def add(self, x):
+        if self.hierarchy:
+            k = list(self.hierarchy.keys())[0]
+            x.hierarchy = self.hierarchy[k]
+        self.children.append(x)
+        return self
+
+    def generate(self, template=None):
+        s = Section(section_type=self.type, template_content=template)
+        return s.generate(source=self)
 
 
 class Documentation:
     """Documentation"""
 
-    def __init__(self, source_path='./*.py', template_path='./docs/templates/*_template.md', output_path='./docs/documentation.md'):
-        """Create a new Documentation object"""
+    def __init__(self,
+        source_path='./*.py',
+        template_path='./docs/templates/*_template.md',
+        output_path='./docs/documentation.md'
+    ):
         """
         Create a new Documentation object
 
@@ -210,7 +266,7 @@ class Documentation:
         """Parse a docstring and return a dictionary of its structured data"""
 
         # Temporary dictionary to hold hierarchy of parsed data
-        info = ParseData()
+        info = ParseData(hierarchy=self.hierarchy)
         docstring = self.clean_tabs(docstring)
         # Split docstring by lines
         lines = docstring.split('\n')
@@ -218,33 +274,55 @@ class Documentation:
         subsection = ''
         current_section = info
         arg_info = None
-        t = self.indent_width(lines[0])
+        # t = self.indent_width(lines[0])
+        t = -1
 
         # Loop through the lines in the docstring
         for l in lines:
             # Detect section tag
-            if l and l[0] == '@':
-                section = l[1:]
+            # if l and l[0] == '@':
+            #     section = l[1:]
             # New tag format (e.g., 'Params: ...')
-            elif l[:-1] in self.headers:
+            if l[:-1] in self.headers:
+                print(l[:-1])
                 section = l[:-1]
+                arg_info = ParseData(type=section, label='empty')
             else:
                 parts = self.clean_tabs(l).split(': ')
-                print(parts)
-                if len(parts) >= 2:
-                    label = parts[1]
-                    type_info = parts[0][1:-1].replace(' ','').split(',')
-                    arg_info = {
-                        'type': type_info,
-                        'label': label
-                    }
-                    arg_info = ParseData(**arg_info)
-                    # info[section][subsection].append(arg_info)
+                # print(parts)
+                # if len(parts) >= 2:
+                # label = parts[1]
+                # type_info = parts[0][1:-1].replace(' ','').split(',')
+                # type_info, label = parts if len(parts) == 2 else
+                label = parts[1] if len(parts) > 1 else ''
+                arg_info = {
+                    'type': parts[0],
+                    # 'label': (parts[1] if (len(parts) > 1)),
+                    'label': label,
+                    'hierarchy': self.hierarchy
+                }
+                arg_info = ParseData(**arg_info)
+                # info[section][subsection].append(arg_info)
 
             t2 = self.indent_width(l)
+            print(l, t2)
             if t2 > t and arg_info:
-                current_section.children.append(arg_info)
-                current_section = arg_info
+                current_section.add(arg_info)
+                # current_section = arg_info
+            elif t2 == t and arg_info:
+                # print(arg_info.type)
+                # if current_section.parent:
+                    # current_section.parent.add(arg_info)
+                    # current_section = arg_info
+                current_section.add(arg_info)
+            elif t2 < t and arg_info:
+                if current_section.parent:
+                    current_section = current_section.parent
+                    current_section.add(arg_info)
+            else:
+                print('???')
+            current_section = arg_info
+            print(current_section)
 
             t = t2
 
@@ -314,7 +392,8 @@ class Documentation:
 Docs = Documentation()
 print(Docs.templates, Docs.sources)
 Docs.generate().write()
-print(Docs.text)
+# breakpoint()
+# print(Docs.text)
 
 
 symbols = {
