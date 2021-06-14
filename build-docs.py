@@ -276,40 +276,71 @@ class Documentation:
                 # Temporary dictionary to hold hierarchy of parsed data
                 # info = ParseData(hierarchy=self.hierarchy)
                 docstring = method.__doc__
+                # print(docstring)
                 if docstring:
                     docstring = docstring.replace(' '*self.tab_length, '\t')
                     docstring = self.clean_tabs(docstring)
+
+                    # Split docstring by lines
+                    # lines = docstring.split('\n')
+                    lines = docstring.splitlines()
+                    section = 'text'
+                    subsection = ''
+
+                    # Loop through the lines in the docstring
+                    for i, l in enumerate(lines):
+
+                        # Detect section tag
+                        # if l and l[0] == '@':
+                        #     section = l[1:]
+                        # New tag format (e.g., 'Params: ...')
+                        t = self.indent_width(l)
+                        l = self.clean_tabs(l)
+                        # print(i, l, t, self.indent_width(l), len(self.hierarchy), True)
+                        section_type = self.hierarchy[t]
+                        # print(section_type, self.current[section_type].type)
+                        print(section_type, l)
+                        if any(l.startswith(h) for h in self.headers):
+                            # print(l[:-1])
+                            section = l[:-1].lower()
+                            new_section = Section(
+                                type_='parameter',
+                                # parent=self.current[section_type],
+                                templates=self.template_content,
+                                title=l[:-1],
+                                params='children',
+                                parameter=l.split(':')[0]
+                            )
+                            self.current['method'].add(new_section)
+                            # current_section.add(new_section)
+                            current_section = new_section
+                            self.current[section_type] = new_section
+                        elif t == 0 and l:
+                            self.current[section_type].set('class_info', l)
+                            self.current[section_type].set('method_info', l)
+                        else:
+                            # print(t, l)
+                            label = l.split(':')[1] if len(l.split(':')) > 1 else ''
+                            new_section = Section(
+                                content=l.split(':'),
+                                type_=section_type,
+                                # parent=self.current[section_type],
+                                templates=self.template_content,
+                                params='children',
+                                parameter=l.split(':')[0],
+                                parameter_info=label,
+                                pinfo=l
+                            )
+                            # current_section.add(new_section)
+                            # self.current[new_section.parent.type].add(new_section)
+                            self.current[self.hierarchy[t-1]].add(new_section)
+                            self.current[section_type] = new_section
+                            # current_section = new_section
                 else:
-                    docstring = ''
-                # Split docstring by lines
-                # lines = docstring.split('\n')
-                lines = docstring.splitlines()
-                section = 'text'
-                subsection = ''
-                # t = self.indent_width(lines[0])
+                    docstring = 'Not yet documented'
+                    current_section.set('method_info', docstring)
 
-                # Loop through the lines in the docstring
-                for i, l in enumerate(lines):
-                    l = l.replace(' '*self.tab_length, '\t')
-
-                    # Detect section tag
-                    # if l and l[0] == '@':
-                    #     section = l[1:]
-                    # New tag format (e.g., 'Params: ...')
-                    t = self.indent_width(l)
-                    l = self.clean_tabs(l)
-                    print(i, l, t, self.indent_width(l), len(self.hierarchy), True)
-                    section_type = self.hierarchy[t]
-                    if any(l.startswith(h) for h in self.headers):
-                        # print(l[:-1])
-                        section = l[:-1].lower()
-                        current_section = Section(type_=section_type, templates=self.template_content, title=l[:-1], params='children', parameter=l.split(':')[0])
-                    else:
-                        # print(t, l)
-                        new_section = Section(content=l.split(':'), type_=section_type, parent=current_section, templates=self.template_content, params='children', parameter=l.split(':')[0])
-                        current_section.add(new_section)
-                        # current_section = new_section
-
+        self.root = self.current['module']
         self.text = self.root.generate()
 
         return self
