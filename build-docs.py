@@ -5,6 +5,7 @@ import random
 import glob
 import os
 import time
+from dill.source import getsource
 
 module_name = 'main'
 docs_directory = './docs'
@@ -244,6 +245,7 @@ class Documentation:
             # print(classname)
             methods = inspect.getmembers(classname[1], predicate=inspect.isfunction)
             for name, method in methods:
+                # print(inspect.getsourcelines(method)[0])
                 # print(name, method, True)
                 new_section = Section(
                     type_='method',
@@ -252,7 +254,10 @@ class Documentation:
                     method_name=name,
                     methods='children',
                     params='children',
-                    module=module.__name__
+                    module=module.__name__,
+                    # source_code=inspect.getsource(method)
+                    # source_code=''.join(inspect.getsourcelines(method)[0]).encode('UTF-8')
+                    source_code = '\n'+getsource(method)+'\n'
                 )
                 self.current['class'].add(new_section)
                 current_section = new_section
@@ -352,7 +357,7 @@ class Documentation:
         except:
             pass
 
-        with open(self.output_path, 'w') as result_file:
+        with open(self.output_path, 'w', encoding='UTF-8') as result_file:
             result_file.write(self.text)
 
 Docs = Documentation()
