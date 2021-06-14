@@ -26,21 +26,89 @@ class Documentation:
             with open(path, 'r') as template_file:
                 self.template_content[k] = template_file.read()
 
+
+    def indent_width(s):
+        indent = len(s) - len(s.lstrip())
+        return indent
+
+    def clean_tabs(text):
+        lines = text.split('\n')
+        if not lines[0]:
+            lines = lines[1:]
+        tabs = self.indent_width(lines[0])
+        return '\n'.join([l[tabs:] for l in lines])
+
+    def isnum(self, x):
+        return x in '1234567890.-'
+
+    def split_numeric(self, text, parse=True):
+        block = ''
+        block_numeric = self.isnum(text[0])
+        output = []
+        for t in text:
+            if self.isnum(t) == block_numeric:
+                block += t
+            else:
+                if block_numeric:
+                    block = float(block)
+                output.append(block)
+                block = t
+                block_numeric = self.isnum(t)
+        if block_numeric:
+            block = float(block)
+        output.append(block)
+        return output
+
+    def generate(self):
+        doc_module = importlib.import_module(module_name)
+        doc_classes = inspect.getmembers(doc_module, inspect.isclass)
+        for name, cls in doc_classes:
+            if cls.__module__ == module_name:
+
+                # print(name, cls)
+                # print(docstring)
+                # try:
+                #     print(cls.__annotations__)
+                # except:
+                #     pass
+
+                # section_content = section_content.replace('{class}', name)
+                # section_content = section_content.replace('{docstring}', docstring)
+                section_content = generate_section('class', cls, [('{class}', name)])
+                # print(section_content)
+
+                methods = inspect.getmembers(cls, predicate=inspect.isfunction)
+                # print(methods)
+                method_info = ''
+                for m in methods:
+                    subsection_content = generate_section('method', m[1], [('{method}', m[0])])
+                    method_info += subsection_content + '\n'
+                    # print(extract_info(mstring))
+                section_content = section_content.replace('[methods]', method_info)
+                section_content = section_content.replace('{timestamp}', str(datetime.datetime.now()))
+
+
+                result += section_content + '\n'
+
+    def write(self):
+        # result = result.replace('{CA}', 'cellular automata')
+        # result = result.replace('{planned}', '`[not yet implemented]`')
+
+        with open(output, 'r') as file:
+            current_content = file.read()
+        firstline = current_content.split('\n')[0]
+        print(firstline.split(' '))
+        if 'Docs version' in firstline:
+            version = int(firstline.split(' ')[-1])+1
+        else:
+            version = 0
+        result = 'Docs version ' + str(version) + '\n\n' + result
+
+        with open(output, 'w') as file:
+            file.write(result)
+
 Docs = Documentation()
 print(Docs.templates)
-
-
-
-def indent_width(s):
-    indent = len(s) - len(s.lstrip())
-    return indent
-
-def clean_tabs(text):
-    lines = text.split('\n')
-    if not lines[0]:
-        lines = lines[1:]
-    tabs = indent_width(lines[0])
-    return '\n'.join([l[tabs:] for l in lines])
 
 def extract_info(s):
     info = {}
@@ -85,57 +153,9 @@ symbols = {
     '>=': 'greater than or equal to',
 }
 
-def isnum(self, x):
-    return x in '1234567890.-'
-
-def split_numeric(self, text, parse=True):
-    block = ''
-    block_numeric = self.isnum(text[0])
-    output = []
-    for t in text:
-        if self.isnum(t) == block_numeric:
-            block += t
-        else:
-            if block_numeric:
-                block = float(block)
-            output.append(block)
-            block = t
-            block_numeric = self.isnum(t)
-    if block_numeric:
-        block = float(block)
-    output.append(block)
-    return output
 
 data_types = ['int', 'str', 'float', 'bool', 'func', 'array']
-def parse_tags(tag_list):
-    result = '**'
-    for i, t in enumerate(tag_list):
-        if i < len(tag_list) - 1:
-            next = tag_list[i+1]
-        else:
-            next = None
 
-        if t in data_types:
-            result += '`{}`'.format(t)
-            if type(next) is list:
-                if t in ['str']:
-                    result += ' in `{}`'.format(', '.join(next))
-                    tag_list.remove(next)
-                elif t in ['func']:
-                    result += ' (`{}` -> `{}`)'.format(*next)
-                    tag_list.remove(next)
-        elif '-' in str(t):
-            limits = t.split('-')
-            result += ' between `{}` and `{}`'.format(*limits)
-        elif type(t) is not list and t in symbols:
-            # elif any(s in t for s in symbols):
-            result += ' {} {}'.format(symbols[t], next)
-        elif type(t) is list and t[0] in data_types:
-            if type(t[1]) in [int, float, str]:
-                t[1] = [t[1]]
-            result += '`{}` array of shape `{}`'.format(*t)
-    result += '**'
-    return result
 
 def generate_section(stype, object, replacements):
     docstring = object.__doc__
@@ -222,52 +242,9 @@ def generate_section(stype, object, replacements):
 
     return content
 
-# doc_module = importlib.import_module(module_name)
-# doc_classes = inspect.getmembers(doc_module, inspect.isclass)
-# for name, cls in doc_classes:
-for i in []:
-    if cls.__module__ == module_name:
-
-        # print(name, cls)
-        # print(docstring)
-        # try:
-        #     print(cls.__annotations__)
-        # except:
-        #     pass
-
-        # section_content = section_content.replace('{class}', name)
-        # section_content = section_content.replace('{docstring}', docstring)
-        section_content = generate_section('class', cls, [('{class}', name)])
-        # print(section_content)
-
-        methods = inspect.getmembers(cls, predicate=inspect.isfunction)
-        # print(methods)
-        method_info = ''
-        for m in methods:
-            subsection_content = generate_section('method', m[1], [('{method}', m[0])])
-            method_info += subsection_content + '\n'
-            # print(extract_info(mstring))
-        section_content = section_content.replace('[methods]', method_info)
-        section_content = section_content.replace('{timestamp}', str(datetime.datetime.now()))
 
 
-        result += section_content + '\n'
 
-# result = result.replace('{CA}', 'cellular automata')
-# result = result.replace('{planned}', '`[not yet implemented]`')
-#
-# with open(output, 'r') as file:
-#     current_content = file.read()
-# firstline = current_content.split('\n')[0]
-# print(firstline.split(' '))
-# if 'Docs version' in firstline:
-#     version = int(firstline.split(' ')[-1])+1
-# else:
-#     version = 0
-# result = 'Docs version ' + str(version) + '\n\n' + result
-
-# with open(output, 'w') as file:
-#     file.write(result)
 
 # print(result)
 # print('{}% of classes and {}% of methods documented')
