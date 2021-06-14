@@ -12,28 +12,30 @@ output = d_+'/main.md'
 result = ''
 
 class Section:
-    def __init__(self, template_content):
+    def __init__(self, template_content, section_type):
         """Create a new Section object"""
         self.helpers = Documentation()
         self.template_content = template_content
+        self.section_type = section_type
+        self.stype = self.section_type
 
-    def generate(self, stype, object, replacements):
+    def generate(self, object, replacements):
         """Generate the content for this section"""
 
         docstring = object.__doc__
         if docstring is None:
             docstring = 'Not yet documented'
-        if stype in ['class', 'method']:
+        if self.stype in ['class', 'method']:
             doc_info = self.helpers.extract_info(docstring)
             # replacements.append(('{docstring}', doc_info['text']['val'][0]))
             replacements.append(('{docstring}', 'test'))
         else:
             doc_info = object
-        content = self.template_content[stype]
+        content = self.template_content[self.stype]
         for r in replacements:
             content = content.replace(*r)
 
-        if stype == 'method':
+        if self.stype == 'method':
             param_list = []
             if 'params' in doc_info.names():
                 for k, v in doc_info['params'].items():
@@ -45,7 +47,7 @@ class Section:
                     param_content = generate_section('parameter', v, [('{parameter}', k)])
                     param_list.append(param_content)
             content = content.replace('[params]', '\n'.join(param_list))
-        elif stype == 'parameter':
+        elif self.stype == 'parameter':
             # content = ''
             label = doc_info[0]['label']
 
@@ -237,7 +239,7 @@ class Documentation:
         self.import_modules()
 
         for module, c in self.classes:
-            class_section = Section(self.template_content)
+            class_section = Section(self.template_content, section_type='class')
             for name, cls in c:
                 # if cls.__module__ == module_name:
                 if True:
@@ -251,15 +253,17 @@ class Documentation:
 
                     # section_content = section_content.replace('{class}', name)
                     # section_content = section_content.replace('{docstring}', docstring)
-                    section_content = class_section.generate('class', cls, [('{class}', name)])
+                    section_content = class_section.generate(cls, [('{class}', name)])
                     # print(section_content)
 
                     methods = inspect.getmembers(cls, predicate=inspect.isfunction)
                     # print(methods)
                     method_info = ''
                     for m in methods:
-                        subsection_content = class_section.generate('method', m[1], [('{method}', m[0])])
+                        method_section = Section(self.template_content, section_type='method')
+                        subsection_content = method_section.generate(m[1], [('{method}', m[0])])
                         method_info += subsection_content + '\n'
+
                         # print(extract_info(mstring))
                     section_content = section_content.replace('[methods]', method_info)
                     section_content = section_content.replace('{timestamp}', str(datetime.datetime.now()))
@@ -306,11 +310,7 @@ symbols = {
 
 data_types = ['int', 'str', 'float', 'bool', 'func', 'array']
 
-
-
-
-
-
+# TODO: link to relevant git commits + source code
 
 
 # print(result)
