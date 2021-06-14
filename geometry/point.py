@@ -27,6 +27,14 @@ class Point:
         return self
 
     def rotate(self, a:list, theta:int, rad:float=None):
+        """
+        Rotate the point about another
+
+        Params:
+            a: The point to rotate about
+            theta: The rotation to apply to the point, in degrees
+            rad: The rotation in radians (supersedes `theta`)
+        """
         theta = float(theta)
         # Convert to radians
         if not rad:
