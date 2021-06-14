@@ -2,6 +2,8 @@ import importlib, inspect
 import datetime
 import json
 import random
+import glob
+import os
 
 module_name = 'main'
 docs_directory = './docs'
@@ -9,16 +11,25 @@ d_ = docs_directory
 output = d_+'/main.md'
 result = ''
 
-templates = {
-    'class': 'class_template.md',
-    'method': 'method_template.md',
-    'parameter': 'parameter_template.md'
-}
-template_content = {}
-for k, v in templates.items():
-    path = d_+'/'+v
-    with open(path, 'r') as file:
-        template_content[k] = file.read()
+
+class Documentation:
+    """Documentation"""
+
+    def __init__(self, template_path='./docs/templates/*_template.md'):
+        template_files = glob.glob(template_path)
+        # filename = t.split('/')[-1]
+        self.templates = {os.path.basename(t).split('_')[0]: os.path.normpath(t) for t in template_files}
+
+        self.template_content = {}
+        for k, v in self.templates.items():
+            path = v
+            with open(path, 'r') as template_file:
+                self.template_content[k] = template_file.read()
+
+Docs = Documentation()
+print(Docs.templates)
+
+
 
 def indent_width(s):
     indent = len(s) - len(s.lstrip())
@@ -211,9 +222,10 @@ def generate_section(stype, object, replacements):
 
     return content
 
-doc_module = importlib.import_module(module_name)
-doc_classes = inspect.getmembers(doc_module, inspect.isclass)
-for name, cls in doc_classes:
+# doc_module = importlib.import_module(module_name)
+# doc_classes = inspect.getmembers(doc_module, inspect.isclass)
+# for name, cls in doc_classes:
+for i in []:
     if cls.__module__ == module_name:
 
         # print(name, cls)
@@ -241,21 +253,21 @@ for name, cls in doc_classes:
 
         result += section_content + '\n'
 
-result = result.replace('{CA}', 'cellular automata')
-result = result.replace('{planned}', '`[not yet implemented]`')
+# result = result.replace('{CA}', 'cellular automata')
+# result = result.replace('{planned}', '`[not yet implemented]`')
+#
+# with open(output, 'r') as file:
+#     current_content = file.read()
+# firstline = current_content.split('\n')[0]
+# print(firstline.split(' '))
+# if 'Docs version' in firstline:
+#     version = int(firstline.split(' ')[-1])+1
+# else:
+#     version = 0
+# result = 'Docs version ' + str(version) + '\n\n' + result
 
-with open(output, 'r') as file:
-    current_content = file.read()
-firstline = current_content.split('\n')[0]
-print(firstline.split(' '))
-if 'Docs version' in firstline:
-    version = int(firstline.split(' ')[-1])+1
-else:
-    version = 0
-result = 'Docs version ' + str(version) + '\n\n' + result
-
-with open(output, 'w') as file:
-    file.write(result)
+# with open(output, 'w') as file:
+#     file.write(result)
 
 # print(result)
 # print('{}% of classes and {}% of methods documented')
