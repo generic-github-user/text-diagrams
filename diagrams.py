@@ -21,7 +21,8 @@ class Element:
     """A generic element to be added to a diagram"""
 
     def __init__(self, pos):
-        """Create a new element (note that this is an internal method used to create instances of element subclasses like the Text class)
+        """
+        Create a new element (note that this is an internal method used to create instances of element subclasses like the Text class)
 
         Params:
             pos: Coordinates of the element in the scene
@@ -39,7 +40,8 @@ class Element:
         self.id = uuid.uuid4()
 
 class Text(Element):
-    """Simple text element to add to a diagram
+    """
+    Simple text element to add to a diagram
     """
 
     text: str
@@ -51,7 +53,8 @@ class Text(Element):
     ry: float
 
     def __init__(self, pos:list, text:str, angle:int=45, style:str=None):
-        """Create a new text element
+        """
+        Create a new text element
 
         Params:
             pos: Coordinates of the text element
@@ -98,7 +101,8 @@ class Text(Element):
         value:int=50,
         **kwargs
     ):
-        """Create a 2D array representing the bounding box of this element
+        """
+        Create a 2D array representing the bounding box of this element
 
         Params:
             rich_output: #
@@ -154,7 +158,9 @@ class Text(Element):
 
 
 class Diagram:
-    """A diagram containing some graphical elements and their relationships."""
+    """
+    A diagram containing some graphical elements and their relationships.
+    """
 
     objects: list[Element]
     dims: list[int]
@@ -176,8 +182,9 @@ class Diagram:
         direction=None,
         **kwargs
     ):
-        """Create a new diagram object
-        
+        """
+        Create a new diagram object
+
         Params:
             objects: The elements to initialize the Diagram with
             dims: The size of the diagram; `[width, height]`
@@ -225,7 +232,9 @@ class Diagram:
             self.offset = [self.x//2, self.y//2]
 
     def write(self, path, data) -> 'Diagram':
-        """Create a new file and insert UTF-8-encoded text data or update an existing file"""
+        """
+        Create a new file and insert UTF-8-encoded text data or update an existing file
+        """
         # Write the string to a file
         with open(path, 'w', encoding='utf-8') as file:
             file.write(data)
@@ -237,7 +246,8 @@ class Diagram:
         rich_output:bool=False,
         **kwargs
     ) -> 'Diagram':
-        """Convert the diagram's elements to a portable string and optionally save the generated document
+        """
+        Convert the diagram's elements to a portable string and optionally save the generated document
 
         Params:
             path: The base path to save the result to
