@@ -118,13 +118,14 @@ class ParseData:
 class Documentation:
     """Documentation"""
 
-    def __init__(self, source_path='./*.py', template_path='./docs/templates/*_template.md'):
+    def __init__(self, source_path='./*.py', template_path='./docs/templates/*_template.md', output_path='./docs/documentation.md'):
         """Create a new Documentation object"""
 
         template_files = glob.glob(template_path)
         # filename = t.split('/')[-1]
         self.sources = {os.path.basename(s).split('.')[0]: os.path.normpath(s) for s in glob.glob(source_path)}
         self.templates = {os.path.basename(t).split('_')[0]: os.path.normpath(t) for t in template_files}
+        self.output_path = output_path
 
         self.template_content = {}
         for k, v in self.templates.items():
@@ -264,30 +265,34 @@ class Documentation:
                     section_content = section_content.replace('{timestamp}', str(datetime.datetime.now()))
 
                     self.text += section_content + '\n'
+        return self
 
     def write(self):
         # result = result.replace('{CA}', 'cellular automata')
         # result = result.replace('{planned}', '`[not yet implemented]`')
 
-        with open(output, 'r') as file:
-            current_content = file.read()
+        try:
+            with open(self.output_path, 'r') as result_file:
+                current_content = result_file.read()
 
-        # Update the header containing the current version of the documentation
-        firstline = current_content.split('\n')[0]
-        print(firstline.split(' '))
-        if 'Docs version' in firstline:
-            # Increment version
-            version = int(firstline.split(' ')[-1])+1
-        else:
-            version = 0
-        result = 'Docs version ' + str(version) + '\n\n' + result
+            # Update the header containing the current version of the documentation
+            firstline = current_content.split('\n')[0]
+            print(firstline.split(' '))
+            if 'Docs version' in firstline:
+                # Increment version
+                version = int(firstline.split(' ')[-1])+1
+            else:
+                version = 0
+            self.text = 'Docs version ' + str(version) + '\n\n' + self.text
+        except:
+            pass
 
-        with open(output, 'w') as file:
-            file.write(result)
+        with open(self.output_path, 'w') as result_file:
+            result_file.write(self.text)
 
 Docs = Documentation()
 print(Docs.templates, Docs.sources)
-Docs.generate()
+Docs.generate().write()
 print(Docs.text)
 
 
