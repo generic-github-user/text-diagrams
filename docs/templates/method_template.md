@@ -1,6 +1,8 @@
-### `{method}`
+### `{method_name}`
 
-{docstring}
+Method
+
+{method_info}
 
 #### Parameters
 

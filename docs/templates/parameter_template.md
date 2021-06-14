@@ -1,5 +1,5 @@
 ##### `{parameter}`
 
-{label}
+{parameter_info}
 
 [types]

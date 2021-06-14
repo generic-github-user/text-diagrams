@@ -1,6 +1,12 @@
-## {class}
+## {class_name}
 
-{docstring}
+Class
+
+*module `{module}`*
+
+{class_info}
+
+### Methods
 
 [methods]
 
