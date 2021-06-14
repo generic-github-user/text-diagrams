@@ -17,6 +17,12 @@ class Point:
         self.precision = p
 
     def move(self, delta:list):
+        """
+        Translate the point
+
+        Params:
+            delta: A list of offsets to move the point along each axis in space by
+        """
         self.pos += np.array(delta)
         return self
 
