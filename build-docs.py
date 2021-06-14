@@ -104,6 +104,15 @@ class Section:
 
         return content
 
+class ParseData:
+    def __init__(self, **kwargs):
+        self.children = []
+        for k, v in kwargs.items():
+            setattr(self, k, v)
+
+    def names(self):
+        return [c.type for c in self.children]
+
 
 class Documentation:
     """Documentation"""
