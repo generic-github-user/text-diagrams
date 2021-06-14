@@ -58,6 +58,9 @@ class Point:
         return self
 
     def __call__(self):
+        """
+        Returns this point's position
+        """
         return self.pos
 
     def print(self):
@@ -65,6 +68,9 @@ class Point:
         return self
 
     def __str__(self):
+        """
+        Generate a string representation of this point
+        """
         return 'Point ' + str(self.pos)
 
 
