@@ -142,11 +142,14 @@ class Documentation:
     def clean_tabs(self, text):
         """Remove leading tabs from a string"""
 
-        lines = text.split('\n')
-        if not lines[0]:
-            lines = lines[1:]
-        tabs = self.indent_width(lines[0])
-        return '\n'.join([l[tabs:] for l in lines])
+        if text:
+            lines = text.split('\n')
+            if not lines[0]:
+                lines = lines[1:]
+            tabs = self.indent_width(lines[0])
+            return '\n'.join([l[tabs:] for l in lines])
+        else:
+            return ''
 
     def isnum(self, x):
         """Check if a given character is numeric"""
