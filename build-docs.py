@@ -146,7 +146,12 @@ class Documentation:
         self.tab_length = 6
 
     def indent_width(self, string):
-        """Count the number of leading tabs in a string (e.g., a line of code)"""
+        """
+        Count the number of leading tabs in a string (e.g., a line of code)
+
+        Params:
+            string: The input string
+        """
         if string.startswith(' '*self.tab_length):
             string = string.replace(' '*self.tab_length, '\t')
         # elif string.startswith('')
@@ -157,6 +162,9 @@ class Documentation:
     def clean_tabs(self, text):
         """
         Remove leading tabs from a string
+
+        Params:
+            text: The input string
         """
 
         if text:
@@ -220,6 +228,9 @@ class Documentation:
         return output
 
     def import_modules(self):
+        """
+        Import each of the modules to be documented
+        """
         for k, v in self.sources.items():
             module_name = k
             doc_module = importlib.import_module(module_name)
@@ -228,7 +239,12 @@ class Documentation:
                 self.classes.append([doc_module, c])
 
     def extract_info(self, docstring):
-        """Parse a docstring and return a dictionary of its structured data"""
+        """
+        Parse a docstring and return a dictionary of its structured data
+        """
+        pass
+
+    def parent(self):
         pass
 
     def generate(self):
