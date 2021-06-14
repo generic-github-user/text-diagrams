@@ -28,7 +28,12 @@ class Line:
             p.rotate(*args, **kwargs)
         return self
 
-    def divide(self, n=1):
+    def divide(self, n:int=1) -> list['Line']:
+        """Split the line into several smaller line segments
+
+        Params:
+            n: The number of sections to divide the line into
+        """
 #         return [Line(Point(np.average([self.a, self.b], weights=[]))) for i in range(n)]
         sections = []
         for i in range(n):
