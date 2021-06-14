@@ -177,6 +177,18 @@ class Diagram:
         **kwargs
     ):
         """Create a new diagram object
+
+        Params:
+            objects: The elements to initialize the Diagram with
+            dims: The size of the diagram; `[width, height]`
+            background: The Diagram's background
+                A character to use for each cell of the background
+                `'random'`: a value will be automatically selected
+            origin: The position that should be used for the center of the coordinate system (i.e., `(0, 0)`)
+            hue: The hue component of the color; either an integer in the range `[0, 360]` or a function that takes the current character index and total length of the text and returns an appropriate value
+            saturation: The same as the hue, but representing the saturation of the font color - a value from 0 to 100 (i.e., a percentage)
+            value: Essentially identical to saturation except controlling brightness instead (0 will give black and 100 will give white)
+            direction
         """
 
         self.objects = objects if objects else []
