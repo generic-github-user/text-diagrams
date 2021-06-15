@@ -1,4 +1,4 @@
-Docs version 11
+Docs version 12
 
 # Main
 
@@ -562,7 +562,7 @@ Not yet documented
 </details>
 
 
-Docs built at 2021-06-14 19:58:51.467171
+Docs built at 2021-06-14 20:09:41.371427
 
 <details>
 <summary>View source</summary>
@@ -1079,7 +1079,7 @@ Set a property of the section
 </details>
 
 
-Docs built at 2021-06-14 19:58:51.494098
+Docs built at 2021-06-14 20:09:41.386388
 
 <details>
 <summary>View source</summary>
@@ -1511,7 +1511,7 @@ Create a new file and insert UTF-8-encoded text data or update an existing file
 </details>
 
 
-Docs built at 2021-06-14 19:58:51.505070
+Docs built at 2021-06-14 20:09:41.396383
 
 <details>
 <summary>View source</summary>
@@ -1783,7 +1783,7 @@ Create a new element (note that this is an internal method used to create instan
 </details>
 
 
-Docs built at 2021-06-14 19:58:51.526014
+Docs built at 2021-06-14 20:09:41.425285
 
 <details>
 <summary>View source</summary>
@@ -2074,7 +2074,7 @@ Rotate the point about another
 </details>
 
 
-Docs built at 2021-06-14 19:58:51.533993
+Docs built at 2021-06-14 20:09:41.456201
 
 <details>
 <summary>View source</summary>
@@ -2389,7 +2389,7 @@ Create a 2D array representing the bounding box of this element
 </details>
 
 
-Docs built at 2021-06-14 19:58:51.546957
+Docs built at 2021-06-14 20:09:41.468169
 
 <details>
 <summary>View source</summary>
@@ -2516,5 +2516,327 @@ class Text(Element):
 ```
 </details>
 
+## Section
 
-Docs built at 2021-06-14 19:58:51.457198
+Class
+
+*module `section`*
+
+Class not yet documented
+
+### Methods
+
+### `__init__`
+
+Method
+
+Create a new section
+
+#### Parameters
+
+##### `Params`
+
+{parameter_info}
+
+##### `type_`
+
+ The type of section
+
+
+
+##### `templates`
+
+ A dictionary pairing template names to their contents
+
+
+
+##### `parent`
+
+ The parent section
+
+
+
+##### `**kwargs`
+
+ Additional arguments and/or data for the section
+
+
+
+
+
+#### Source
+
+<details>
+<summary>View source</summary>
+
+```python
+
+    def __init__(self, content=None, type_=None, data=None, templates=None, parent=None, **kwargs):
+        """
+        Create a new section
+
+        Params:
+            type_: The type of section
+            templates: A dictionary pairing template names to their contents
+            parent: The parent section
+            **kwargs: Additional arguments and/or data for the section
+        """
+        defaults = {
+            'classes': 'children',
+            'methods': 'children',
+            'params': 'children',
+            'types': 'children',
+            'timestamp': str(datetime.datetime.now()),
+            'class_info': 'Class not yet documented',
+            'module': 'Main',
+            'module_info': 'Module not yet documented'
+        }
+        self.parent = parent
+        self.children = []
+        self.content = content if content else []
+        self.data = data if data else {}
+        self.text = ''
+        self.templates = templates
+        self.type = type_
+
+        defaults |= kwargs
+        self.kwargs = defaults
+
+
+```
+</details>
+
+### `add`
+
+Method
+
+Not yet documented
+
+#### Parameters
+
+
+
+#### Source
+
+<details>
+<summary>View source</summary>
+
+```python
+
+    def add(self, x):
+        self.children.append(x)
+        return x
+
+
+```
+</details>
+
+### `generate`
+
+Method
+
+Not yet documented
+
+#### Parameters
+
+
+
+#### Source
+
+<details>
+<summary>View source</summary>
+
+```python
+
+    def generate(self):
+        # s = Section(section_type=self.type, template_content=template)
+        # self.text = ' | '.join(self.content)
+        self.text = self.templates[self.type]
+
+
+        combined = '\n'.join([c.generate() for c in self.children if c is not self])
+        # print(self.kwargs)
+        # ???
+        for r in self.kwargs:
+            h = self.kwargs[r]
+            if h == 'children':
+                if self.children:
+                    h = combined
+                else:
+                    h = ''
+            for q in ['{{{}}}', '[{}]']:
+                self.text = self.text.replace(q.format(r), h)
+
+        # print(self.kwargs, self.text)
+        # print(self.children)
+        # print(len(self.children))
+        # print([c.text for c in self.children])
+        # time.sleep(0.01)
+
+        return self.text
+
+
+```
+</details>
+
+### `names`
+
+Method
+
+Not yet documented
+
+#### Parameters
+
+
+
+#### Source
+
+<details>
+<summary>View source</summary>
+
+```python
+
+    def names(self):
+        return [c.type for c in self.children]
+
+
+```
+</details>
+
+### `set`
+
+Method
+
+Set a property of the section
+
+#### Parameters
+
+##### `Params`
+
+{parameter_info}
+
+##### `a`
+
+ The name of the property
+
+
+
+##### `b`
+
+ The value to set the property to
+
+
+
+
+
+#### Source
+
+<details>
+<summary>View source</summary>
+
+```python
+
+    def set(self, a, b):
+        """
+        Set a property of the section
+
+        Params:
+            a: The name of the property
+            b: The value to set the property to
+        """
+        self.kwargs[a] = b
+
+
+```
+</details>
+
+
+Docs built at 2021-06-14 20:09:41.483130
+
+<details>
+<summary>View source</summary>
+
+```python
+
+class Section:
+    def __init__(self, content=None, type_=None, data=None, templates=None, parent=None, **kwargs):
+        """
+        Create a new section
+
+        Params:
+            type_: The type of section
+            templates: A dictionary pairing template names to their contents
+            parent: The parent section
+            **kwargs: Additional arguments and/or data for the section
+        """
+        defaults = {
+            'classes': 'children',
+            'methods': 'children',
+            'params': 'children',
+            'types': 'children',
+            'timestamp': str(datetime.datetime.now()),
+            'class_info': 'Class not yet documented',
+            'module': 'Main',
+            'module_info': 'Module not yet documented'
+        }
+        self.parent = parent
+        self.children = []
+        self.content = content if content else []
+        self.data = data if data else {}
+        self.text = ''
+        self.templates = templates
+        self.type = type_
+
+        defaults |= kwargs
+        self.kwargs = defaults
+
+    def names(self):
+        return [c.type for c in self.children]
+
+    def add(self, x):
+        self.children.append(x)
+        return x
+
+    def set(self, a, b):
+        """
+        Set a property of the section
+
+        Params:
+            a: The name of the property
+            b: The value to set the property to
+        """
+        self.kwargs[a] = b
+
+    def generate(self):
+        # s = Section(section_type=self.type, template_content=template)
+        # self.text = ' | '.join(self.content)
+        self.text = self.templates[self.type]
+
+
+        combined = '\n'.join([c.generate() for c in self.children if c is not self])
+        # print(self.kwargs)
+        # ???
+        for r in self.kwargs:
+            h = self.kwargs[r]
+            if h == 'children':
+                if self.children:
+                    h = combined
+                else:
+                    h = ''
+            for q in ['{{{}}}', '[{}]']:
+                self.text = self.text.replace(q.format(r), h)
+
+        # print(self.kwargs, self.text)
+        # print(self.children)
+        # print(len(self.children))
+        # print([c.text for c in self.children])
+        # time.sleep(0.01)
+
+        return self.text
+
+
+```
+</details>
+
+
+Docs built at 2021-06-14 20:09:41.361454
