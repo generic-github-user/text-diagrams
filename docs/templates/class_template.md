@@ -11,3 +11,11 @@ Class
 [methods]
 
 Docs built at {timestamp}
+
+<details>
+<summary>View source</summary>
+
+```python
+{source_code}
+```
+</details>

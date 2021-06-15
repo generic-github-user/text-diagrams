@@ -237,7 +237,8 @@ class Documentation:
                 class_name=classname[0],
                 module=module.__name__,
                 methods='children',
-                params='children'
+                params='children',
+                source_code = '\n'+getsource(classname[1])+'\n'
             )
             self.current['module'].add(new_section)
             current_section = new_section
