@@ -8,6 +8,7 @@ import time
 from dill.source import getsource
 
 from section import Section
+from argtype import ArgType
 
 module_name = 'main'
 docs_directory = './docs'
