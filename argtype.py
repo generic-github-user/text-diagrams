@@ -1,3 +1,5 @@
+import random
+
 class ArgType:
     """
     Defines a 'type' that can be used for validating and/or converting function arguments, generating examples, type hinting, etc. It is intended to emulate some of the features of Python's `typing` module, albeit with a more general scope.
@@ -16,6 +18,9 @@ class ArgType:
         p = self.primitive.__name__
         return self.info.format(self.an(p), p, condition_string)
 
+    def example(self, *args, **kwargs):
+        return self.conditions[0].example(*args, **kwargs)
+
 class ArgRange:
     """ArgRange"""
 
@@ -28,5 +33,10 @@ class ArgRange:
     def text(self):
         return self.info.format(*self.args)
 
-test = ArgType(int, ArgRange(1, 10))
+    def example(self, n=1):
+        values = list(self.range)
+        return random.choices(values, k=n)
+
+test = ArgType(int, ArgRange(1, 100))
 print(test.text())
+print(', '.join('`{}`'.format(e) for e in test.example(3)))
