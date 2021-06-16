@@ -1,4 +1,5 @@
 import ast
+import unicodedata
 
 from python_ops import op_strings, symbols
 
@@ -6,6 +7,14 @@ from python_ops import op_strings, symbols
 #     For:
 
 reversed = ['In', 'NotIn']
+
+def lookup(name):
+    try:
+        return unicodedata.lookup(name)
+    except:
+        return None
+
+unicode_chars = ['sum', 'lambda']
 
 functions = {
     'range': ('the range {} to {}', (0, None)),
