@@ -240,11 +240,29 @@ def Pseudocode(source, output_path='./generated-pseudocode.md', formatting='mark
 
 sample = """
 a = 5
+def z(n, m):
+    return n ** m / 4
+
 for i in range(8):
     for j in range(6):
         a += (i * j) // 2
+        a += z(i, j)
+        if a >= 10000:
+            break
+    if a % 567 == 0:
+        print(a + '!')
     a -= a % 4
     print(a)
+
+if 5 in a:
+    print(a*99)
+
+q = sum(range(20))
+w = lambda u, t: u ** 9
+print(abs(-50))
+# print(floor())
+# print(abs())
+print(q)
 """
 
 print(ast.parse(sample).body)
