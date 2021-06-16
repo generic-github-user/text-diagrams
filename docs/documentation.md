@@ -1,4 +1,4 @@
-Docs version 29
+Docs version 31
 
 # Main
 
@@ -112,7 +112,7 @@ Not yet documented
 None available
 
 
-Docs built at 2021-06-16 00:36:44.136668
+Docs built at 2021-06-16 04:30:02.791600
 
 <details>
 <summary>View source</summary>
@@ -276,10 +276,9 @@ Not yet documented
 #### References
 
 - [ArgType.an](#text)
-- [ArgType.an](#text)
 
 
-Docs built at 2021-06-16 00:36:44.138663
+Docs built at 2021-06-16 04:30:02.794591
 
 <details>
 <summary>View source</summary>
@@ -448,10 +447,9 @@ Not yet documented
 #### References
 
 - [ArgType.an](#text)
-- [ArgType.an](#text)
 
 
-Docs built at 2021-06-16 00:36:44.141655
+Docs built at 2021-06-16 04:30:02.797606
 
 <details>
 <summary>View source</summary>
@@ -719,6 +717,7 @@ Not yet documented
             methods = inspect.getmembers(classname[1], predicate=inspect.isfunction)
             for name, method in methods:
                 source_code = '\n'+getsource(method)+'\n'
+                methods_linked = []
                 includes = []
                 for m, c in self.classes:
                     class_methods = inspect.getmembers(c[1], predicate=inspect.isfunction)
@@ -731,7 +730,9 @@ Not yet documented
                         # source_code = source_code.replace(method_str, link)
                         # source_code = source_code.replace(self_str, link)
                         if method_str in source_code or (self_str in source_code and classname[0] == c[0]):
-                            includes.append(f'- {link}')
+                            if method_str not in methods_linked:
+                                includes.append(f'- {link}')
+                                methods_linked.append(method_str)
                 includes = '\n'.join(includes) if includes else 'None available'
 
                 # print(inspect.getsourcelines(method)[0])
@@ -1137,7 +1138,7 @@ Not yet documented
 None available
 
 
-Docs built at 2021-06-16 00:36:44.150631
+Docs built at 2021-06-16 04:30:02.811545
 
 <details>
 <summary>View source</summary>
@@ -1302,6 +1303,7 @@ class Documentation:
             methods = inspect.getmembers(classname[1], predicate=inspect.isfunction)
             for name, method in methods:
                 source_code = '\n'+getsource(method)+'\n'
+                methods_linked = []
                 includes = []
                 for m, c in self.classes:
                     class_methods = inspect.getmembers(c[1], predicate=inspect.isfunction)
@@ -1314,7 +1316,9 @@ class Documentation:
                         # source_code = source_code.replace(method_str, link)
                         # source_code = source_code.replace(self_str, link)
                         if method_str in source_code or (self_str in source_code and classname[0] == c[0]):
-                            includes.append(f'- {link}')
+                            if method_str not in methods_linked:
+                                includes.append(f'- {link}')
+                                methods_linked.append(method_str)
                 includes = '\n'.join(includes) if includes else 'None available'
 
                 # print(inspect.getsourcelines(method)[0])
@@ -1713,7 +1717,7 @@ Set a property of the section
 None available
 
 
-Docs built at 2021-06-16 00:36:44.168583
+Docs built at 2021-06-16 04:30:02.834484
 
 <details>
 <summary>View source</summary>
@@ -2173,7 +2177,7 @@ Create a new file and insert UTF-8-encoded text data or update an existing file
 None available
 
 
-Docs built at 2021-06-16 00:36:44.181549
+Docs built at 2021-06-16 04:30:02.846452
 
 <details>
 <summary>View source</summary>
@@ -2452,7 +2456,7 @@ Create a new element (note that this is an internal method used to create instan
 None available
 
 
-Docs built at 2021-06-16 00:36:44.208477
+Docs built at 2021-06-16 04:30:02.862410
 
 <details>
 <summary>View source</summary>
@@ -2785,7 +2789,7 @@ Rotate the point about another
 - [Point.move](#rotate)
 
 
-Docs built at 2021-06-16 00:36:44.214461
+Docs built at 2021-06-16 04:30:02.869391
 
 <details>
 <summary>View source</summary>
@@ -3114,7 +3118,7 @@ Create a 2D array representing the bounding box of this element
 None available
 
 
-Docs built at 2021-06-16 00:36:44.226429
+Docs built at 2021-06-16 04:30:02.882384
 
 <details>
 <summary>View source</summary>
@@ -3236,6 +3240,136 @@ class Text(Element):
 			if xc < self.w and yc < self.h:
 				self.canvas[yc][xc] = c
 		return self.canvas
+
+
+```
+</details>
+
+## Element
+
+Class
+
+*module `element`*
+
+Class not yet documented
+
+### Methods
+
+### `__init__`
+
+Method
+
+Create a new element (note that this is an internal method used to create instances of element subclasses like the Text class)
+
+#### Parameters
+
+##### `Params`
+
+{parameter_info}
+
+##### `pos`
+
+ Coordinates of the element in the scene
+
+
+
+##### `Attributes`
+
+{parameter_info}
+
+##### `pos`
+
+  Coordinates of the element in the scene (inserted from docs for `Element.__init__#pos`)
+
+
+
+##### `x`
+
+ The x coordinate
+
+
+
+##### `y`
+
+ The y coordinate
+
+
+
+##### `id`
+
+ The UUID of this element
+
+
+
+
+
+
+#### Source
+
+<details>
+<summary>View source</summary>
+
+```python
+
+
+	def __init__(self, pos):
+		"""
+		Create a new element (note that this is an internal method used to create instances of element subclasses like the Text class)
+
+		Params:
+			pos: Coordinates of the element in the scene
+
+		Attributes:
+			pos: $$
+			x: The x coordinate
+			y: The y coordinate
+			id: The UUID of this element
+		"""
+
+		# Upper left-hand corner of bounding box (inclusive)
+		self.pos = pos if pos else [0, 0]
+		self.x, self.y = self.pos
+		self.id = uuid.uuid4()
+
+
+
+```
+
+</details>
+
+#### References
+
+None available
+
+
+Docs built at 2021-06-16 04:30:02.893329
+
+<details>
+<summary>View source</summary>
+
+```python
+
+class Element:
+	"""A generic element to be added to a diagram"""
+
+	def __init__(self, pos):
+		"""
+		Create a new element (note that this is an internal method used to create instances of element subclasses like the Text class)
+
+		Params:
+			pos: Coordinates of the element in the scene
+
+		Attributes:
+			pos: $$
+			x: The x coordinate
+			y: The y coordinate
+			id: The UUID of this element
+		"""
+
+		# Upper left-hand corner of bounding box (inclusive)
+		self.pos = pos if pos else [0, 0]
+		self.x, self.y = self.pos
+		self.id = uuid.uuid4()
 
 
 ```
@@ -3511,7 +3645,7 @@ Set a property of the section
 None available
 
 
-Docs built at 2021-06-16 00:36:44.241389
+Docs built at 2021-06-16 04:30:02.901306
 
 <details>
 <summary>View source</summary>
@@ -3599,4 +3733,4 @@ class Section:
 </details>
 
 
-Docs built at 2021-06-16 00:36:44.132680
+Docs built at 2021-06-16 04:30:02.787610

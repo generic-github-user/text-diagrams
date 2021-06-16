@@ -175,6 +175,7 @@ class Documentation:
             methods = inspect.getmembers(classname[1], predicate=inspect.isfunction)
             for name, method in methods:
                 source_code = '\n'+getsource(method)+'\n'
+                methods_linked = []
                 includes = []
                 for m, c in self.classes:
                     class_methods = inspect.getmembers(c[1], predicate=inspect.isfunction)
@@ -187,7 +188,9 @@ class Documentation:
                         # source_code = source_code.replace(method_str, link)
                         # source_code = source_code.replace(self_str, link)
                         if method_str in source_code or (self_str in source_code and classname[0] == c[0]):
-                            includes.append(f'- {link}')
+                            if method_str not in methods_linked:
+                                includes.append(f'- {link}')
+                                methods_linked.append(method_str)
                 includes = '\n'.join(includes) if includes else 'None available'
 
                 # print(inspect.getsourcelines(method)[0])
