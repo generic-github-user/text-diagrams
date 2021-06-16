@@ -39,6 +39,20 @@ node_strings = {
     'AugAssign': ('{} {} by {}', 'op', 'target', 'value'),
     'BinOp': ('({} {} {})', 'left', 'op', 'right'),
 }
+
+def stringify_node(node):
+    node_data = []
+
+    node_type = type(node).__name__
+    if node_type in node_strings:
+        template = node_strings[node_type]
+    else:
+        template = [node_type]
+
+    if node_type in op_strings:
+        return op_strings[node_type]
+    elif node_type in symbols:
+        return symbols[node_type]
 sample = """
 a = 5
 for i in range(8):
