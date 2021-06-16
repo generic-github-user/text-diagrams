@@ -49,6 +49,28 @@ def convert_markup(d):
         f = type(v) in [list, tuple]
         if f:
             v = v[0]
+        for c, t in tags:
+            while c in v:
+                s = '' if opening else '/'
+                style = ' style="font-style: italic;"' if opening else ''
+                # v[0] = v[0].replace(c, f'<{s}span{style}>', 1)
+                if type(v) in [list]:
+                    v = v.replace(c, f'<{s}{t}>', 1)
+                else:
+                    v = v.replace(c, f'<{s}{t}>', 1)
+                opening = not opening
+        if f:
+            v_ = list(d[k])
+            v_[0] = v
+            d[k] = v_
+        else:
+            d[k] = v
+
+convert_markup(node_strings)
+convert_markup(op_strings)
+print(node_strings)
+print(op_strings)
+
 def stringify_node(node, formatting='markdown'):
     node_data = []
 
