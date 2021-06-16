@@ -40,7 +40,16 @@ node_strings = {
     'BinOp': ('({} {} {})', 'left', 'op', 'right'),
 }
 
-def stringify_node(node):
+def convert_markup(d):
+    for k, v in d.items():
+        if v in [tuple]:
+            v = list(v)
+        opening = True
+        tags = [('**', 'b'), ('*', 'i'), ('_', 'u')]
+        f = type(v) in [list, tuple]
+        if f:
+            v = v[0]
+def stringify_node(node, formatting='markdown'):
     node_data = []
 
     node_type = type(node).__name__
