@@ -104,6 +104,14 @@ print(node_strings)
 print(op_strings)
 
 def stringify_node(node, formatting='markdown'):
+    """
+    Convert an abstract syntax tree node to a string
+
+    Params:
+        node: The node to convert
+        formatting: The markup style to use when generating the result
+            'markdown': Markdown
+    """
     node_data = []
 
     node_type = type(node).__name__
