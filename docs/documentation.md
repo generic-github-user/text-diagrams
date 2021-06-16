@@ -1,10 +1,15 @@
-Docs version 34
+Docs version 42
 
 # Main
 
 Module not yet documented
 
-## ArgRange
+<!-- ## ArgRange -->
+
+<details>
+<summary>
+ArgRange
+</summary>
 
 Class
 
@@ -14,11 +19,17 @@ Class not yet documented
 
 ### Methods
 
-### `__init__`
 
+<details>
+<!-- <summary><h2><code>__init__</code></h2></summary> -->
+<summary>
+__init__
+</summary>
+<!-- ### `__init__` -->
 Method
 
 Not yet documented
+
 
 #### Parameters
 
@@ -48,11 +59,19 @@ Not yet documented
 
 None available
 
-### `example`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>example</code></h2></summary> -->
+<summary>
+example
+</summary>
+<!-- ### `example` -->
 Method
 
 Not yet documented
+
 
 #### Parameters
 
@@ -80,11 +99,19 @@ Not yet documented
 
 None available
 
-### `text`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>text</code></h2></summary> -->
+<summary>
+text
+</summary>
+<!-- ### `text` -->
 Method
 
 Not yet documented
+
 
 #### Parameters
 
@@ -111,8 +138,10 @@ Not yet documented
 
 None available
 
+</details>
 
-Docs built at 2021-06-16 04:34:11.977207
+
+Docs built at 2021-06-16 04:46:14.267237
 
 <details>
 <summary>View source</summary>
@@ -139,7 +168,14 @@ class ArgRange:
 ```
 </details>
 
-## ArgType
+</details>
+
+<!-- ## ArgType -->
+
+<details>
+<summary>
+ArgType
+</summary>
 
 Class
 
@@ -149,11 +185,17 @@ Class not yet documented
 
 ### Methods
 
-### `__init__`
 
+<details>
+<!-- <summary><h2><code>__init__</code></h2></summary> -->
+<summary>
+__init__
+</summary>
+<!-- ### `__init__` -->
 Method
 
 Not yet documented
+
 
 #### Parameters
 
@@ -182,11 +224,19 @@ Not yet documented
 
 None available
 
-### `an`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>an</code></h2></summary> -->
+<summary>
+an
+</summary>
+<!-- ### `an` -->
 Method
 
 Not yet documented
+
 
 #### Parameters
 
@@ -213,11 +263,19 @@ Not yet documented
 
 None available
 
-### `example`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>example</code></h2></summary> -->
+<summary>
+example
+</summary>
+<!-- ### `example` -->
 Method
 
 Not yet documented
+
 
 #### Parameters
 
@@ -244,11 +302,19 @@ Not yet documented
 
 None available
 
-### `text`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>text</code></h2></summary> -->
+<summary>
+text
+</summary>
+<!-- ### `text` -->
 Method
 
 Not yet documented
+
 
 #### Parameters
 
@@ -277,8 +343,10 @@ Not yet documented
 
 - [ArgType.an](#an)
 
+</details>
 
-Docs built at 2021-06-16 04:34:12.043032
+
+Docs built at 2021-06-16 04:46:14.270235
 
 <details>
 <summary>View source</summary>
@@ -310,7 +378,14 @@ class ArgType:
 ```
 </details>
 
-## ArgType
+</details>
+
+<!-- ## ArgType -->
+
+<details>
+<summary>
+ArgType
+</summary>
 
 Class
 
@@ -320,11 +395,17 @@ Class not yet documented
 
 ### Methods
 
-### `__init__`
 
+<details>
+<!-- <summary><h2><code>__init__</code></h2></summary> -->
+<summary>
+__init__
+</summary>
+<!-- ### `__init__` -->
 Method
 
 Not yet documented
+
 
 #### Parameters
 
@@ -353,11 +434,19 @@ Not yet documented
 
 None available
 
-### `an`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>an</code></h2></summary> -->
+<summary>
+an
+</summary>
+<!-- ### `an` -->
 Method
 
 Not yet documented
+
 
 #### Parameters
 
@@ -384,11 +473,19 @@ Not yet documented
 
 None available
 
-### `example`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>example</code></h2></summary> -->
+<summary>
+example
+</summary>
+<!-- ### `example` -->
 Method
 
 Not yet documented
+
 
 #### Parameters
 
@@ -415,11 +512,19 @@ Not yet documented
 
 None available
 
-### `text`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>text</code></h2></summary> -->
+<summary>
+text
+</summary>
+<!-- ### `text` -->
 Method
 
 Not yet documented
+
 
 #### Parameters
 
@@ -448,8 +553,10 @@ Not yet documented
 
 - [ArgType.an](#an)
 
+</details>
 
-Docs built at 2021-06-16 04:34:12.121962
+
+Docs built at 2021-06-16 04:46:14.272224
 
 <details>
 <summary>View source</summary>
@@ -481,7 +588,14 @@ class ArgType:
 ```
 </details>
 
-## Documentation
+</details>
+
+<!-- ## Documentation -->
+
+<details>
+<summary>
+Documentation
+</summary>
 
 Class
 
@@ -491,11 +605,17 @@ Class not yet documented
 
 ### Methods
 
-### `__init__`
 
+<details>
+<!-- <summary><h2><code>__init__</code></h2></summary> -->
+<summary>
+__init__
+</summary>
+<!-- ### `__init__` -->
 Method
 
 Create a new Documentation object
+
 
 #### Parameters
 
@@ -583,11 +703,19 @@ Create a new Documentation object
 
 None available
 
-### `clean_tabs`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>clean_tabs</code></h2></summary> -->
+<summary>
+clean_tabs
+</summary>
+<!-- ### `clean_tabs` -->
 Method
 
 Remove leading tabs from a string
+
 
 #### Parameters
 
@@ -639,11 +767,19 @@ Remove leading tabs from a string
 
 - [Documentation.indent_width](#indent_width)
 
-### `extract_info`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>extract_info</code></h2></summary> -->
+<summary>
+extract_info
+</summary>
+<!-- ### `extract_info` -->
 Method
 
 Parse a docstring and return a dictionary of its structured data
+
 
 #### Parameters
 
@@ -673,11 +809,19 @@ Parse a docstring and return a dictionary of its structured data
 
 None available
 
-### `generate`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>generate</code></h2></summary> -->
+<summary>
+generate
+</summary>
+<!-- ### `generate` -->
 Method
 
 Not yet documented
+
 
 #### Parameters
 
@@ -724,7 +868,6 @@ Not yet documented
                     for n, me in class_methods:
                         method_str = c[0] + '.' + n
                         self_str = 'self.' + n
-                        print(name)
                         link = f'[{method_str}](#{n.lower()})'
                         # link = f'<a href="#{n}">{method_str}</a>'
 
@@ -847,11 +990,19 @@ Not yet documented
 - [Documentation.import_modules](#import_modules)
 - [Documentation.indent_width](#indent_width)
 
-### `import_modules`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>import_modules</code></h2></summary> -->
+<summary>
+import_modules
+</summary>
+<!-- ### `import_modules` -->
 Method
 
 Import each of the modules to be documented
+
 
 #### Parameters
 
@@ -886,11 +1037,19 @@ Import each of the modules to be documented
 
 None available
 
-### `indent_width`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>indent_width</code></h2></summary> -->
+<summary>
+indent_width
+</summary>
+<!-- ### `indent_width` -->
 Method
 
 Count the number of leading tabs in a string (e.g., a line of code)
+
 
 #### Parameters
 
@@ -937,11 +1096,19 @@ Count the number of leading tabs in a string (e.g., a line of code)
 
 None available
 
-### `isnum`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>isnum</code></h2></summary> -->
+<summary>
+isnum
+</summary>
+<!-- ### `isnum` -->
 Method
 
 Check if a given character is numeric
+
 
 #### Parameters
 
@@ -972,11 +1139,19 @@ Check if a given character is numeric
 
 None available
 
-### `parent`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>parent</code></h2></summary> -->
+<summary>
+parent
+</summary>
+<!-- ### `parent` -->
 Method
 
 Not yet documented
+
 
 #### Parameters
 
@@ -1003,11 +1178,19 @@ Not yet documented
 
 None available
 
-### `split_numeric`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>split_numeric</code></h2></summary> -->
+<summary>
+split_numeric
+</summary>
+<!-- ### `split_numeric` -->
 Method
 
 Separate a string into numeric and alphabetical substrings
+
 
 #### Parameters
 
@@ -1087,11 +1270,19 @@ Separate a string into numeric and alphabetical substrings
 
 - [Documentation.isnum](#isnum)
 
-### `write`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>write</code></h2></summary> -->
+<summary>
+write
+</summary>
+<!-- ### `write` -->
 Method
 
 Not yet documented
+
 
 #### Parameters
 
@@ -1138,8 +1329,10 @@ Not yet documented
 
 None available
 
+</details>
 
-Docs built at 2021-06-16 04:34:12.194768
+
+Docs built at 2021-06-16 04:46:14.285161
 
 <details>
 <summary>View source</summary>
@@ -1311,7 +1504,6 @@ class Documentation:
                     for n, me in class_methods:
                         method_str = c[0] + '.' + n
                         self_str = 'self.' + n
-                        print(name)
                         link = f'[{method_str}](#{n.lower()})'
                         # link = f'<a href="#{n}">{method_str}</a>'
 
@@ -1449,7 +1641,14 @@ class Documentation:
 ```
 </details>
 
-## Section
+</details>
+
+<!-- ## Section -->
+
+<details>
+<summary>
+Section
+</summary>
 
 Class
 
@@ -1459,11 +1658,17 @@ Class not yet documented
 
 ### Methods
 
-### `__init__`
 
+<details>
+<!-- <summary><h2><code>__init__</code></h2></summary> -->
+<summary>
+__init__
+</summary>
+<!-- ### `__init__` -->
 Method
 
 Create a new section
+
 
 #### Parameters
 
@@ -1546,11 +1751,19 @@ Create a new section
 
 None available
 
-### `add`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>add</code></h2></summary> -->
+<summary>
+add
+</summary>
+<!-- ### `add` -->
 Method
 
 Not yet documented
+
 
 #### Parameters
 
@@ -1578,11 +1791,19 @@ Not yet documented
 
 None available
 
-### `generate`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>generate</code></h2></summary> -->
+<summary>
+generate
+</summary>
+<!-- ### `generate` -->
 Method
 
 Not yet documented
+
 
 #### Parameters
 
@@ -1633,11 +1854,19 @@ Not yet documented
 
 None available
 
-### `names`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>names</code></h2></summary> -->
+<summary>
+names
+</summary>
+<!-- ### `names` -->
 Method
 
 Not yet documented
+
 
 #### Parameters
 
@@ -1664,11 +1893,19 @@ Not yet documented
 
 None available
 
-### `set`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>set</code></h2></summary> -->
+<summary>
+set
+</summary>
+<!-- ### `set` -->
 Method
 
 Set a property of the section
+
 
 #### Parameters
 
@@ -1718,8 +1955,10 @@ Set a property of the section
 
 None available
 
+</details>
 
-Docs built at 2021-06-16 04:34:12.385047
+
+Docs built at 2021-06-16 04:46:14.316078
 
 <details>
 <summary>View source</summary>
@@ -1806,7 +2045,14 @@ class Section:
 ```
 </details>
 
-## Diagram
+</details>
+
+<!-- ## Diagram -->
+
+<details>
+<summary>
+Diagram
+</summary>
 
 Class
 
@@ -1816,11 +2062,17 @@ Class not yet documented
 
 ### Methods
 
-### `__init__`
 
+<details>
+<!-- <summary><h2><code>__init__</code></h2></summary> -->
+<summary>
+__init__
+</summary>
+<!-- ### `__init__` -->
 Method
 
 Create a new diagram object
+
 
 #### Parameters
 
@@ -1959,11 +2211,19 @@ Create a new diagram object
 
 None available
 
-### `add`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>add</code></h2></summary> -->
+<summary>
+add
+</summary>
+<!-- ### `add` -->
 Method
 
 Add an element to this diagram
+
 
 #### Parameters
 
@@ -1994,11 +2254,19 @@ Add an element to this diagram
 
 None available
 
-### `render`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>render</code></h2></summary> -->
+<summary>
+render
+</summary>
+<!-- ### `render` -->
 Method
 
 Convert the diagram's elements to a portable string and optionally save the generated document
+
 
 #### Parameters
 
@@ -2141,11 +2409,19 @@ Convert the diagram's elements to a portable string and optionally save the gene
 
 - [Diagram.write](#write)
 
-### `write`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>write</code></h2></summary> -->
+<summary>
+write
+</summary>
+<!-- ### `write` -->
 Method
 
 Create a new file and insert UTF-8-encoded text data or update an existing file
+
 
 #### Parameters
 
@@ -2178,8 +2454,10 @@ Create a new file and insert UTF-8-encoded text data or update an existing file
 
 None available
 
+</details>
 
-Docs built at 2021-06-16 04:34:12.470812
+
+Docs built at 2021-06-16 04:46:14.330041
 
 <details>
 <summary>View source</summary>
@@ -2361,7 +2639,14 @@ class Diagram:
 ```
 </details>
 
-## Element
+</details>
+
+<!-- ## Element -->
+
+<details>
+<summary>
+Element
+</summary>
 
 Class
 
@@ -2371,11 +2656,17 @@ Class not yet documented
 
 ### Methods
 
-### `__init__`
 
+<details>
+<!-- <summary><h2><code>__init__</code></h2></summary> -->
+<summary>
+__init__
+</summary>
+<!-- ### `__init__` -->
 Method
 
 Create a new element (note that this is an internal method used to create instances of element subclasses like the Text class)
+
 
 #### Parameters
 
@@ -2457,8 +2748,10 @@ Create a new element (note that this is an internal method used to create instan
 
 None available
 
+</details>
 
-Docs built at 2021-06-16 04:34:12.550673
+
+Docs built at 2021-06-16 04:46:14.345998
 
 <details>
 <summary>View source</summary>
@@ -2491,7 +2784,14 @@ class Element:
 ```
 </details>
 
-## Point
+</details>
+
+<!-- ## Point -->
+
+<details>
+<summary>
+Point
+</summary>
 
 Class
 
@@ -2501,11 +2801,17 @@ Class not yet documented
 
 ### Methods
 
-### `__call__`
 
+<details>
+<!-- <summary><h2><code>__call__</code></h2></summary> -->
+<summary>
+__call__
+</summary>
+<!-- ### `__call__` -->
 Method
 
 {method_info}
+
 
 #### Parameters
 
@@ -2540,11 +2846,19 @@ Method
 
 None available
 
-### `__init__`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>__init__</code></h2></summary> -->
+<summary>
+__init__
+</summary>
+<!-- ### `__init__` -->
 Method
 
 Create a new Point instance
+
 
 #### Parameters
 
@@ -2595,11 +2909,19 @@ Create a new Point instance
 
 None available
 
-### `__str__`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>__str__</code></h2></summary> -->
+<summary>
+__str__
+</summary>
+<!-- ### `__str__` -->
 Method
 
 Generate a string representation of this point
+
 
 #### Parameters
 
@@ -2629,11 +2951,19 @@ Generate a string representation of this point
 
 None available
 
-### `move`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>move</code></h2></summary> -->
+<summary>
+move
+</summary>
+<!-- ### `move` -->
 Method
 
 Translate the point
+
 
 #### Parameters
 
@@ -2677,11 +3007,19 @@ Translate the point
 
 None available
 
-### `print`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>print</code></h2></summary> -->
+<summary>
+print
+</summary>
+<!-- ### `print` -->
 Method
 
 Not yet documented
+
 
 #### Parameters
 
@@ -2709,11 +3047,19 @@ Not yet documented
 
 None available
 
-### `rotate`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>rotate</code></h2></summary> -->
+<summary>
+rotate
+</summary>
+<!-- ### `rotate` -->
 Method
 
 Rotate the point about another
+
 
 #### Parameters
 
@@ -2790,8 +3136,10 @@ Rotate the point about another
 
 - [Point.move](#move)
 
+</details>
 
-Docs built at 2021-06-16 04:34:12.571598
+
+Docs built at 2021-06-16 04:46:14.351982
 
 <details>
 <summary>View source</summary>
@@ -2874,7 +3222,14 @@ class Point:
 ```
 </details>
 
-## Text
+</details>
+
+<!-- ## Text -->
+
+<details>
+<summary>
+Text
+</summary>
 
 Class
 
@@ -2884,11 +3239,17 @@ Class not yet documented
 
 ### Methods
 
-### `__init__`
 
+<details>
+<!-- <summary><h2><code>__init__</code></h2></summary> -->
+<summary>
+__init__
+</summary>
+<!-- ### `__init__` -->
 Method
 
 Create a new text element
+
 
 #### Parameters
 
@@ -2988,11 +3349,19 @@ Create a new text element
 
 None available
 
-### `render`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>render</code></h2></summary> -->
+<summary>
+render
+</summary>
+<!-- ### `render` -->
 Method
 
 Create a 2D array representing the bounding box of this element
+
 
 #### Parameters
 
@@ -3119,8 +3488,10 @@ Create a 2D array representing the bounding box of this element
 
 None available
 
+</details>
 
-Docs built at 2021-06-16 04:34:12.675343
+
+Docs built at 2021-06-16 04:46:14.365944
 
 <details>
 <summary>View source</summary>
@@ -3247,7 +3618,14 @@ class Text(Element):
 ```
 </details>
 
-## Element
+</details>
+
+<!-- ## Element -->
+
+<details>
+<summary>
+Element
+</summary>
 
 Class
 
@@ -3257,11 +3635,17 @@ Class not yet documented
 
 ### Methods
 
-### `__init__`
 
+<details>
+<!-- <summary><h2><code>__init__</code></h2></summary> -->
+<summary>
+__init__
+</summary>
+<!-- ### `__init__` -->
 Method
 
 Create a new element (note that this is an internal method used to create instances of element subclasses like the Text class)
+
 
 #### Parameters
 
@@ -3343,8 +3727,10 @@ Create a new element (note that this is an internal method used to create instan
 
 None available
 
+</details>
 
-Docs built at 2021-06-16 04:34:12.722195
+
+Docs built at 2021-06-16 04:46:14.376914
 
 <details>
 <summary>View source</summary>
@@ -3377,7 +3763,14 @@ class Element:
 ```
 </details>
 
-## Section
+</details>
+
+<!-- ## Section -->
+
+<details>
+<summary>
+Section
+</summary>
 
 Class
 
@@ -3387,11 +3780,17 @@ Class not yet documented
 
 ### Methods
 
-### `__init__`
 
+<details>
+<!-- <summary><h2><code>__init__</code></h2></summary> -->
+<summary>
+__init__
+</summary>
+<!-- ### `__init__` -->
 Method
 
 Create a new section
+
 
 #### Parameters
 
@@ -3474,11 +3873,19 @@ Create a new section
 
 None available
 
-### `add`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>add</code></h2></summary> -->
+<summary>
+add
+</summary>
+<!-- ### `add` -->
 Method
 
 Not yet documented
+
 
 #### Parameters
 
@@ -3506,11 +3913,19 @@ Not yet documented
 
 None available
 
-### `generate`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>generate</code></h2></summary> -->
+<summary>
+generate
+</summary>
+<!-- ### `generate` -->
 Method
 
 Not yet documented
+
 
 #### Parameters
 
@@ -3561,11 +3976,19 @@ Not yet documented
 
 None available
 
-### `names`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>names</code></h2></summary> -->
+<summary>
+names
+</summary>
+<!-- ### `names` -->
 Method
 
 Not yet documented
+
 
 #### Parameters
 
@@ -3592,11 +4015,19 @@ Not yet documented
 
 None available
 
-### `set`
+</details>
 
+
+<details>
+<!-- <summary><h2><code>set</code></h2></summary> -->
+<summary>
+set
+</summary>
+<!-- ### `set` -->
 Method
 
 Set a property of the section
+
 
 #### Parameters
 
@@ -3646,8 +4077,10 @@ Set a property of the section
 
 None available
 
+</details>
 
-Docs built at 2021-06-16 04:34:12.743139
+
+Docs built at 2021-06-16 04:46:14.381901
 
 <details>
 <summary>View source</summary>
@@ -3734,5 +4167,7 @@ class Section:
 ```
 </details>
 
+</details>
 
-Docs built at 2021-06-16 04:34:11.973219
+
+Docs built at 2021-06-16 04:46:14.263220

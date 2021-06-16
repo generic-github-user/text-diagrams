@@ -1,4 +1,9 @@
-## {class_name}
+<!-- ## {class_name} -->
+
+<details>
+<summary>
+{class_name}
+</summary>
 
 Class
 
@@ -18,4 +23,6 @@ Docs built at {timestamp}
 ```python
 {source_code}
 ```
+</details>
+
 </details>
