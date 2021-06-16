@@ -185,7 +185,9 @@ def stringify_node(node, formatting='markdown', identifiers='symbols', short_mul
             if type(node.ops[0]).__name__ in reversed:
                 temp = temp[::-1]
 
+        # Loop through the attributes in the template and get the corresponding strings
         for attr in temp:
+            # Get the node's attribute
             value = getattr(node, attr)
             value_type = type(value).__name__
 
@@ -224,6 +226,8 @@ def stringify_node(node, formatting='markdown', identifiers='symbols', short_mul
         #     pass
 
         # print(node_data)
+
+    # Load the data into the template string
     return template[0].format(*node_data)
 
 
@@ -244,10 +248,13 @@ def parse_node(node, level=0, indent='    ', formatting='markdown'):
         h = '>' if level == 0 else ''
         result = '  \\\n'.join([h+r for r in result])
 
+    # Fix spacing so that the leading whitespace/indentation is not removed by the browser
     return result.replace('    ', '&nbsp;'*4)
     return result
 
 def Pseudocode(source, output_path='./generated-pseudocode.md', formatting='markdown', **kwargs):
+    # TODO: Add a class
+
     code = parse_node(ast.parse(source), formatting=formatting, **kwargs) + '\n End'
     # if formatting == 'markdown':
         # code = '>>>' + code
