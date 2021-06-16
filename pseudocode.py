@@ -107,7 +107,7 @@ convert_markup(op_strings)
 print(node_strings)
 print(op_strings)
 
-def stringify_node(node, formatting='markdown', identifiers='symbols'):
+def stringify_node(node, formatting='markdown', identifiers='symbols', short_mul=True):
     """
     Convert an abstract syntax tree node to a string
 
@@ -120,6 +120,8 @@ def stringify_node(node, formatting='markdown', identifiers='symbols'):
             'strings': Use the default name strings
     """
     node_data = []
+    if short_mul:
+        symbols['Mult'] = ''
 
     node_type = type(node).__name__
     if node_type in node_strings:
