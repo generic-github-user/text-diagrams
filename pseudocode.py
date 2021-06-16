@@ -71,6 +71,12 @@ node_strings = {
     'UnaryOp': ('{} {}', 'op', 'operand'),
 }
 
+def func_factory(F, *args, **kwargs):
+    def generated_func(*args, **kwargs):
+        # print(args, kwargs)
+        return F(*args, **kwargs)
+    return generated_func
+
 def convert_markup(d):
     for k, v in d.items():
         if v in [tuple]:
