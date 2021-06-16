@@ -182,7 +182,7 @@ class Documentation:
                     for n, me in class_methods:
                         method_str = c[0] + '.' + n
                         self_str = 'self.' + n
-                        link = f'[{method_str}](#{name})'
+                        link = f'[{method_str}](#{n.lower()})'
                         # link = f'<a href="#{n}">{method_str}</a>'
 
                         # source_code = source_code.replace(method_str, link)

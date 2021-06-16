@@ -1,4 +1,4 @@
-Docs version 31
+Docs version 34
 
 # Main
 
@@ -112,7 +112,7 @@ Not yet documented
 None available
 
 
-Docs built at 2021-06-16 04:30:02.791600
+Docs built at 2021-06-16 04:34:11.977207
 
 <details>
 <summary>View source</summary>
@@ -275,10 +275,10 @@ Not yet documented
 
 #### References
 
-- [ArgType.an](#text)
+- [ArgType.an](#an)
 
 
-Docs built at 2021-06-16 04:30:02.794591
+Docs built at 2021-06-16 04:34:12.043032
 
 <details>
 <summary>View source</summary>
@@ -446,10 +446,10 @@ Not yet documented
 
 #### References
 
-- [ArgType.an](#text)
+- [ArgType.an](#an)
 
 
-Docs built at 2021-06-16 04:30:02.797606
+Docs built at 2021-06-16 04:34:12.121962
 
 <details>
 <summary>View source</summary>
@@ -637,7 +637,7 @@ Remove leading tabs from a string
 
 #### References
 
-- [Documentation.indent_width](#clean_tabs)
+- [Documentation.indent_width](#indent_width)
 
 ### `extract_info`
 
@@ -724,7 +724,8 @@ Not yet documented
                     for n, me in class_methods:
                         method_str = c[0] + '.' + n
                         self_str = 'self.' + n
-                        link = f'[{method_str}](#{name})'
+                        print(name)
+                        link = f'[{method_str}](#{n.lower()})'
                         # link = f'<a href="#{n}">{method_str}</a>'
 
                         # source_code = source_code.replace(method_str, link)
@@ -842,9 +843,9 @@ Not yet documented
 
 #### References
 
-- [Documentation.clean_tabs](#generate)
-- [Documentation.import_modules](#generate)
-- [Documentation.indent_width](#generate)
+- [Documentation.clean_tabs](#clean_tabs)
+- [Documentation.import_modules](#import_modules)
+- [Documentation.indent_width](#indent_width)
 
 ### `import_modules`
 
@@ -1084,7 +1085,7 @@ Separate a string into numeric and alphabetical substrings
 
 #### References
 
-- [Documentation.isnum](#split_numeric)
+- [Documentation.isnum](#isnum)
 
 ### `write`
 
@@ -1138,7 +1139,7 @@ Not yet documented
 None available
 
 
-Docs built at 2021-06-16 04:30:02.811545
+Docs built at 2021-06-16 04:34:12.194768
 
 <details>
 <summary>View source</summary>
@@ -1310,7 +1311,8 @@ class Documentation:
                     for n, me in class_methods:
                         method_str = c[0] + '.' + n
                         self_str = 'self.' + n
-                        link = f'[{method_str}](#{name})'
+                        print(name)
+                        link = f'[{method_str}](#{n.lower()})'
                         # link = f'<a href="#{n}">{method_str}</a>'
 
                         # source_code = source_code.replace(method_str, link)
@@ -1717,7 +1719,7 @@ Set a property of the section
 None available
 
 
-Docs built at 2021-06-16 04:30:02.834484
+Docs built at 2021-06-16 04:34:12.385047
 
 <details>
 <summary>View source</summary>
@@ -2137,7 +2139,7 @@ Convert the diagram's elements to a portable string and optionally save the gene
 
 #### References
 
-- [Diagram.write](#render)
+- [Diagram.write](#write)
 
 ### `write`
 
@@ -2177,7 +2179,7 @@ Create a new file and insert UTF-8-encoded text data or update an existing file
 None available
 
 
-Docs built at 2021-06-16 04:30:02.846452
+Docs built at 2021-06-16 04:34:12.470812
 
 <details>
 <summary>View source</summary>
@@ -2456,7 +2458,7 @@ Create a new element (note that this is an internal method used to create instan
 None available
 
 
-Docs built at 2021-06-16 04:30:02.862410
+Docs built at 2021-06-16 04:34:12.550673
 
 <details>
 <summary>View source</summary>
@@ -2786,10 +2788,10 @@ Rotate the point about another
 
 #### References
 
-- [Point.move](#rotate)
+- [Point.move](#move)
 
 
-Docs built at 2021-06-16 04:30:02.869391
+Docs built at 2021-06-16 04:34:12.571598
 
 <details>
 <summary>View source</summary>
@@ -3118,7 +3120,7 @@ Create a 2D array representing the bounding box of this element
 None available
 
 
-Docs built at 2021-06-16 04:30:02.882384
+Docs built at 2021-06-16 04:34:12.675343
 
 <details>
 <summary>View source</summary>
@@ -3342,7 +3344,7 @@ Create a new element (note that this is an internal method used to create instan
 None available
 
 
-Docs built at 2021-06-16 04:30:02.893329
+Docs built at 2021-06-16 04:34:12.722195
 
 <details>
 <summary>View source</summary>
@@ -3645,7 +3647,7 @@ Set a property of the section
 None available
 
 
-Docs built at 2021-06-16 04:30:02.901306
+Docs built at 2021-06-16 04:34:12.743139
 
 <details>
 <summary>View source</summary>
@@ -3733,4 +3735,4 @@ class Section:
 </details>
 
 
-Docs built at 2021-06-16 04:30:02.787610
+Docs built at 2021-06-16 04:34:11.973219
