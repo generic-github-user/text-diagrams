@@ -27,3 +27,14 @@ node_strings = {
     'AugAssign': ('{} {} by {}', 'op', 'target', 'value'),
     'BinOp': ('({} {} {})', 'left', 'op', 'right'),
 }
+sample = """
+a = 5
+for i in range(8):
+    for j in range(6):
+        a += (i * j) // 2
+    a -= a % 4
+    print(a)
+"""
+
+print(ast.parse(sample).body)
+print(Pseudocode(sample))
