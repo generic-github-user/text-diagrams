@@ -1,6 +1,6 @@
 op_strings = {
-    'Add': 'Increment',
-    'Sub': 'Decrement',
+    'Add': '**Increment**',
+    'Sub': '**Decrement**',
     'In': 'contains',
     'NotIn': 'does not contain',
     'Eq': 'is equal',
