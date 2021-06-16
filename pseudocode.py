@@ -74,6 +74,21 @@ def stringify_node(node):
                     clone[-len(value.args):] = [stringify_node(v) for v in value.args]
                     # p = [value.args[i] for i in range(len(func_info)) if ]
                     value = func_info[0].format(*clone)
+
+            if type(value) in [list, tuple]:
+                # value = parse_node(value)
+                value = [stringify_node(v) for v in value]
+                value = ', '.join(value)
+
+            value_type = type(value).__name__
+            if value_type in node_strings:
+                value = stringify_node(value)
+                # print(value_type, value)
+            elif value_type in op_strings:
+                value = op_strings[value_type]
+            elif value_type in symbols:
+                # value = ast.unparse(value)
+                value = symbols[value_type]
 sample = """
 a = 5
 for i in range(8):
