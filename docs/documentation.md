@@ -1,4 +1,4 @@
-Docs version 42
+Docs version 43
 
 # Main
 
@@ -141,7 +141,7 @@ None available
 </details>
 
 
-Docs built at 2021-06-16 04:46:14.267237
+Docs built at 2021-06-16 04:52:11.902996
 
 <details>
 <summary>View source</summary>
@@ -346,7 +346,7 @@ Not yet documented
 </details>
 
 
-Docs built at 2021-06-16 04:46:14.270235
+Docs built at 2021-06-16 04:52:11.906011
 
 <details>
 <summary>View source</summary>
@@ -556,7 +556,7 @@ Not yet documented
 </details>
 
 
-Docs built at 2021-06-16 04:46:14.272224
+Docs built at 2021-06-16 04:52:11.909003
 
 <details>
 <summary>View source</summary>
@@ -771,6 +771,62 @@ Remove leading tabs from a string
 
 
 <details>
+<!-- <summary><h2><code>create_links</code></h2></summary> -->
+<summary>
+create_links
+</summary>
+<!-- ### `create_links` -->
+Method
+
+Not yet documented
+
+
+#### Parameters
+
+
+
+#### Source
+
+<details>
+<summary>View source</summary>
+
+```python
+
+
+    def create_links(self, code, class_, method_):
+        methods_linked = []
+        includes = []
+        for m, c in self.classes:
+            class_methods = inspect.getmembers(c[1], predicate=inspect.isfunction)
+            for n, me in class_methods:
+                method_str = c[0] + '.' + n
+                self_str = 'self.' + n
+                link = f'[{method_str}](#{n.lower()})'
+                # link = f'<a href="#{n}">{method_str}</a>'
+
+                # source_code = source_code.replace(method_str, link)
+                # source_code = source_code.replace(self_str, link)
+                if method_str in code or (self_str in code and class_[0] == c[0]):
+                    if method_str not in methods_linked:
+                        includes.append(f'- {link}')
+                        methods_linked.append(method_str)
+        includes = '\n'.join(includes) if includes else 'None available'
+        return includes
+
+
+
+```
+
+</details>
+
+#### References
+
+None available
+
+</details>
+
+
+<details>
 <!-- <summary><h2><code>extract_info</code></h2></summary> -->
 <summary>
 extract_info
@@ -861,23 +917,7 @@ Not yet documented
             methods = inspect.getmembers(classname[1], predicate=inspect.isfunction)
             for name, method in methods:
                 source_code = '\n'+getsource(method)+'\n'
-                methods_linked = []
-                includes = []
-                for m, c in self.classes:
-                    class_methods = inspect.getmembers(c[1], predicate=inspect.isfunction)
-                    for n, me in class_methods:
-                        method_str = c[0] + '.' + n
-                        self_str = 'self.' + n
-                        link = f'[{method_str}](#{n.lower()})'
-                        # link = f'<a href="#{n}">{method_str}</a>'
-
-                        # source_code = source_code.replace(method_str, link)
-                        # source_code = source_code.replace(self_str, link)
-                        if method_str in source_code or (self_str in source_code and classname[0] == c[0]):
-                            if method_str not in methods_linked:
-                                includes.append(f'- {link}')
-                                methods_linked.append(method_str)
-                includes = '\n'.join(includes) if includes else 'None available'
+                includes = self.create_links(source_code, classname, name)
 
                 # print(inspect.getsourcelines(method)[0])
                 # print(name, method, True)
@@ -987,6 +1027,7 @@ Not yet documented
 #### References
 
 - [Documentation.clean_tabs](#clean_tabs)
+- [Documentation.create_links](#create_links)
 - [Documentation.import_modules](#import_modules)
 - [Documentation.indent_width](#indent_width)
 
@@ -1332,7 +1373,7 @@ None available
 </details>
 
 
-Docs built at 2021-06-16 04:46:14.285161
+Docs built at 2021-06-16 04:52:11.917988
 
 <details>
 <summary>View source</summary>
@@ -1471,6 +1512,26 @@ class Documentation:
     def parent(self):
         pass
 
+    def create_links(self, code, class_, method_):
+        methods_linked = []
+        includes = []
+        for m, c in self.classes:
+            class_methods = inspect.getmembers(c[1], predicate=inspect.isfunction)
+            for n, me in class_methods:
+                method_str = c[0] + '.' + n
+                self_str = 'self.' + n
+                link = f'[{method_str}](#{n.lower()})'
+                # link = f'<a href="#{n}">{method_str}</a>'
+
+                # source_code = source_code.replace(method_str, link)
+                # source_code = source_code.replace(self_str, link)
+                if method_str in code or (self_str in code and class_[0] == c[0]):
+                    if method_str not in methods_linked:
+                        includes.append(f'- {link}')
+                        methods_linked.append(method_str)
+        includes = '\n'.join(includes) if includes else 'None available'
+        return includes
+
     def generate(self):
         self.text = ''
         self.import_modules()
@@ -1497,23 +1558,7 @@ class Documentation:
             methods = inspect.getmembers(classname[1], predicate=inspect.isfunction)
             for name, method in methods:
                 source_code = '\n'+getsource(method)+'\n'
-                methods_linked = []
-                includes = []
-                for m, c in self.classes:
-                    class_methods = inspect.getmembers(c[1], predicate=inspect.isfunction)
-                    for n, me in class_methods:
-                        method_str = c[0] + '.' + n
-                        self_str = 'self.' + n
-                        link = f'[{method_str}](#{n.lower()})'
-                        # link = f'<a href="#{n}">{method_str}</a>'
-
-                        # source_code = source_code.replace(method_str, link)
-                        # source_code = source_code.replace(self_str, link)
-                        if method_str in source_code or (self_str in source_code and classname[0] == c[0]):
-                            if method_str not in methods_linked:
-                                includes.append(f'- {link}')
-                                methods_linked.append(method_str)
-                includes = '\n'.join(includes) if includes else 'None available'
+                includes = self.create_links(source_code, classname, name)
 
                 # print(inspect.getsourcelines(method)[0])
                 # print(name, method, True)
@@ -1958,7 +2003,7 @@ None available
 </details>
 
 
-Docs built at 2021-06-16 04:46:14.316078
+Docs built at 2021-06-16 04:52:11.939898
 
 <details>
 <summary>View source</summary>
@@ -2457,7 +2502,7 @@ None available
 </details>
 
 
-Docs built at 2021-06-16 04:46:14.330041
+Docs built at 2021-06-16 04:52:11.958846
 
 <details>
 <summary>View source</summary>
@@ -2751,7 +2796,7 @@ None available
 </details>
 
 
-Docs built at 2021-06-16 04:46:14.345998
+Docs built at 2021-06-16 04:52:11.975802
 
 <details>
 <summary>View source</summary>
@@ -3139,7 +3184,7 @@ Rotate the point about another
 </details>
 
 
-Docs built at 2021-06-16 04:46:14.351982
+Docs built at 2021-06-16 04:52:11.983780
 
 <details>
 <summary>View source</summary>
@@ -3491,7 +3536,7 @@ None available
 </details>
 
 
-Docs built at 2021-06-16 04:46:14.365944
+Docs built at 2021-06-16 04:52:11.994750
 
 <details>
 <summary>View source</summary>
@@ -3730,7 +3775,7 @@ None available
 </details>
 
 
-Docs built at 2021-06-16 04:46:14.376914
+Docs built at 2021-06-16 04:52:12.006718
 
 <details>
 <summary>View source</summary>
@@ -4080,7 +4125,7 @@ None available
 </details>
 
 
-Docs built at 2021-06-16 04:46:14.381901
+Docs built at 2021-06-16 04:52:12.013722
 
 <details>
 <summary>View source</summary>
@@ -4170,4 +4215,4 @@ class Section:
 </details>
 
 
-Docs built at 2021-06-16 04:46:14.263220
+Docs built at 2021-06-16 04:52:11.899007

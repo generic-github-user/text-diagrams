@@ -149,6 +149,26 @@ class Documentation:
     def parent(self):
         pass
 
+    def create_links(self, code, class_, method_):
+        methods_linked = []
+        includes = []
+        for m, c in self.classes:
+            class_methods = inspect.getmembers(c[1], predicate=inspect.isfunction)
+            for n, me in class_methods:
+                method_str = c[0] + '.' + n
+                self_str = 'self.' + n
+                link = f'[{method_str}](#{n.lower()})'
+                # link = f'<a href="#{n}">{method_str}</a>'
+
+                # source_code = source_code.replace(method_str, link)
+                # source_code = source_code.replace(self_str, link)
+                if method_str in code or (self_str in code and class_[0] == c[0]):
+                    if method_str not in methods_linked:
+                        includes.append(f'- {link}')
+                        methods_linked.append(method_str)
+        includes = '\n'.join(includes) if includes else 'None available'
+        return includes
+
     def generate(self):
         self.text = ''
         self.import_modules()
@@ -175,23 +195,7 @@ class Documentation:
             methods = inspect.getmembers(classname[1], predicate=inspect.isfunction)
             for name, method in methods:
                 source_code = '\n'+getsource(method)+'\n'
-                methods_linked = []
-                includes = []
-                for m, c in self.classes:
-                    class_methods = inspect.getmembers(c[1], predicate=inspect.isfunction)
-                    for n, me in class_methods:
-                        method_str = c[0] + '.' + n
-                        self_str = 'self.' + n
-                        link = f'[{method_str}](#{n.lower()})'
-                        # link = f'<a href="#{n}">{method_str}</a>'
-
-                        # source_code = source_code.replace(method_str, link)
-                        # source_code = source_code.replace(self_str, link)
-                        if method_str in source_code or (self_str in source_code and classname[0] == c[0]):
-                            if method_str not in methods_linked:
-                                includes.append(f'- {link}')
-                                methods_linked.append(method_str)
-                includes = '\n'.join(includes) if includes else 'None available'
+                includes = self.create_links(source_code, classname, name)
 
                 # print(inspect.getsourcelines(method)[0])
                 # print(name, method, True)
