@@ -1,1 +1,3 @@
 # Python -> Pseudocode
+
+This tool converts Python code to a form of [Pseudocode]. The goal is to automatically generate comprehensible summaries of sophisticated classes, functions, and/or algorithms that can be understood at a glance by someone unacquainted with the source code. Options for automatic abstraction of low-level operations are also planned, allowing the user to generate breakdowns of the code at multiple levels of granularity. Python's `AST` module is used to parse code into an Abstract Syntax Tree, which is then processed with string substitutions, restructuring algorithms, and other methods to produce the pseudocode. Currently, plain-text output is supported; `Markdown`, `LaTeX`, and `HTML` are planned.
