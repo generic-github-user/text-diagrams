@@ -71,13 +71,17 @@ def convert_markup(d):
         for c, t in tags:
             while c in v:
                 s = '' if opening else '/'
-                style = ' style="font-style: italic;"' if opening else ''
+                col = {a: b for a, b in colors.items() if k in b}
+                col = ' color: {}'.format(list(col)[0]) if col else ''
+                # style = f' style="font-style: italic;{col}"' if opening else ''
+                style = f' style="{col}"' if opening else ''
                 # v[0] = v[0].replace(c, f'<{s}span{style}>', 1)
                 if type(v) in [list]:
-                    v = v.replace(c, f'<{s}{t}>', 1)
+                    v = v.replace(c, f'<{s}{t}{style}>', 1)
                 else:
-                    v = v.replace(c, f'<{s}{t}>', 1)
+                    v = v.replace(c, f'<{s}{t}{style}>', 1)
                 opening = not opening
+            v = v.replace('.', '')
         if f:
             v_ = list(d[k])
             v_[0] = v
@@ -87,6 +91,7 @@ def convert_markup(d):
 
 convert_markup(node_strings)
 convert_markup(op_strings)
+# convert_markup(symbols)
 print(node_strings)
 print(op_strings)
 
