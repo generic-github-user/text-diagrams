@@ -89,6 +89,25 @@ def stringify_node(node):
             elif value_type in symbols:
                 # value = ast.unparse(value)
                 value = symbols[value_type]
+
+
+            # print(super(type(value)))
+            # if super(type(value)) is ast.BinOp:
+            # if isinstance(value, ast.BinOp):
+
+                # node_data.extend(value)
+                # value = ' '.join(map(str, value))
+                # value = value[0]
+            # else:
+            node_data.append(value)
+
+        # try:
+        #     print(node_data)
+        # except:
+        #     pass
+
+        # print(node_data)
+    return template[0].format(*node_data)
 sample = """
 a = 5
 for i in range(8):
