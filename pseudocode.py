@@ -7,6 +7,16 @@ op_strings = {
     'Add': 'Increment',
     'Sub': 'Decrement'
 }
+
+symbols = {
+    'Add': '+',
+    'Mult': '*',
+    'FloorDiv': '//',
+    'TrueDiv': '/',
+    'Sub': '-',
+    'Mod': '%',
+}
+
 node_strings = {
     'For': ('For {} in {}:', 'target', 'iter'),
     'Name': ('{}', 'id'),
