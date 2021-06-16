@@ -1,4 +1,4 @@
-Docs version 26
+Docs version 29
 
 # Main
 
@@ -112,7 +112,7 @@ Not yet documented
 None available
 
 
-Docs built at 2021-06-16 00:26:15.507766
+Docs built at 2021-06-16 00:36:44.136668
 
 <details>
 <summary>View source</summary>
@@ -279,7 +279,7 @@ Not yet documented
 - [ArgType.an](#text)
 
 
-Docs built at 2021-06-16 00:26:15.510757
+Docs built at 2021-06-16 00:36:44.138663
 
 <details>
 <summary>View source</summary>
@@ -451,7 +451,7 @@ Not yet documented
 - [ArgType.an](#text)
 
 
-Docs built at 2021-06-16 00:26:15.512752
+Docs built at 2021-06-16 00:36:44.141655
 
 <details>
 <summary>View source</summary>
@@ -573,6 +573,7 @@ Create a new Documentation object
         self.tab_length = 4
         self.tab = ' '*self.tab_length
         self.current = {}
+        self.previous = []
 
 
 
@@ -802,13 +803,19 @@ Not yet documented
                         else:
                             # print(t, l)
                             label = l.split(':')[1] if len(l.split(':')) > 1 else ''
+                            parameter_name = l.split(':')[0]
+                            similar = [x for x in self.previous if x[-2] == parameter_name]
+                            if similar:
+                                label = label.replace('$$', similar[0][-1] + f' (inserted from docs for `{classname[0]}.{name}#{parameter_name}`)')
+
+                            self.previous.append([classname[0], name, parameter_name, label])
                             new_section = Section(
                                 content=l.split(':'),
                                 type_=section_type,
                                 # parent=self.current[section_type],
                                 templates=self.template_content,
                                 params='children',
-                                parameter=l.split(':')[0],
+                                parameter=parameter_name,
                                 parameter_info=label,
                                 pinfo=l
                             )
@@ -1130,7 +1137,7 @@ Not yet documented
 None available
 
 
-Docs built at 2021-06-16 00:26:15.523724
+Docs built at 2021-06-16 00:36:44.150631
 
 <details>
 <summary>View source</summary>
@@ -1180,6 +1187,7 @@ class Documentation:
         self.tab_length = 4
         self.tab = ' '*self.tab_length
         self.current = {}
+        self.previous = []
 
     def indent_width(self, string):
         """
@@ -1378,13 +1386,19 @@ class Documentation:
                         else:
                             # print(t, l)
                             label = l.split(':')[1] if len(l.split(':')) > 1 else ''
+                            parameter_name = l.split(':')[0]
+                            similar = [x for x in self.previous if x[-2] == parameter_name]
+                            if similar:
+                                label = label.replace('$$', similar[0][-1] + f' (inserted from docs for `{classname[0]}.{name}#{parameter_name}`)')
+
+                            self.previous.append([classname[0], name, parameter_name, label])
                             new_section = Section(
                                 content=l.split(':'),
                                 type_=section_type,
                                 # parent=self.current[section_type],
                                 templates=self.template_content,
                                 params='children',
-                                parameter=l.split(':')[0],
+                                parameter=parameter_name,
                                 parameter_info=label,
                                 pinfo=l
                             )
@@ -1699,7 +1713,7 @@ Set a property of the section
 None available
 
 
-Docs built at 2021-06-16 00:26:15.549655
+Docs built at 2021-06-16 00:36:44.168583
 
 <details>
 <summary>View source</summary>
@@ -2159,7 +2173,7 @@ Create a new file and insert UTF-8-encoded text data or update an existing file
 None available
 
 
-Docs built at 2021-06-16 00:26:15.561621
+Docs built at 2021-06-16 00:36:44.181549
 
 <details>
 <summary>View source</summary>
@@ -2375,7 +2389,7 @@ Create a new element (note that this is an internal method used to create instan
 
 ##### `pos`
 
- #
+  Coordinates of the element in the scene (inserted from docs for `Element.__init__#pos`)
 
 
 
@@ -2416,7 +2430,7 @@ Create a new element (note that this is an internal method used to create instan
 			pos: Coordinates of the element in the scene
 
 		Attributes:
-			pos: #
+			pos: $$
 			x: The x coordinate
 			y: The y coordinate
 			id: The UUID of this element
@@ -2438,7 +2452,7 @@ Create a new element (note that this is an internal method used to create instan
 None available
 
 
-Docs built at 2021-06-16 00:26:15.575585
+Docs built at 2021-06-16 00:36:44.208477
 
 <details>
 <summary>View source</summary>
@@ -2456,7 +2470,7 @@ class Element:
 			pos: Coordinates of the element in the scene
 
 		Attributes:
-			pos: #
+			pos: $$
 			x: The x coordinate
 			y: The y coordinate
 			id: The UUID of this element
@@ -2771,7 +2785,7 @@ Rotate the point about another
 - [Point.move](#rotate)
 
 
-Docs built at 2021-06-16 00:26:15.580572
+Docs built at 2021-06-16 00:36:44.214461
 
 <details>
 <summary>View source</summary>
@@ -2982,7 +2996,7 @@ Create a 2D array representing the bounding box of this element
 
 ##### `rich_output`
 
- #
+  Whether to use HTML tags and CSS attributes to style Markdown content (inserted from docs for `Text.render#rich_output`)
 
 
 
@@ -3039,7 +3053,7 @@ Create a 2D array representing the bounding box of this element
 		Create a 2D array representing the bounding box of this element
 
 		Params:
-			rich_output: #
+			rich_output: $$
 			capitalization: What case the output should appear in
 				small: lowercase
 				capital: uppercase
@@ -3100,7 +3114,7 @@ Create a 2D array representing the bounding box of this element
 None available
 
 
-Docs built at 2021-06-16 00:26:15.591542
+Docs built at 2021-06-16 00:36:44.226429
 
 <details>
 <summary>View source</summary>
@@ -3173,7 +3187,7 @@ class Text(Element):
 		Create a 2D array representing the bounding box of this element
 
 		Params:
-			rich_output: #
+			rich_output: $$
 			capitalization: What case the output should appear in
 				small: lowercase
 				capital: uppercase
@@ -3497,7 +3511,7 @@ Set a property of the section
 None available
 
 
-Docs built at 2021-06-16 00:26:15.607499
+Docs built at 2021-06-16 00:36:44.241389
 
 <details>
 <summary>View source</summary>
@@ -3585,4 +3599,4 @@ class Section:
 </details>
 
 
-Docs built at 2021-06-16 00:26:15.503776
+Docs built at 2021-06-16 00:36:44.132680

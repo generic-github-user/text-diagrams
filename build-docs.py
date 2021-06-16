@@ -60,6 +60,7 @@ class Documentation:
         self.tab_length = 4
         self.tab = ' '*self.tab_length
         self.current = {}
+        self.previous = []
 
     def indent_width(self, string):
         """
@@ -258,13 +259,19 @@ class Documentation:
                         else:
                             # print(t, l)
                             label = l.split(':')[1] if len(l.split(':')) > 1 else ''
+                            parameter_name = l.split(':')[0]
+                            similar = [x for x in self.previous if x[-2] == parameter_name]
+                            if similar:
+                                label = label.replace('$$', similar[0][-1] + f' (inserted from docs for `{classname[0]}.{name}#{parameter_name}`)')
+
+                            self.previous.append([classname[0], name, parameter_name, label])
                             new_section = Section(
                                 content=l.split(':'),
                                 type_=section_type,
                                 # parent=self.current[section_type],
                                 templates=self.template_content,
                                 params='children',
-                                parameter=l.split(':')[0],
+                                parameter=parameter_name,
                                 parameter_info=label,
                                 pinfo=l
                             )
