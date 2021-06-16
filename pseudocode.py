@@ -112,7 +112,16 @@ convert_markup(node_strings)
 convert_markup(op_strings)
 # convert_markup(symbols)
 
-def stringify_node(node, formatting='markdown', identifiers='symbols', short_mul=True, level=0, indent='    ', *args, **kwargs):
+def stringify_node(
+    node,
+    formatting='markdown',
+    identifiers='symbols',
+    short_mul=True,
+    level=0,
+    indent='    ',
+    *args,
+    **kwargs
+):
     """
     Convert an abstract syntax tree node to a string
 
@@ -252,7 +261,12 @@ def stringify_node(node, formatting='markdown', identifiers='symbols', short_mul
     return node_string
 
 
-def parse_node(node, level=0, indent='    ', formatting='markdown'):
+def parse_node(
+    node,
+    level=0,
+    indent='    ',
+    formatting='markdown'
+):
     result = []
 
     # node_data = [parse_node(getattr(node, attr)) for attr in template[1:]]
@@ -275,7 +289,11 @@ def parse_node(node, level=0, indent='    ', formatting='markdown'):
     return result.replace('    ', '&nbsp;'*4)
     return result
 
-def Pseudocode(source, output_path='./generated-pseudocode.md', formatting='markdown', **kwargs):
+def Pseudocode(source,
+    output_path='./generated-pseudocode.md',
+    formatting='markdown',
+    **kwargs
+):
     # TODO: Add a class
 
     code = parse_node(ast.parse(source), formatting=formatting, **kwargs) + '\n End'
