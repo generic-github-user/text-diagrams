@@ -61,6 +61,19 @@ def stringify_node(node):
             # print(type(node.ops)[0].__name__)
             if type(node.ops[0]).__name__ in reversed:
                 temp = temp[::-1]
+
+        for attr in temp:
+            value = getattr(node, attr)
+            value_type = type(value).__name__
+
+            if value_type == 'Call':
+                func_name = stringify_node(value.func)
+                if func_name in functions:
+                    func_info = functions[func_name]
+                    clone = [a for a in func_info[1]]
+                    clone[-len(value.args):] = [stringify_node(v) for v in value.args]
+                    # p = [value.args[i] for i in range(len(func_info)) if ]
+                    value = func_info[0].format(*clone)
 sample = """
 a = 5
 for i in range(8):
