@@ -123,9 +123,20 @@ def stringify_node(node, formatting='markdown', identifiers='symbols', short_mul
     if short_mul:
         symbols['Mult'] = ''
 
+    # Determine the type of node (excluding the `ast.` prefix)
     node_type = type(node).__name__
+
+    # This is just for logging/debugging
+    try:
+        print(node, node_type)
+        # print(node, node_type, node.args, stringify_node(node.args))
+    except:
+        pass
+
+    # Find the template string if one is available
     if node_type in node_strings:
         template = node_strings[node_type]
+    # If not available, use the plain type name
     else:
         template = [node_type]
 
@@ -134,13 +145,10 @@ def stringify_node(node, formatting='markdown', identifiers='symbols', short_mul
     elif node_type in symbols:
         return symbols[node_type]
 
-    try:
-        print(node, node_type, node.args, stringify_node(node.args))
-    except:
-        pass
 
     # nd = node_data[0]
     nd = node
+    # Handle the conversion of specific function names to corresponding symbols
     if node_type in ['Call', 'Lambda']:
         # func_name = stringify_node(nd.func)
         func_name = nd.func.id if node_type == 'Call' else 'Lambda'
@@ -171,6 +179,9 @@ def stringify_node(node, formatting='markdown', identifiers='symbols', short_mul
         # return ', '.join(stringify_node(a) for a in node.args)
         return stringify_node(node.args)
 
+    # If the template has any attributes to be filled in, generate the strings for these first
+    # e.g., a `for` loop's `target` and `iter` properties
+    # Note that this does not handle iterable properties such as function argument objects
     if len(template) > 1:
         temp = template[1:]
         # if node_type in reversed:
