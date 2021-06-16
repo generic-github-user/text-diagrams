@@ -126,6 +126,12 @@ def parse_node(node, level=0, indent='  '):
     if type(result) is list:
         result = '\n'.join(result)
     return result
+
+def Pseudocode(source):
+    code = parse_node(ast.parse(source)) + '\nEnd'
+    # return '\n'.join(code)
+    return code
+
 sample = """
 a = 5
 for i in range(8):
