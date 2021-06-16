@@ -14,6 +14,13 @@ Method
 <summary>View source</summary>
 
 ```python
+
 {source_code}
+
 ```
+
 </details>
+
+#### References
+
+{includes}

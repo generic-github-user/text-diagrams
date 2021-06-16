@@ -1,8 +1,487 @@
-Docs version 12
+Docs version 26
 
 # Main
 
 Module not yet documented
+
+## ArgRange
+
+Class
+
+*module `argtype`*
+
+Class not yet documented
+
+### Methods
+
+### `__init__`
+
+Method
+
+Not yet documented
+
+#### Parameters
+
+
+
+#### Source
+
+<details>
+<summary>View source</summary>
+
+```python
+
+
+    def __init__(self, *args):
+        # super(ArgRange, self).__init__()
+        self.range = range(*args)
+        self.info = 'between {} and {}'
+        self.args = args
+
+
+
+```
+
+</details>
+
+#### References
+
+None available
+
+### `example`
+
+Method
+
+Not yet documented
+
+#### Parameters
+
+
+
+#### Source
+
+<details>
+<summary>View source</summary>
+
+```python
+
+
+    def example(self, n=1):
+        values = list(self.range)
+        return random.choices(values, k=n)
+
+
+
+```
+
+</details>
+
+#### References
+
+None available
+
+### `text`
+
+Method
+
+Not yet documented
+
+#### Parameters
+
+
+
+#### Source
+
+<details>
+<summary>View source</summary>
+
+```python
+
+
+    def text(self):
+        return self.info.format(*self.args)
+
+
+
+```
+
+</details>
+
+#### References
+
+None available
+
+
+Docs built at 2021-06-16 00:26:15.507766
+
+<details>
+<summary>View source</summary>
+
+```python
+
+class ArgRange:
+    """ArgRange"""
+
+    def __init__(self, *args):
+        # super(ArgRange, self).__init__()
+        self.range = range(*args)
+        self.info = 'between {} and {}'
+        self.args = args
+
+    def text(self):
+        return self.info.format(*self.args)
+
+    def example(self, n=1):
+        values = list(self.range)
+        return random.choices(values, k=n)
+
+
+```
+</details>
+
+## ArgType
+
+Class
+
+*module `argtype`*
+
+Class not yet documented
+
+### Methods
+
+### `__init__`
+
+Method
+
+Not yet documented
+
+#### Parameters
+
+
+
+#### Source
+
+<details>
+<summary>View source</summary>
+
+```python
+
+
+    def __init__(self, primitive, *conditions):
+        self.primitive = primitive
+        self.conditions = conditions
+        self.info = '{} {} {}'
+
+
+
+```
+
+</details>
+
+#### References
+
+None available
+
+### `an`
+
+Method
+
+Not yet documented
+
+#### Parameters
+
+
+
+#### Source
+
+<details>
+<summary>View source</summary>
+
+```python
+
+
+    def an(self, a):
+        return 'an' if a[0] in 'aeiou' else 'a'
+
+
+
+```
+
+</details>
+
+#### References
+
+None available
+
+### `example`
+
+Method
+
+Not yet documented
+
+#### Parameters
+
+
+
+#### Source
+
+<details>
+<summary>View source</summary>
+
+```python
+
+
+    def example(self, *args, **kwargs):
+        return self.conditions[0].example(*args, **kwargs)
+
+
+
+```
+
+</details>
+
+#### References
+
+None available
+
+### `text`
+
+Method
+
+Not yet documented
+
+#### Parameters
+
+
+
+#### Source
+
+<details>
+<summary>View source</summary>
+
+```python
+
+
+    def text(self):
+        condition_string = ', '.join(c.text() for c in self.conditions)
+        p = self.primitive.__name__
+        return self.info.format(self.an(p), p, condition_string)
+
+
+
+```
+
+</details>
+
+#### References
+
+- [ArgType.an](#text)
+- [ArgType.an](#text)
+
+
+Docs built at 2021-06-16 00:26:15.510757
+
+<details>
+<summary>View source</summary>
+
+```python
+
+class ArgType:
+    """
+    Defines a 'type' that can be used for validating and/or converting function arguments, generating examples, type hinting, etc. It is intended to emulate some of the features of Python's `typing` module, albeit with a more general scope.
+    """
+
+    def __init__(self, primitive, *conditions):
+        self.primitive = primitive
+        self.conditions = conditions
+        self.info = '{} {} {}'
+
+    def an(self, a):
+        return 'an' if a[0] in 'aeiou' else 'a'
+
+    def text(self):
+        condition_string = ', '.join(c.text() for c in self.conditions)
+        p = self.primitive.__name__
+        return self.info.format(self.an(p), p, condition_string)
+
+    def example(self, *args, **kwargs):
+        return self.conditions[0].example(*args, **kwargs)
+
+
+```
+</details>
+
+## ArgType
+
+Class
+
+*module `build-docs`*
+
+Class not yet documented
+
+### Methods
+
+### `__init__`
+
+Method
+
+Not yet documented
+
+#### Parameters
+
+
+
+#### Source
+
+<details>
+<summary>View source</summary>
+
+```python
+
+
+    def __init__(self, primitive, *conditions):
+        self.primitive = primitive
+        self.conditions = conditions
+        self.info = '{} {} {}'
+
+
+
+```
+
+</details>
+
+#### References
+
+None available
+
+### `an`
+
+Method
+
+Not yet documented
+
+#### Parameters
+
+
+
+#### Source
+
+<details>
+<summary>View source</summary>
+
+```python
+
+
+    def an(self, a):
+        return 'an' if a[0] in 'aeiou' else 'a'
+
+
+
+```
+
+</details>
+
+#### References
+
+None available
+
+### `example`
+
+Method
+
+Not yet documented
+
+#### Parameters
+
+
+
+#### Source
+
+<details>
+<summary>View source</summary>
+
+```python
+
+
+    def example(self, *args, **kwargs):
+        return self.conditions[0].example(*args, **kwargs)
+
+
+
+```
+
+</details>
+
+#### References
+
+None available
+
+### `text`
+
+Method
+
+Not yet documented
+
+#### Parameters
+
+
+
+#### Source
+
+<details>
+<summary>View source</summary>
+
+```python
+
+
+    def text(self):
+        condition_string = ', '.join(c.text() for c in self.conditions)
+        p = self.primitive.__name__
+        return self.info.format(self.an(p), p, condition_string)
+
+
+
+```
+
+</details>
+
+#### References
+
+- [ArgType.an](#text)
+- [ArgType.an](#text)
+
+
+Docs built at 2021-06-16 00:26:15.512752
+
+<details>
+<summary>View source</summary>
+
+```python
+
+class ArgType:
+    """
+    Defines a 'type' that can be used for validating and/or converting function arguments, generating examples, type hinting, etc. It is intended to emulate some of the features of Python's `typing` module, albeit with a more general scope.
+    """
+
+    def __init__(self, primitive, *conditions):
+        self.primitive = primitive
+        self.conditions = conditions
+        self.info = '{} {} {}'
+
+    def an(self, a):
+        return 'an' if a[0] in 'aeiou' else 'a'
+
+    def text(self):
+        condition_string = ', '.join(c.text() for c in self.conditions)
+        p = self.primitive.__name__
+        return self.info.format(self.an(p), p, condition_string)
+
+    def example(self, *args, **kwargs):
+        return self.conditions[0].example(*args, **kwargs)
+
+
+```
+</details>
 
 ## Documentation
 
@@ -53,6 +532,7 @@ Create a new Documentation object
 
 ```python
 
+
     def __init__(self,
         source_path='./*.py',
         template_path='./docs/templates/*_template.md',
@@ -95,8 +575,14 @@ Create a new Documentation object
         self.current = {}
 
 
+
 ```
+
 </details>
+
+#### References
+
+None available
 
 ### `clean_tabs`
 
@@ -125,6 +611,7 @@ Remove leading tabs from a string
 
 ```python
 
+
     def clean_tabs(self, text):
         """
         Remove leading tabs from a string
@@ -144,8 +631,14 @@ Remove leading tabs from a string
             return ''
 
 
+
 ```
+
 </details>
+
+#### References
+
+- [Documentation.indent_width](#clean_tabs)
 
 ### `extract_info`
 
@@ -164,6 +657,7 @@ Parse a docstring and return a dictionary of its structured data
 
 ```python
 
+
     def extract_info(self, docstring):
         """
         Parse a docstring and return a dictionary of its structured data
@@ -171,8 +665,14 @@ Parse a docstring and return a dictionary of its structured data
         pass
 
 
+
 ```
+
 </details>
+
+#### References
+
+None available
 
 ### `generate`
 
@@ -190,6 +690,7 @@ Not yet documented
 <summary>View source</summary>
 
 ```python
+
 
     def generate(self):
         self.text = ''
@@ -216,6 +717,22 @@ Not yet documented
             # print(classname)
             methods = inspect.getmembers(classname[1], predicate=inspect.isfunction)
             for name, method in methods:
+                source_code = '\n'+getsource(method)+'\n'
+                includes = []
+                for m, c in self.classes:
+                    class_methods = inspect.getmembers(c[1], predicate=inspect.isfunction)
+                    for n, me in class_methods:
+                        method_str = c[0] + '.' + n
+                        self_str = 'self.' + n
+                        link = f'[{method_str}](#{name})'
+                        # link = f'<a href="#{n}">{method_str}</a>'
+
+                        # source_code = source_code.replace(method_str, link)
+                        # source_code = source_code.replace(self_str, link)
+                        if method_str in source_code or (self_str in source_code and classname[0] == c[0]):
+                            includes.append(f'- {link}')
+                includes = '\n'.join(includes) if includes else 'None available'
+
                 # print(inspect.getsourcelines(method)[0])
                 # print(name, method, True)
                 new_section = Section(
@@ -228,7 +745,8 @@ Not yet documented
                     module=module.__name__,
                     # source_code=inspect.getsource(method)
                     # source_code=''.join(inspect.getsourcelines(method)[0]).encode('UTF-8')
-                    source_code = '\n'+getsource(method)+'\n'
+                    source_code = source_code,
+                    includes = includes
                 )
                 self.current['class'].add(new_section)
                 current_section = new_section
@@ -309,8 +827,16 @@ Not yet documented
         return self
 
 
+
 ```
+
 </details>
+
+#### References
+
+- [Documentation.clean_tabs](#generate)
+- [Documentation.import_modules](#generate)
+- [Documentation.indent_width](#generate)
 
 ### `import_modules`
 
@@ -329,6 +855,7 @@ Import each of the modules to be documented
 
 ```python
 
+
     def import_modules(self):
         """
         Import each of the modules to be documented
@@ -341,8 +868,14 @@ Import each of the modules to be documented
                 self.classes.append([doc_module, c])
 
 
+
 ```
+
 </details>
+
+#### References
+
+None available
 
 ### `indent_width`
 
@@ -371,6 +904,7 @@ Count the number of leading tabs in a string (e.g., a line of code)
 
 ```python
 
+
     def indent_width(self, string):
         """
         Count the number of leading tabs in a string (e.g., a line of code)
@@ -385,8 +919,14 @@ Count the number of leading tabs in a string (e.g., a line of code)
         return indent
 
 
+
 ```
+
 </details>
+
+#### References
+
+None available
 
 ### `isnum`
 
@@ -405,6 +945,7 @@ Check if a given character is numeric
 
 ```python
 
+
     def isnum(self, x):
         """
         Check if a given character is numeric
@@ -413,8 +954,14 @@ Check if a given character is numeric
         return x in '1234567890.-'
 
 
+
 ```
+
 </details>
+
+#### References
+
+None available
 
 ### `parent`
 
@@ -433,12 +980,19 @@ Not yet documented
 
 ```python
 
+
     def parent(self):
         pass
 
 
+
 ```
+
 </details>
+
+#### References
+
+None available
 
 ### `split_numeric`
 
@@ -484,6 +1038,7 @@ Separate a string into numeric and alphabetical substrings
 
 ```python
 
+
     def split_numeric(self, text, parse=True):
         """
         Separate a string into numeric and alphabetical substrings
@@ -514,8 +1069,14 @@ Separate a string into numeric and alphabetical substrings
         return output
 
 
+
 ```
+
 </details>
+
+#### References
+
+- [Documentation.isnum](#split_numeric)
 
 ### `write`
 
@@ -533,6 +1094,7 @@ Not yet documented
 <summary>View source</summary>
 
 ```python
+
 
     def write(self):
         # result = result.replace('{CA}', 'cellular automata')
@@ -558,11 +1120,17 @@ Not yet documented
             result_file.write(self.text)
 
 
+
 ```
+
 </details>
 
+#### References
 
-Docs built at 2021-06-14 20:09:41.371427
+None available
+
+
+Docs built at 2021-06-16 00:26:15.523724
 
 <details>
 <summary>View source</summary>
@@ -725,6 +1293,22 @@ class Documentation:
             # print(classname)
             methods = inspect.getmembers(classname[1], predicate=inspect.isfunction)
             for name, method in methods:
+                source_code = '\n'+getsource(method)+'\n'
+                includes = []
+                for m, c in self.classes:
+                    class_methods = inspect.getmembers(c[1], predicate=inspect.isfunction)
+                    for n, me in class_methods:
+                        method_str = c[0] + '.' + n
+                        self_str = 'self.' + n
+                        link = f'[{method_str}](#{name})'
+                        # link = f'<a href="#{n}">{method_str}</a>'
+
+                        # source_code = source_code.replace(method_str, link)
+                        # source_code = source_code.replace(self_str, link)
+                        if method_str in source_code or (self_str in source_code and classname[0] == c[0]):
+                            includes.append(f'- {link}')
+                includes = '\n'.join(includes) if includes else 'None available'
+
                 # print(inspect.getsourcelines(method)[0])
                 # print(name, method, True)
                 new_section = Section(
@@ -737,7 +1321,8 @@ class Documentation:
                     module=module.__name__,
                     # source_code=inspect.getsource(method)
                     # source_code=''.join(inspect.getsourcelines(method)[0]).encode('UTF-8')
-                    source_code = '\n'+getsource(method)+'\n'
+                    source_code = source_code,
+                    includes = includes
                 )
                 self.current['class'].add(new_section)
                 current_section = new_section
@@ -899,6 +1484,7 @@ Create a new section
 
 ```python
 
+
     def __init__(self, content=None, type_=None, data=None, templates=None, parent=None, **kwargs):
         """
         Create a new section
@@ -931,8 +1517,14 @@ Create a new section
         self.kwargs = defaults
 
 
+
 ```
+
 </details>
+
+#### References
+
+None available
 
 ### `add`
 
@@ -951,13 +1543,20 @@ Not yet documented
 
 ```python
 
+
     def add(self, x):
         self.children.append(x)
         return x
 
 
+
 ```
+
 </details>
+
+#### References
+
+None available
 
 ### `generate`
 
@@ -975,6 +1574,7 @@ Not yet documented
 <summary>View source</summary>
 
 ```python
+
 
     def generate(self):
         # s = Section(section_type=self.type, template_content=template)
@@ -1004,8 +1604,14 @@ Not yet documented
         return self.text
 
 
+
 ```
+
 </details>
+
+#### References
+
+None available
 
 ### `names`
 
@@ -1024,12 +1630,19 @@ Not yet documented
 
 ```python
 
+
     def names(self):
         return [c.type for c in self.children]
 
 
+
 ```
+
 </details>
+
+#### References
+
+None available
 
 ### `set`
 
@@ -1064,6 +1677,7 @@ Set a property of the section
 
 ```python
 
+
     def set(self, a, b):
         """
         Set a property of the section
@@ -1075,11 +1689,17 @@ Set a property of the section
         self.kwargs[a] = b
 
 
+
 ```
+
 </details>
 
+#### References
 
-Docs built at 2021-06-14 20:09:41.386388
+None available
+
+
+Docs built at 2021-06-16 00:26:15.549655
 
 <details>
 <summary>View source</summary>
@@ -1248,6 +1868,7 @@ Create a new diagram object
 
 ```python
 
+
 	def __init__(self,
 		objects=None,
 		dims=[30, 30],
@@ -1309,8 +1930,14 @@ Create a new diagram object
 			self.offset = [self.x//2, self.y//2]
 
 
+
 ```
+
 </details>
+
+#### References
+
+None available
 
 ### `add`
 
@@ -1329,6 +1956,7 @@ Add an element to this diagram
 
 ```python
 
+
 	def add(self, element):
 		"""
 		Add an element to this diagram
@@ -1337,8 +1965,14 @@ Add an element to this diagram
 		return self
 
 
+
 ```
+
 </details>
+
+#### References
+
+None available
 
 ### `render`
 
@@ -1394,6 +2028,7 @@ Convert the diagram's elements to a portable string and optionally save the gene
 <summary>View source</summary>
 
 ```python
+
 
 	def render(self,
 		path:str='./generated-diagram.txt',
@@ -1477,8 +2112,14 @@ Convert the diagram's elements to a portable string and optionally save the gene
 		return self
 
 
+
 ```
+
 </details>
+
+#### References
+
+- [Diagram.write](#render)
 
 ### `write`
 
@@ -1497,6 +2138,7 @@ Create a new file and insert UTF-8-encoded text data or update an existing file
 
 ```python
 
+
 	def write(self, path, data) -> 'Diagram':
 		"""
 		Create a new file and insert UTF-8-encoded text data or update an existing file
@@ -1507,11 +2149,17 @@ Create a new file and insert UTF-8-encoded text data or update an existing file
 		return self
 
 
+
 ```
+
 </details>
 
+#### References
 
-Docs built at 2021-06-14 20:09:41.396383
+None available
+
+
+Docs built at 2021-06-16 00:26:15.561621
 
 <details>
 <summary>View source</summary>
@@ -1759,6 +2407,7 @@ Create a new element (note that this is an internal method used to create instan
 
 ```python
 
+
 	def __init__(self, pos):
 		"""
 		Create a new element (note that this is an internal method used to create instances of element subclasses like the Text class)
@@ -1779,11 +2428,17 @@ Create a new element (note that this is an internal method used to create instan
 		self.id = uuid.uuid4()
 
 
+
 ```
+
 </details>
 
+#### References
 
-Docs built at 2021-06-14 20:09:41.425285
+None available
+
+
+Docs built at 2021-06-16 00:26:15.575585
 
 <details>
 <summary>View source</summary>
@@ -1848,6 +2503,7 @@ Method
 
 ```python
 
+
     def __call__(self):
         """
         Returns this point's position
@@ -1855,8 +2511,14 @@ Method
         return self.pos
 
 
+
 ```
+
 </details>
+
+#### References
+
+None available
 
 ### `__init__`
 
@@ -1891,6 +2553,7 @@ Create a new Point instance
 
 ```python
 
+
     def __init__(self, pos:list, p:int=8):
         """
         Create a new Point instance
@@ -1903,8 +2566,14 @@ Create a new Point instance
         self.precision = p
 
 
+
 ```
+
 </details>
+
+#### References
+
+None available
 
 ### `__str__`
 
@@ -1923,6 +2592,7 @@ Generate a string representation of this point
 
 ```python
 
+
     def __str__(self):
         """
         Generate a string representation of this point
@@ -1930,8 +2600,14 @@ Generate a string representation of this point
         return 'Point ' + str(self.pos)
 
 
+
 ```
+
 </details>
+
+#### References
+
+None available
 
 ### `move`
 
@@ -1960,6 +2636,7 @@ Translate the point
 
 ```python
 
+
     def move(self, delta:list):
         """
         Translate the point
@@ -1971,8 +2648,14 @@ Translate the point
         return self
 
 
+
 ```
+
 </details>
+
+#### References
+
+None available
 
 ### `print`
 
@@ -1991,13 +2674,20 @@ Not yet documented
 
 ```python
 
+
     def print(self):
         print(self)
         return self
 
 
+
 ```
+
 </details>
+
+#### References
+
+None available
 
 ### `rotate`
 
@@ -2038,6 +2728,7 @@ Rotate the point about another
 
 ```python
 
+
     def rotate(self, a:list, theta:int, rad:float=None):
         """
         Rotate the point about another
@@ -2070,11 +2761,17 @@ Rotate the point about another
         return self
 
 
+
 ```
+
 </details>
 
+#### References
 
-Docs built at 2021-06-14 20:09:41.456201
+- [Point.move](#rotate)
+
+
+Docs built at 2021-06-16 00:26:15.580572
 
 <details>
 <summary>View source</summary>
@@ -2219,6 +2916,7 @@ Create a new text element
 
 ```python
 
+
 	def __init__(self, pos:list, text:str, angle:int=45, style:str=None):
 		"""
 		Create a new text element
@@ -2261,8 +2959,14 @@ Create a new text element
 		}
 
 
+
 ```
+
 </details>
+
+#### References
+
+None available
 
 ### `render`
 
@@ -2321,6 +3025,7 @@ Create a 2D array representing the bounding box of this element
 <summary>View source</summary>
 
 ```python
+
 
 	def render(self,
 		rich_output:bool=False,
@@ -2385,11 +3090,17 @@ Create a 2D array representing the bounding box of this element
 		return self.canvas
 
 
+
 ```
+
 </details>
 
+#### References
 
-Docs built at 2021-06-14 20:09:41.468169
+None available
+
+
+Docs built at 2021-06-16 00:26:15.591542
 
 <details>
 <summary>View source</summary>
@@ -2571,6 +3282,7 @@ Create a new section
 
 ```python
 
+
     def __init__(self, content=None, type_=None, data=None, templates=None, parent=None, **kwargs):
         """
         Create a new section
@@ -2603,8 +3315,14 @@ Create a new section
         self.kwargs = defaults
 
 
+
 ```
+
 </details>
+
+#### References
+
+None available
 
 ### `add`
 
@@ -2623,13 +3341,20 @@ Not yet documented
 
 ```python
 
+
     def add(self, x):
         self.children.append(x)
         return x
 
 
+
 ```
+
 </details>
+
+#### References
+
+None available
 
 ### `generate`
 
@@ -2647,6 +3372,7 @@ Not yet documented
 <summary>View source</summary>
 
 ```python
+
 
     def generate(self):
         # s = Section(section_type=self.type, template_content=template)
@@ -2676,8 +3402,14 @@ Not yet documented
         return self.text
 
 
+
 ```
+
 </details>
+
+#### References
+
+None available
 
 ### `names`
 
@@ -2696,12 +3428,19 @@ Not yet documented
 
 ```python
 
+
     def names(self):
         return [c.type for c in self.children]
 
 
+
 ```
+
 </details>
+
+#### References
+
+None available
 
 ### `set`
 
@@ -2736,6 +3475,7 @@ Set a property of the section
 
 ```python
 
+
     def set(self, a, b):
         """
         Set a property of the section
@@ -2747,11 +3487,17 @@ Set a property of the section
         self.kwargs[a] = b
 
 
+
 ```
+
 </details>
 
+#### References
 
-Docs built at 2021-06-14 20:09:41.483130
+None available
+
+
+Docs built at 2021-06-16 00:26:15.607499
 
 <details>
 <summary>View source</summary>
@@ -2839,4 +3585,4 @@ class Section:
 </details>
 
 
-Docs built at 2021-06-14 20:09:41.361454
+Docs built at 2021-06-16 00:26:15.503776
