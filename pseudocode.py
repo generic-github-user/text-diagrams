@@ -112,6 +112,30 @@ def stringify_node(node, formatting='markdown'):
     elif node_type in symbols:
         return symbols[node_type]
 
+    # nd = node_data[0]
+    nd = node
+    if node_type == 'Call':
+        # func_name = stringify_node(nd.func)
+        func_name = nd.func.id
+        # print(node_type, func_name, nd.func)
+        if func_name in functions:
+            func_info = list(functions[func_name])
+            # p = [value.args[i] for i in range(len(func_info)) if ]
+
+            if func_name in unicode_chars:
+                char_name = unicode_chars[func_name]
+                if not char_name:
+                    char_name = func_name
+                char = lookup(char_name)
+                func_info[0] = func_info[0].lower().replace(func_name, char)
+                # print(func_name, char, func_info)
+
+            clone = [a for a in func_info[1]]
+            clone[-len(nd.args):] = [stringify_node(v) for v in nd.args]
+
+            result = func_info[0].format(*clone)
+            return result
+
     if len(template) > 1:
         temp = template[1:]
         # if node_type in reversed:
@@ -123,15 +147,6 @@ def stringify_node(node, formatting='markdown'):
         for attr in temp:
             value = getattr(node, attr)
             value_type = type(value).__name__
-
-            if value_type == 'Call':
-                func_name = stringify_node(value.func)
-                if func_name in functions:
-                    func_info = functions[func_name]
-                    clone = [a for a in func_info[1]]
-                    clone[-len(value.args):] = [stringify_node(v) for v in value.args]
-                    # p = [value.args[i] for i in range(len(func_info)) if ]
-                    value = func_info[0].format(*clone)
 
             if type(value) in [list, tuple]:
                 # value = parse_node(value)
@@ -157,6 +172,9 @@ def stringify_node(node, formatting='markdown'):
                 # value = ' '.join(map(str, value))
                 # value = value[0]
             # else:
+            if value_type == 'Callable':
+                value = stringify_node(value)
+
             node_data.append(value)
 
         # try:
