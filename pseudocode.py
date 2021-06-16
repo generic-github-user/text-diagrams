@@ -32,7 +32,7 @@ colors = {
 }
 
 colors = {
-    '#e5e7e9': [],
+    '#e5e7e9': ['Gt', 'GtE'],
     '#abebc6': ['Name', 'Call'],
     '#fadbd8': ['If', 'Break', 'For'],
     '#d2b4de': ['Add', 'Sub', 'Div'],
@@ -45,7 +45,7 @@ node_strings = {
     'For': ('**For** {} in {}:', 'target', 'iter'),
     'Name': ('*{}*', 'id'),
     'Assign': ('**Set** {} **to** {}', 'targets', 'value'),
-    'Constant': ('*{}*', 'value'),
+    'Constant': ('**.*{}*.**', 'value'),
     'FunctionDef': ('**Initialize** function _{}({})_', 'name', 'args'),
     'arguments': ('{}', 'args'),
     'arg': ('{}', 'arg'),
@@ -64,7 +64,7 @@ def convert_markup(d):
         if v in [tuple]:
             v = list(v)
         opening = True
-        tags = [('**', 'b'), ('*', 'i'), ('_', 'u')]
+        tags = [('**', 'b'), ('*', 'i'), ('_', 'u'), ('$', 'span')]
         f = type(v) in [list, tuple]
         if f:
             v = v[0]

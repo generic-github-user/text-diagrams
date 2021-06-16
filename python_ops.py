@@ -7,8 +7,8 @@ op_strings = {
     'NotEq': 'is equal',
     'Lt': 'is less than',
     'LtE': 'is less than or equal to',
-    'Gt': 'is greater than',
-    'GtE': 'is greater than or equal to',
+    'Gt': '$is greater than$',
+    'GtE': '$is greater than or equal to$',
 }
 
 symbols = {
