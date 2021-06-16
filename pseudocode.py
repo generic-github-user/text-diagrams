@@ -127,9 +127,11 @@ def parse_node(node, level=0, indent='  '):
         result = '\n'.join(result)
     return result
 
-def Pseudocode(source):
-    code = parse_node(ast.parse(source)) + '\nEnd'
+def Pseudocode(source, output_path='./generated-pseudocode.md'):
+    code = parse_node(ast.parse(source)) + '\n End'
     # return '\n'.join(code)
+    with open(output_path, 'w', encoding='UTF-8') as output_file:
+        output_file.write(code)
     return code
 
 sample = """
