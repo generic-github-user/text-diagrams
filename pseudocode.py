@@ -21,6 +21,25 @@ functions = {
     'print': ('Print {}', (''))
 }
 
+# Syntax colors via https://htmlcolorcodes.com/color-names/
+colors = {
+    '#800000': [],
+    '#191970': [],
+    '#1E90FF': [],
+    '#6495ED': [],
+    '#556B2F': [],
+    '#32CD32': [],
+}
+
+colors = {
+    '#e5e7e9': [],
+    '#abebc6': ['Name', 'Call'],
+    '#fadbd8': ['If', 'Break', 'For'],
+    '#d2b4de': ['Add', 'Sub', 'Div'],
+    '#f9e79f': ['Assign'],
+    '#eafaf1': ['Constant'],
+}
+
 node_strings = {
     'Compare': ('({} {} {})', 'left', 'ops', 'comparators'),
     'For': ('**For** {} in {}:', 'target', 'iter'),
