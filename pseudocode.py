@@ -107,7 +107,7 @@ convert_markup(op_strings)
 print(node_strings)
 print(op_strings)
 
-def stringify_node(node, formatting='markdown'):
+def stringify_node(node, formatting='markdown', identifiers='symbols'):
     """
     Convert an abstract syntax tree node to a string
 
@@ -115,6 +115,9 @@ def stringify_node(node, formatting='markdown'):
         node: The node to convert
         formatting: The markup style to use when generating the result
             'markdown': Markdown
+        identifiers: The default encoding style for function and operator identifiers such as `sum`, `product`, and `abs`
+            'symbols': Use a Unicode symbol in place of the full name if available
+            'strings': Use the default name strings
     """
     node_data = []
 
@@ -146,7 +149,7 @@ def stringify_node(node, formatting='markdown'):
             # p = [value.args[i] for i in range(len(func_info)) if ]
             # node_args = nd.args
 
-            if func_name in unicode_chars:
+            if func_name in unicode_chars and identifiers == 'symbols':
                 char_name = unicode_chars[func_name]
                 if not char_name:
                     char_name = func_name
