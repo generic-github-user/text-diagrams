@@ -15,6 +15,12 @@ symbols = {
     'TrueDiv': '/',
     'Sub': '-',
     'Mod': '%',
+    'Eq': '=',
+    'NotEq': '!=',
+    'Lt': '<',
+    'LtE': '<=',
+    'Gt': '>',
+    'GtE': '>=',
 }
 
 functions = {
