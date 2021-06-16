@@ -53,6 +53,14 @@ def stringify_node(node):
         return op_strings[node_type]
     elif node_type in symbols:
         return symbols[node_type]
+
+    if len(template) > 1:
+        temp = template[1:]
+        # if node_type in reversed:
+        if node_type == 'Compare':
+            # print(type(node.ops)[0].__name__)
+            if type(node.ops[0]).__name__ in reversed:
+                temp = temp[::-1]
 sample = """
 a = 5
 for i in range(8):
