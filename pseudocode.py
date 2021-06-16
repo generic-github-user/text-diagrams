@@ -16,12 +16,14 @@ def lookup(name):
 
 unicode_chars = {
     'sum': 'greek capital letter sigma',
-    'lambda': 'greek capital letter lambda'
+    'Lambda': 'greek small letter lamda'
 }
 
 functions = {
     'range': ('the range {} to {}', (0, None)),
-    'print': ('Print {}', (''))
+    'print': ('Print {}', ('',)),
+    'sum': ('Sum ({})', ('',)),
+    'Lambda': ('Lambda ({}) → {}', ('args', 'body'))
 }
 
 # Syntax colors via https://htmlcolorcodes.com/color-names/
@@ -60,6 +62,7 @@ node_strings = {
     'Call': ('_{}({})_', 'func', 'args'),
     'AugAssign': ('{} {} by {}', 'op', 'target', 'value'),
     'BinOp': ('({} {} {})', 'left', 'op', 'right'),
+    'Lambda': ('Lambda ({}) → {}', 'args', 'body')
 }
 
 def convert_markup(d):
@@ -112,29 +115,42 @@ def stringify_node(node, formatting='markdown'):
     elif node_type in symbols:
         return symbols[node_type]
 
+    try:
+        print(node, node_type, node.args, stringify_node(node.args))
+    except:
+        pass
+
     # nd = node_data[0]
     nd = node
-    if node_type == 'Call':
+    if node_type in ['Call', 'Lambda']:
         # func_name = stringify_node(nd.func)
-        func_name = nd.func.id
-        # print(node_type, func_name, nd.func)
+        func_name = nd.func.id if node_type == 'Call' else 'Lambda'
+        # node_args = nd.args if node_type == 'Call' else [a for a in nd.args.args]
+        node_args = nd.args if node_type == 'Call' else nd.args.args
         if func_name in functions:
             func_info = list(functions[func_name])
             # p = [value.args[i] for i in range(len(func_info)) if ]
+            # node_args = nd.args
 
             if func_name in unicode_chars:
                 char_name = unicode_chars[func_name]
                 if not char_name:
                     char_name = func_name
                 char = lookup(char_name)
-                func_info[0] = func_info[0].lower().replace(func_name, char)
+                func_info[0] = func_info[0].lower().replace(func_name.lower(), char)
+                # print(len(node_args))
+                # print(char)
                 # print(func_name, char, func_info)
 
             clone = [a for a in func_info[1]]
-            clone[-len(nd.args):] = [stringify_node(v) for v in nd.args]
+            clone[-len(node_args):] = [stringify_node(v) for v in node_args]
 
             result = func_info[0].format(*clone)
             return result
+
+    elif node_type == 'arguments':
+        # return ', '.join(stringify_node(a) for a in node.args)
+        return stringify_node(node.args)
 
     if len(template) > 1:
         temp = template[1:]
