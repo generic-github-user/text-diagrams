@@ -104,8 +104,6 @@ def convert_markup(d):
 convert_markup(node_strings)
 convert_markup(op_strings)
 # convert_markup(symbols)
-print(node_strings)
-print(op_strings)
 
 def stringify_node(node, formatting='markdown', identifiers='symbols', short_mul=True):
     """
@@ -145,15 +143,12 @@ def stringify_node(node, formatting='markdown', identifiers='symbols', short_mul
     elif node_type in symbols:
         return symbols[node_type]
 
-
-    # nd = node_data[0]
-    nd = node
     # Handle the conversion of specific function names to corresponding symbols
     if node_type in ['Call', 'Lambda']:
         # func_name = stringify_node(nd.func)
-        func_name = nd.func.id if node_type == 'Call' else 'Lambda'
+        func_name = node.func.id if node_type == 'Call' else 'Lambda'
         # node_args = nd.args if node_type == 'Call' else [a for a in nd.args.args]
-        node_args = nd.args if node_type == 'Call' else nd.args.args
+        node_args = node.args if node_type == 'Call' else node.args.args
         if func_name in functions:
             func_info = list(functions[func_name])
             # p = [value.args[i] for i in range(len(func_info)) if ]
