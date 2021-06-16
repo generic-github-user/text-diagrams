@@ -63,7 +63,8 @@ node_strings = {
     'If': ('**If** {} then:', 'test'),
     'Expr': ('{}', 'value'),
     'Break': ('**End loop**',),
-    'Dict': ('{{{}, {}}}', 'keys', 'values'),
+    # 'Dict': ('Dictionary with {{{}, {}}}',),
+    'Dict': ('Dictionary with values:',),
     'Call': ('_{}({})_', 'func', 'args'),
     'AugAssign': ('{} {} by {}', 'op', 'target', 'value'),
     'BinOp': ('({} {} {})', 'left', 'op', 'right'),
@@ -229,7 +230,16 @@ def stringify_node(node, formatting='markdown', identifiers='symbols', short_mul
         # if node_type in []
         elif not isinstance(node, ast.AST):
             node_string = node
-            print(node)
+        elif type(node) is ast.Dict:
+            node_string = node_strings['Dict'][0] + '  \\\n'
+            # print(node_string, level, list(map(stringify_node, list(zip(node.keys, node.values))[0])))
+            # breakpoint()
+            dict_vals = zip(node.keys, node.values)
+            ind = indent * (level+2)
+            print(len(ind))
+            node_string += ('  \\\n').join(
+                ['' + ind + ': '.join(map(nested_stringify, x)) for x in dict_vals]
+            )
         elif node_type in op_strings:
             node_string = op_strings[node_type]
         elif node_type in symbols:
@@ -237,6 +247,8 @@ def stringify_node(node, formatting='markdown', identifiers='symbols', short_mul
         else:
             node_string = node_type
 
+    node_string = str(node_string)
+    # node_string = node_string.replace('    ', '&nbsp;'*4)
     return node_string
 
 
@@ -245,7 +257,9 @@ def parse_node(node, level=0, indent='    ', formatting='markdown'):
 
     # node_data = [parse_node(getattr(node, attr)) for attr in template[1:]]
 
-    result.append((indent * level) + stringify_node(node))
+    next_node = stringify_node(node, level=level+1, indent=indent, formatting=formatting)
+    result.append((indent * level) + next_node)
+    # print(True, level, next_node)
 
     if hasattr(node, 'body'):
         for x in node.body:
@@ -253,7 +267,8 @@ def parse_node(node, level=0, indent='    ', formatting='markdown'):
 
     # result.append('End')
     if type(result) is list:
-        h = '>' if level == 0 else ''
+        # h = '>' if level == 0 else ''
+        h = ''
         result = '  \\\n'.join([h+r for r in result])
 
     # Fix spacing so that the leading whitespace/indentation is not removed by the browser
@@ -278,6 +293,11 @@ def Pseudocode(source, output_path='./generated-pseudocode.md', formatting='mark
 
 sample = """
 a = 5
+g = {
+    'x': 36,
+    'y': 49
+}
+
 def z(n, m):
     return n ** m / 4
 
