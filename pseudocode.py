@@ -21,5 +21,9 @@ node_strings = {
     'For': ('For {} in {}:', 'target', 'iter'),
     'Name': ('{}', 'id'),
     'Assign': ('Set {} to {}', 'targets', 'value'),
-    'Constant': ('{}', 'value')
+    'Constant': ('{}', 'value'),
+    'Expr': ('({})', 'value'),
+    'Call': ('{}({})', 'func', 'args'),
+    'AugAssign': ('{} {} by {}', 'op', 'target', 'value'),
+    'BinOp': ('({} {} {})', 'left', 'op', 'right'),
 }
