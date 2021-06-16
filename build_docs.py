@@ -180,7 +180,6 @@ class Documentation:
         self.current['module'] = current_section
         # self.root = current_section
         for module, classname in self.classes:
-            # print(self.classes)
             new_section = Section(
                 type_='class',
                 parent=current_section,
@@ -230,7 +229,6 @@ class Documentation:
                     docstring = self.clean_tabs(docstring)
 
                     # Split docstring by lines
-                    # lines = docstring.split('\n')
                     lines = docstring.splitlines()
                     section = 'text'
                     subsection = ''
@@ -333,10 +331,6 @@ class Documentation:
         else:
             self.write(self.output_path)
 
-
-# print(Docs.text)
-
-
 symbols = {
     '<': 'less than',
     '>': 'greater than',
@@ -348,7 +342,4 @@ symbols = {
 data_types = ['int', 'str', 'float', 'bool', 'func', 'array']
 
 # TODO: link to relevant git commits + source code
-
-
-# print(result)
 # print('{}% of classes and {}% of methods documented')
