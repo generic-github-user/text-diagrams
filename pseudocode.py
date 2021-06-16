@@ -23,7 +23,8 @@ functions = {
     'range': ('the range {} to {}', (0, None)),
     'print': ('Print {}', ('',)),
     'sum': ('Sum ({})', ('',)),
-    'Lambda': ('Lambda ({}) → {}', ('args', 'body'))
+    'Lambda': ('Lambda ({}) → {}', ('args', 'body')),
+    'abs': ('|{}|', ('',)),
 }
 
 # Syntax colors via https://htmlcolorcodes.com/color-names/
@@ -62,7 +63,8 @@ node_strings = {
     'Call': ('_{}({})_', 'func', 'args'),
     'AugAssign': ('{} {} by {}', 'op', 'target', 'value'),
     'BinOp': ('({} {} {})', 'left', 'op', 'right'),
-    'Lambda': ('Lambda ({}) → {}', 'args', 'body')
+    'Lambda': ('Lambda ({}) → {}', 'args', 'body'),
+    'UnaryOp': ('{} {}', 'op', 'operand'),
 }
 
 def convert_markup(d):

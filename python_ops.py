@@ -18,6 +18,7 @@ symbols = {
     'Div': '/',
     'Pow': '^',
     'Sub': '-',
+    'USub': '-',
     'Mod': '%',
     'Eq': '=',
     'NotEq': '!=',
