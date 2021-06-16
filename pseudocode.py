@@ -41,11 +41,19 @@ functions = {
 }
 
 node_strings = {
+    'Compare': ('({} {} {})', 'left', 'ops', 'comparators'),
     'For': ('For {} in {}:', 'target', 'iter'),
     'Name': ('{}', 'id'),
     'Assign': ('Set {} to {}', 'targets', 'value'),
     'Constant': ('{}', 'value'),
-    'Expr': ('({})', 'value'),
+    'FunctionDef': ('Initialize function {}({})', 'name', 'args'),
+    'arguments': ('{}', 'args'),
+    'arg': ('{}', 'arg'),
+    'Return': ('Return {}', 'value'),
+    'If': ('If {} then:', 'test'),
+    'Expr': ('{}', 'value'),
+    'Break': ('End loop',),
+    'Dict': ('{{{}, {}}}', 'keys', 'values'),
     'Call': ('{}({})', 'func', 'args'),
     'AugAssign': ('{} {} by {}', 'op', 'target', 'value'),
     'BinOp': ('({} {} {})', 'left', 'op', 'right'),
