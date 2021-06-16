@@ -6,6 +6,7 @@ import glob
 import os
 import time
 from dill.source import getsource
+from pathlib import Path
 
 from section import Section
 from argtype import ArgType
@@ -23,6 +24,7 @@ class Documentation:
     def __init__(self,
         source_path='./*.py',
         template_path='./docs/templates/*_template.md',
+        output_dir='./docs',
         output_path='./docs/documentation.md',
         ignore=['extra']
     ):
@@ -39,6 +41,7 @@ class Documentation:
         # filename = t.split('/')[-1]
         self.sources = {os.path.basename(s).split('.')[0]: os.path.normpath(s) for s in glob.glob(source_path) if not any(i in s for i in ignore)}
         self.templates = {os.path.basename(t).split('_')[0]: os.path.normpath(t) for t in template_files}
+        self.output_dir = output_dir
         self.output_path = output_path
 
         self.template_content = {}
@@ -296,7 +299,11 @@ class Documentation:
 
         return self
 
-    def write(self):
+    def write(self, path):
+        with open(path, 'w', encoding='UTF-8') as result_file:
+            result_file.write(self.text)
+
+    def save(self, split_by='class'):
         # result = result.replace('{CA}', 'cellular automata')
         # result = result.replace('{planned}', '`[not yet implemented]`')
 
@@ -316,12 +323,19 @@ class Documentation:
         except:
             pass
 
-        with open(self.output_path, 'w', encoding='UTF-8') as result_file:
-            result_file.write(self.text)
+        if split_by == 'class':
+            # print(self.root.children[0].__dir__())
+            for part in self.root.children:
+                Path('./docs/classes').mkdir(parents=True, exist_ok=True)
+                self.text = part.generate()
+                class_name = part.kwargs['class_name'].lower()
+                self.write(self.output_dir+'/classes/'+class_name+'.md')
+        else:
+            self.write(self.output_path)
 
 Docs = Documentation()
 print(Docs.templates, Docs.sources)
-Docs.generate().write()
+Docs.generate().save(split_by=None)
 print(Docs.template_content)
 breakpoint()
 # print(Docs.text)
