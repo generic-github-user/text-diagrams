@@ -23,11 +23,11 @@ functions = {
 
 node_strings = {
     'Compare': ('({} {} {})', 'left', 'ops', 'comparators'),
-    'For': ('For {} in {}:', 'target', 'iter'),
-    'Name': ('{}', 'id'),
-    'Assign': ('Set {} to {}', 'targets', 'value'),
-    'Constant': ('{}', 'value'),
-    'FunctionDef': ('Initialize function {}({})', 'name', 'args'),
+    'For': ('**For** {} in {}:', 'target', 'iter'),
+    'Name': ('*{}*', 'id'),
+    'Assign': ('**Set** {} **to** {}', 'targets', 'value'),
+    'Constant': ('*{}*', 'value'),
+    'FunctionDef': ('**Initialize** function _{}({})_', 'name', 'args'),
     'arguments': ('{}', 'args'),
     'arg': ('{}', 'arg'),
     'Return': ('Return {}', 'value'),
