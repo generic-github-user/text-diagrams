@@ -17,6 +17,11 @@ symbols = {
     'Mod': '%',
 }
 
+functions = {
+    'range': ('the range {} to {}', (0, None)),
+    'print': ('Print {}', (''))
+}
+
 node_strings = {
     'For': ('For {} in {}:', 'target', 'iter'),
     'Name': ('{}', 'id'),
