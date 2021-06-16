@@ -125,11 +125,12 @@ def stringify_node(node, formatting='markdown', identifiers='symbols', short_mul
     node_type = type(node).__name__
 
     # This is just for logging/debugging
-    try:
-        print(node, node_type)
+    # try:
+    #     pass
+        # print(node, node_type)
         # print(node, node_type, node.args, stringify_node(node.args))
-    except:
-        pass
+    # except:
+    #     pass
 
     # Find the template string if one is available
     if node_type in node_strings:
@@ -137,11 +138,6 @@ def stringify_node(node, formatting='markdown', identifiers='symbols', short_mul
     # If not available, use the plain type name
     else:
         template = [node_type]
-
-    if node_type in op_strings:
-        return op_strings[node_type]
-    elif node_type in symbols:
-        return symbols[node_type]
 
     # Handle the conversion of specific function names to corresponding symbols
     if node_type in ['Call', 'Lambda']:
@@ -191,21 +187,14 @@ def stringify_node(node, formatting='markdown', identifiers='symbols', short_mul
             value = getattr(node, attr)
             value_type = type(value).__name__
 
-            if type(value) in [list, tuple]:
-                # value = parse_node(value)
-                value = [stringify_node(v) for v in value]
-                value = ', '.join(value)
+
 
             value_type = type(value).__name__
             if value_type in node_strings:
                 value = stringify_node(value)
                 # print(value_type, value)
-            elif value_type in op_strings:
-                value = op_strings[value_type]
-            elif value_type in symbols:
-                # value = ast.unparse(value)
-                value = symbols[value_type]
-
+            else:
+                value = stringify_node(value)
 
             # print(super(type(value)))
             # if super(type(value)) is ast.BinOp:
@@ -220,16 +209,26 @@ def stringify_node(node, formatting='markdown', identifiers='symbols', short_mul
 
             node_data.append(value)
 
-        # try:
-        #     print(node_data)
-        # except:
-        #     pass
+        # Load the data into the template string
+        node_string = template[0].format(*node_data)
 
-        # print(node_data)
+    else:
+        if type(node) in [list, tuple]:
+            # value = parse_node(value)
+            node_string = [stringify_node(v) for v in node]
+            node_string = ', '.join(node_string)
+        # if node_type in []
+        elif not isinstance(node, ast.AST):
+            node_string = node
+            print(node)
+        elif node_type in op_strings:
+            node_string = op_strings[node_type]
+        elif node_type in symbols:
+            node_string = symbols[node_type]
+        else:
+            node_string = node_type
 
-    # Load the data into the template string
-    return template[0].format(*node_data)
-
+    return node_string
 
 
 def parse_node(node, level=0, indent='    ', formatting='markdown'):
