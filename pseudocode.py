@@ -108,6 +108,24 @@ def stringify_node(node):
 
         # print(node_data)
     return template[0].format(*node_data)
+
+
+
+def parse_node(node, level=0, indent='  '):
+    result = []
+
+    # node_data = [parse_node(getattr(node, attr)) for attr in template[1:]]
+
+    result.append((indent * level) + stringify_node(node))
+
+    if hasattr(node, 'body'):
+        for x in node.body:
+            result.append(parse_node(x, level=level+1))
+
+    # result.append('End')
+    if type(result) is list:
+        result = '\n'.join(result)
+    return result
 sample = """
 a = 5
 for i in range(8):
