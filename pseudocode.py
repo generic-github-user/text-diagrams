@@ -16,7 +16,11 @@ def lookup(name):
 
 unicode_chars = {
     'sum': 'greek capital letter sigma',
-    'Lambda': 'greek small letter lamda'
+    'Lambda': 'greek small letter lamda',
+    'Lt': '<',
+    'LtE': '≤',
+    'Gt': '>',
+    'GtE': '≥',
 }
 
 functions = {
@@ -146,7 +150,7 @@ def stringify_node(node, formatting='markdown'):
                 char_name = unicode_chars[func_name]
                 if not char_name:
                     char_name = func_name
-                char = lookup(char_name)
+                char = lookup(char_name) if len(char_name) > 1 else char_name
                 func_info[0] = func_info[0].lower().replace(func_name.lower(), char)
                 # print(len(node_args))
                 # print(char)
