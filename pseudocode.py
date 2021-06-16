@@ -111,7 +111,7 @@ convert_markup(node_strings)
 convert_markup(op_strings)
 # convert_markup(symbols)
 
-def stringify_node(node, formatting='markdown', identifiers='symbols', short_mul=True):
+def stringify_node(node, formatting='markdown', identifiers='symbols', short_mul=True, level=0, indent='    ', *args, **kwargs):
     """
     Convert an abstract syntax tree node to a string
 
@@ -123,6 +123,9 @@ def stringify_node(node, formatting='markdown', identifiers='symbols', short_mul
             'symbols': Use a Unicode symbol in place of the full name if available
             'strings': Use the default name strings
     """
+
+    nested_stringify = func_factory(stringify_node, level=level, indent=indent, *args, **kwargs)
+
     node_data = []
     if short_mul:
         symbols['Mult'] = ''
@@ -167,14 +170,14 @@ def stringify_node(node, formatting='markdown', identifiers='symbols', short_mul
                 # print(func_name, char, func_info)
 
             clone = [a for a in func_info[1]]
-            clone[-len(node_args):] = [stringify_node(v) for v in node_args]
+            clone[-len(node_args):] = [nested_stringify(v) for v in node_args]
 
             result = func_info[0].format(*clone)
             return result
 
     elif node_type == 'arguments':
         # return ', '.join(stringify_node(a) for a in node.args)
-        return stringify_node(node.args)
+        return nested_stringify(node.args)
 
     # If the template has any attributes to be filled in, generate the strings for these first
     # e.g., a `for` loop's `target` and `iter` properties
@@ -197,10 +200,10 @@ def stringify_node(node, formatting='markdown', identifiers='symbols', short_mul
 
             value_type = type(value).__name__
             if value_type in node_strings:
-                value = stringify_node(value)
+                value = nested_stringify(value)
                 # print(value_type, value)
             else:
-                value = stringify_node(value)
+                value = nested_stringify(value)
 
             # print(super(type(value)))
             # if super(type(value)) is ast.BinOp:
@@ -211,7 +214,7 @@ def stringify_node(node, formatting='markdown', identifiers='symbols', short_mul
                 # value = value[0]
             # else:
             if value_type == 'Callable':
-                value = stringify_node(value)
+                value = nested_stringify(value)
 
             node_data.append(value)
 
@@ -221,7 +224,7 @@ def stringify_node(node, formatting='markdown', identifiers='symbols', short_mul
     else:
         if type(node) in [list, tuple]:
             # value = parse_node(value)
-            node_string = [stringify_node(v) for v in node]
+            node_string = [nested_stringify(v) for v in node]
             node_string = ', '.join(node_string)
         # if node_type in []
         elif not isinstance(node, ast.AST):
