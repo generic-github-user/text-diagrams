@@ -166,7 +166,7 @@ def stringify_node(node, formatting='markdown'):
 
 
 
-def parse_node(node, level=0, indent='  '):
+def parse_node(node, level=0, indent='    ', formatting='markdown'):
     result = []
 
     # node_data = [parse_node(getattr(node, attr)) for attr in template[1:]]
@@ -175,15 +175,25 @@ def parse_node(node, level=0, indent='  '):
 
     if hasattr(node, 'body'):
         for x in node.body:
-            result.append(parse_node(x, level=level+1))
+            result.append(parse_node(x, level=level+1, formatting=formatting))
 
     # result.append('End')
     if type(result) is list:
-        result = '\n'.join(result)
+        h = '>' if level == 0 else ''
+        result = '  \\\n'.join([h+r for r in result])
+
+    return result.replace('    ', '&nbsp;'*4)
     return result
 
-def Pseudocode(source, output_path='./generated-pseudocode.md'):
-    code = parse_node(ast.parse(source)) + '\n End'
+def Pseudocode(source, output_path='./generated-pseudocode.md', formatting='markdown', **kwargs):
+    code = parse_node(ast.parse(source), formatting=formatting, **kwargs) + '\n End'
+    # if formatting == 'markdown':
+        # code = '>>>' + code
+        # code = '```\n{}\n```'.format(code)
+        # .replace('<', '&lt;').replace('>', '&rt;')
+        # code = '<pre><code>{}</code></pre>'.format(code)
+        # code = '~~~\n{}\n~~~'.format(code)
+
     # return '\n'.join(code)
     with open(output_path, 'w', encoding='UTF-8') as output_file:
         output_file.write(code)
