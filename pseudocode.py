@@ -5,8 +5,17 @@ import ast
 
 op_strings = {
     'Add': 'Increment',
-    'Sub': 'Decrement'
+    'Sub': 'Decrement',
+    'In': 'contains',
+    'NotIn': 'does not contain',
+    'Eq': 'is equal',
+    'NotEq': 'is equal',
+    'Lt': 'is less than',
+    'LtE': 'is less than or equal to',
+    'Gt': 'is greater than',
+    'GtE': 'is greater than or equal to',
 }
+reversed = ['In', 'NotIn']
 
 symbols = {
     'Add': '+',
