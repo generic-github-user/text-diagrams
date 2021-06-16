@@ -14,7 +14,10 @@ def lookup(name):
     except:
         return None
 
-unicode_chars = ['sum', 'lambda']
+unicode_chars = {
+    'sum': 'greek capital letter sigma',
+    'lambda': 'greek capital letter lambda'
+}
 
 functions = {
     'range': ('the range {} to {}', (0, None)),
