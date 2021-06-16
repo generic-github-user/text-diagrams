@@ -21,7 +21,8 @@ symbols = {
     'Add': '+',
     'Mult': '*',
     'FloorDiv': '//',
-    'TrueDiv': '/',
+    'Div': '/',
+    'Pow': '^',
     'Sub': '-',
     'Mod': '%',
     'Eq': '=',
@@ -30,6 +31,8 @@ symbols = {
     'LtE': '<=',
     'Gt': '>',
     'GtE': '>=',
+    'LShift': '<<',
+    'RShift': '>>',
 }
 
 functions = {
