@@ -84,6 +84,16 @@ class NodePattern:
 
     def tostring(self, node):
         return self.replacement.format(*self.info(node))
+
+    def get(self, q, w):
+        if hasattr(q, w):
+            return getattr(q, w)
+        else:
+            return None
+
+    def match(self, node):
+        print(self.get(node, 'ops'))
+        return all((v(self.get(node, k)) if callable(v) else self.get(node, k) == v) for k, v in self.kwargs.items())
 def func_factory(F, *args, **kwargs):
     def generated_func(*args, **kwargs):
         # print(args, kwargs)
