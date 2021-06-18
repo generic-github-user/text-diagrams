@@ -33,3 +33,9 @@ The Project shall be synonymous with the Software unless stated otherwise.
 The Creator of the Software shall henceforth refer to GitHub user [generic-github-user](https://github.com/generic-github-user), who is established as the primary designer, architect, engineer, and maintainer of the Software unless one or more of these roles (or other roles) are explicitly relinquished in writing and delegated to another person or organization.
 
 The Creator shall be synonymous with the Author unless stated otherwise.
+
+### User
+
+The User shall refer to any third party, including but not limited to people and organizations *other than the Creator*:
+ - Who use the Project
+ - Who create derivative works based on the Project
