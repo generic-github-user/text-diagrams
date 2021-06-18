@@ -81,6 +81,9 @@ class NodePattern:
 
         self.replacement = replacement
         self.info = info
+
+    def tostring(self, node):
+        return self.replacement.format(*self.info(node))
 def func_factory(F, *args, **kwargs):
     def generated_func(*args, **kwargs):
         # print(args, kwargs)
