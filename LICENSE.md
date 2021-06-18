@@ -45,3 +45,5 @@ The User shall refer to any third party, including but not limited to people and
 The following terms are imposed for the reuse of the Software.
 
 Any derivative works produced from the original Project must adhere to the following conditions; that is, a User (third-party entity) who creates derivative works must observe and respect these restrictions:
+ - The derivative work must include Attribution: a visible (i.e., prominent or reasonably expected to be seen by all viewers of the work) and explicit reference (i.e., "due credit") to the original Creator of the Software, with at minimum the Creator's name and an active link to their GitHub profile
+    - This reference should clearly indicate that the Creator expended significant work, effort, and/or time to develop the original Project and that the existence of the derivative work is possible owing to the existence of the Project and the Creator's investment in it
