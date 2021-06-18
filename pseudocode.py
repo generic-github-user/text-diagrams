@@ -153,6 +153,11 @@ def stringify_node(
     # Determine the type of node (excluding the `ast.` prefix)
     node_type = type(node).__name__
 
+    for pattern in replacements:
+        if pattern.match(node):
+            # return pattern.replacement
+            return pattern.tostring(node)
+
     # This is just for logging/debugging
     # try:
     #     pass
