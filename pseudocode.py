@@ -72,6 +72,13 @@ node_strings = {
     'UnaryOp': ('{} {}', 'op', 'operand'),
 }
 
+class NodePattern:
+    def __init__(self, replacement=None, *args, **kwargs):
+        for k, v in kwargs.items():
+            setattr(self, k, v)
+        self.args = args
+        self.kwargs = kwargs
+        self.replacement = replacement
 def func_factory(F, *args, **kwargs):
     def generated_func(*args, **kwargs):
         # print(args, kwargs)
