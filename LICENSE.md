@@ -15,3 +15,15 @@ You may not:
  - State or imply that the Software's original Author/Creator is aware of or endorses your work (i.e., works based on the Software)
  - Make money from the Software/Project or works deriving from it
  - Include offensive or discriminatory content in projects or content based on the Software
+
+## Definitions
+
+### Software
+
+The Software shall refer to this GitHub repository, including but not limited to:
+ - The source code, documentation, and other files and content contained in its main directory and all sub-directories
+   - For instance, `.txt`, `.md`, `.py`, `.json`, `.html`, and `.js` files, as well as others
+ - Git version tracking commits reflected in the public GitHub repository
+ - Associated metadata and supplementary content, including issues (feature requests, bug reports, etc.) posted to the GitHub issue tracker associated with this repository
+
+The Project shall be synonymous with the Software unless stated otherwise.
