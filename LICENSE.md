@@ -27,3 +27,9 @@ The Software shall refer to this GitHub repository, including but not limited to
  - Associated metadata and supplementary content, including issues (feature requests, bug reports, etc.) posted to the GitHub issue tracker associated with this repository
 
 The Project shall be synonymous with the Software unless stated otherwise.
+
+### Creator
+
+The Creator of the Software shall henceforth refer to GitHub user [generic-github-user](https://github.com/generic-github-user), who is established as the primary designer, architect, engineer, and maintainer of the Software unless one or more of these roles (or other roles) are explicitly relinquished in writing and delegated to another person or organization.
+
+The Creator shall be synonymous with the Author unless stated otherwise.
