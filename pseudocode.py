@@ -73,6 +73,15 @@ class NodePattern:
     def match(self, node):
         print(self.get(node, 'ops'))
         return all((v(self.get(node, k)) if callable(v) else self.get(node, k) == v) for k, v in self.kwargs.items())
+
+replacements = [
+    NodePattern(
+        replacement='{} is divisible by {}',
+        info=(lambda n: [n.left.left.id, n.left.right.value]),
+        ops=(lambda z: type(z) is list and type(z[0]) is ast.Eq), comparators=(lambda z: type(z) is list and type(z[0]) is ast.Constant)
+    ),
+]
+
 def func_factory(F, *args, **kwargs):
     def generated_func(*args, **kwargs):
         # print(args, kwargs)
