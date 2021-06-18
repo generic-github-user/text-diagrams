@@ -39,3 +39,9 @@ The Creator shall be synonymous with the Author unless stated otherwise.
 The User shall refer to any third party, including but not limited to people and organizations *other than the Creator*:
  - Who use the Project
  - Who create derivative works based on the Project
+
+## Terms
+
+The following terms are imposed for the reuse of the Software.
+
+Any derivative works produced from the original Project must adhere to the following conditions; that is, a User (third-party entity) who creates derivative works must observe and respect these restrictions:
