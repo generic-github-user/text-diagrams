@@ -51,3 +51,9 @@ Any derivative works produced from the original Project must adhere to the follo
  - If possible, the derivative work should include the name of the original Project repository and/or a functioning link to said repository
  - The above conditions may be combined into a single statement, for example the following:
   > Original project developed by [generic-github-user](https://github.com/generic-github-user), who does not endorse or contribute to our use or modification of the Software.
+
+ - The derivative work must not be monetized or used for profit in any way
+ - The derivative work must not include any offensive material whatsoever, including but not limited to:
+   - Malware, computer viruses or worms, or other harmful software or content intended to damage computer systems or data, or to acquire data that a User cannot access rightfully and legally
+   - Images, text, or other data of a violent, sexual, or otherwise indecent nature that violates common professional courtesy, to be evaluated at the discretion of the Creator
+   - Discriminatory content that explicitly or implicitly contains intent to exclude, demean, slander, provoke, or otherwise harm any individual or group on basis of race, ethnicity, religious affiliation, political views, disability status, sexual and/or romantic preference or orientation, or gender identity
